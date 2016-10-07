@@ -30,7 +30,7 @@ use yii\web\Response;
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016, Sérgio Lopes (knitter.is@gmail.com)
  */
-class Module extends \yii\base\Module {
+final class Module extends \yii\base\Module {
     //public function behaviors() {
     //$behaviors = parent::behaviors();
     // remove authentication filter

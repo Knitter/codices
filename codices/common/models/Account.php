@@ -21,7 +21,7 @@
  * (c) 2016 Sérgio Lopes
  */
 
-namespace app\models;
+namespace common\models;
 
 use Yii;
 use yii\db\ActiveRecord;

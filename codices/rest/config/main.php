@@ -16,6 +16,10 @@ $config = [
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
+            'rules' => [
+                    ['class' => 'yii\rest\UrlRule', 'controller' => ['v1/book', 'v1/author', 'v1/collection']],
+                    ['class' => 'yii\rest\UrlRule', 'controller' => 'v1/series', 'pluralize' => false],
+            ],
         ],
         'user' => [
             'identityClass' => 'common\models\Conta',
@@ -23,12 +27,8 @@ $config = [
             'loginUrl' => null
         ]
     ],
-    'modules' => [ 'v1' => [ 'class' => 'app\modules\v1\Module']],
+    'modules' => ['v1' => ['class' => 'app\modules\v1\Module']],
     'params' => $params
 ];
-
-if (is_file(__DIR__ . '/config.override.php')) {
-    include __DIR__ . '/config.override.php';
-}
 
 return $config;

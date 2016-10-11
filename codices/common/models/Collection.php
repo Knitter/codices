@@ -49,6 +49,17 @@ class Collection extends ActiveRecord {
     }
 
     /**
+     * @inheritdoc
+     */
+    public function rules() {
+        return [
+                [['name', 'accountId'], 'required'],
+                [['name'], 'string', 'max' => 255],
+                [['accountId'], 'integer']
+        ];
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getOwner() {

@@ -46,6 +46,17 @@ class Series extends ActiveRecord {
     }
 
     /**
+     * @inheritdoc
+     */
+    public function rule() {
+        return [
+                [['name'], 'required'],
+                [['name'], 'string', 'max' => 255],
+                [['complete'], 'integer']
+        ];
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getBooks() {

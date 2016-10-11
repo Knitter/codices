@@ -50,6 +50,18 @@ class Account extends ActiveRecord implements IdentityInterface {
     }
 
     /**
+     * @inheritdoc
+     */
+    public function rules() {
+        return [
+                [['name', 'email'], 'required'],
+                [['password'], 'required', 'on' => 'insert'],
+                [['name', 'email'], 'string', 'max' => 255],
+                [['name', 'email'], 'unique']
+        ];
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getCollections() {

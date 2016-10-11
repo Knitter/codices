@@ -66,6 +66,21 @@ class Book extends ActiveRecord {
     }
 
     /**
+     * @inheritdoc
+     */
+    public function rules() {
+        return [
+                [['title', 'accountId'], 'required'],
+                [['title', 'language', 'edition', 'publisher', 'url', 'cover'], 'string', 'max' => 255],
+                [['plot', 'publicationDate', 'addedOn', 'review'], 'string'],
+                [['isbn'], 'string', 'max' => 25],
+                [['format'], 'string', 'max' => 5],
+                [['pageCount', 'order', 'read', 'seriesId', 'accountId'], 'integer'],
+                [['rating'], 'numerical']
+        ];
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getCollection() {

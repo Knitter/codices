@@ -48,6 +48,16 @@ class Author extends ActiveRecord {
     }
 
     /**
+     * @inheritdoc
+     */
+    public function rules() {
+        return [
+                [['name'], 'required'],
+                [['name', 'biography', 'url', 'photo'], 'string', 'max' => 255]
+        ];
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getBooks() {

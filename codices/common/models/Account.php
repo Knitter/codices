@@ -72,7 +72,7 @@ class Account extends ActiveRecord implements IdentityInterface {
      * @inheritdoc
      */
     public function afterFind() {
-        $this->hashed = $this->password;
+        $this->hash = $this->password;
         $this->password = null;
 
         parent::afterFind();
@@ -85,8 +85,8 @@ class Account extends ActiveRecord implements IdentityInterface {
         if (parent::beforeSave($insert)) {
             if (!empty($this->password)) {
                 $this->password = Yii::$app->security->generatePasswordHash($this->password);
-            } else if (!empty($this->hashed)) {
-                $this->password = $this->hashed;
+            } else if (!empty($this->hash)) {
+                $this->password = $this->hash;
             }
 
             return true;
@@ -106,7 +106,7 @@ class Account extends ActiveRecord implements IdentityInterface {
      * @inheritdoc
      */
     public function getAuthKey() {
-        return md5($this->id . $this->email . $this->hashed);
+        return md5($this->id . $this->email . $this->hash);
     }
 
     /**
@@ -136,8 +136,8 @@ class Account extends ActiveRecord implements IdentityInterface {
      * 
      * @throws \yii\base\InvalidParamException
      */
-    public function validarPassword($password) {
-        return Yii::$app->security->validatePassword($password, $this->hashed);
+    public function validatePassword($password) {
+        return Yii::$app->security->validatePassword($password, $this->hash);
     }
 
     /**

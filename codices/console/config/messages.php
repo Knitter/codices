@@ -2,10 +2,10 @@
 
 return [
     'sourcePath' => __DIR__ . DIRECTORY_SEPARATOR . '..',
-    'languages' => ['en', 'es'],
+    'languages' => ['pt'],
     'translator' => 'Yii::t',
     'sort' => false,
-    'removeUnused' => false,
+    'removeUnused' => true,
     'only' => ['*.php'],
     'except' => [
         '.svn',

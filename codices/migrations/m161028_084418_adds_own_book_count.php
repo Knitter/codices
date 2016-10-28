@@ -1,8 +1,9 @@
+
 <?php
 
 /*
- * BookAuthor.php
- *
+ * m161028_084418_adds_own_book_count.php
+ * 
  * Small book management software.
  * Copyright (C) 2016 Sérgio Lopes (knitter.is@gmail.com)
  * 
@@ -21,24 +22,28 @@
  * (c) 2016 Sérgio Lopes
  */
 
-namespace common\models;
-
-use yii\db\ActiveRecord;
+use yii\db\Migration;
 
 /**
- * @property integer $bookId
- * @property integer $authorId
- * 
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016, Sérgio Lopes (knitter.is@gmail.com)
  */
-final class BookAuthor extends ActiveRecord {
+class m161028_084418_adds_own_book_count extends Migration {
 
     /**
      * @inheritdoc
      */
-    public static function tableName() {
-        return 'BookAuthor';
+    public function up() {
+        $this->addColumn('Series', 'ownCount', $this->integer());
+        $this->addColumn('Collection', 'ownCount', $this->integer());
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function down() {
+        $this->dropColumn('Series', 'ownCount');
+        $this->dropColumn('Collection', 'ownCount');
     }
 
 }

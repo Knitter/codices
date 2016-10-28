@@ -30,6 +30,7 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property integer $bookCount
  * @property integer $accountId
+ * @property integer $ownCount
  * 
  * @property Account $owner
  * @property Book[] $books
@@ -37,7 +38,7 @@ use yii\db\ActiveRecord;
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016, Sérgio Lopes (knitter.is@gmail.com)
  */
-class Collection extends ActiveRecord {
+final class Collection extends ActiveRecord {
 
     public $hash;
 
@@ -55,7 +56,7 @@ class Collection extends ActiveRecord {
         return [
                 [['name', 'accountId'], 'required'],
                 [['name'], 'string', 'max' => 255],
-                [['accountId'], 'integer']
+                [['accountId', 'bookCount'], 'integer']
         ];
     }
 

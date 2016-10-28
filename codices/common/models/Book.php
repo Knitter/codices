@@ -53,7 +53,7 @@ use yii\db\ActiveRecord;
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016, Sérgio Lopes (knitter.is@gmail.com)
  */
-class Book extends ActiveRecord {
+final class Book extends ActiveRecord {
 
     const FORMAT_HARDCOVER = 'HC',
             FORMAT_PAPERBACK = 'PB';

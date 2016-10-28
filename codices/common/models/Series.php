@@ -30,13 +30,14 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property integer $complete
  * @property integer $bookCount
+ * @property integer $ownCount
  *
  * @property Book[] $books
  * 
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016, Sérgio Lopes (knitter.is@gmail.com)
  */
-class Series extends ActiveRecord {
+final class Series extends ActiveRecord {
 
     /**
      * @inheritdoc
@@ -52,7 +53,7 @@ class Series extends ActiveRecord {
         return [
                 [['name'], 'required'],
                 [['name'], 'string', 'max' => 255],
-                [['complete'], 'integer']
+                [['complete', 'bookCount'], 'integer']
         ];
     }
 

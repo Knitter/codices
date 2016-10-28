@@ -34,17 +34,14 @@ final class CodicesBundle extends AssetBundle {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/font-awesome.min.css',
-        'css/bootstrap.min.css',
-        'css/flat-admin.css',
-        //'css/theme/blue-sky.css',
-        //'css/theme/blue.css',
-        //'css/theme/red.css',
-        //'css/theme/yellow.css'
+        '_assets/css/font-awesome.min.css',
+        '_assets/css/bootstrap.min.css',
+        '_assets/css/flat-admin.css',
+        '_assets/css/flat-admin-blue-theme.css',
     ];
     public $js = [
-        'js/jquery-3.1.1.min.js',
-        'js/bootstrap.min.js',
+        '_assets/js/jquery-3.1.1.min.js',
+        '_assets/js/bootstrap.min.js',
     ];
     public $depends = [
 //'yii\web\YiiAsset',

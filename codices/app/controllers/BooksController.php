@@ -118,6 +118,14 @@ final class BooksController extends Controller {
         return $this->redirect(['index']);
     }
 
+    public function actionGallery() {
+        //@TODO: ...
+    }
+    
+    public function actionExport() {
+        //@TODO: ...
+    }
+
     /**
      * @param integer $id
      * 

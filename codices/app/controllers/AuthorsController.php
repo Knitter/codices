@@ -1,0 +1,135 @@
+<?php
+
+/*
+ * AuthorsController.php
+ * 
+ * Small book management software.
+ * Copyright (C) 2016 Sérgio Lopes (knitter.is@gmail.com)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+ * (c) 2016 Sérgio Lopes
+ */
+
+namespace app\controllers;
+
+use Yii;
+use yii\filters\AccessControl;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
+//-
+use common\models\Author;
+//-
+use app\models\forms\Author as Form;
+use app\models\filters\Authors;
+
+/**
+ * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
+ * @copyright (c) 2016, Sérgio Lopes (knitter.is@gmail.com)
+ */
+final class AuthorsController extends Controller {
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors() {
+        return [];
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                        ['allow' => false, 'roles' => ['?']],
+                        ['allow' => true, 'roles' => ['@']]
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    public function actionIndex() {
+        return $this->render('index', ['filter' => new Authors()]);
+    }
+
+    /**
+     * @param integer $id
+     * @return string
+     */
+    public function actionView($id) {
+        return $this->render('view', ['author' => $this->findAuthor($id)]);
+    }
+
+    /**
+     * @return \yii\web\Response|string
+     */
+    public function actionCreate() {
+        $form = new Form();
+        if ($form->load(Yii::$app->request->post())) {
+            if ($form->save()) {
+                Yii::$app->session->setFlash('success', Yii::t('codices', 'New author created.'));
+                return $this->redirect(['update', 'id' => $form->id]);
+            }
+        }
+
+        return $this->render('create', ['model' => $form]);
+    }
+
+    /**
+     * @param integer $id
+     * @return \yii\web\Response|string
+     */
+    public function actionUpdate($id) {
+        $form = new Form($this->findAuthor($id));
+
+        if ($form->load(Yii::$app->request->post())) {
+            if ($form->save()) {
+                Yii::$app->session->setFlash('success', Yii::t('codices', 'Author details updated.'));
+                return $this->redirect(['update', 'id' => $form->id]);
+            }
+        }
+
+        return $this->render('update', ['model' => $form]);
+    }
+
+    /**
+     * @param integer $id
+     * @return \yii\web\Response
+     */
+    public function actionDelete($id) {
+        $author = $this->findAuthor($id);
+
+        if ($author->delete()) {
+            Yii::$app->session->setFlash('success', Yii::t('codices', 'Author deleted.'));
+        } else {
+            Yii::$app->session->setFlash('failure', Yii::t('codices', 'Unable to delete selected author.'));
+        }
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * @param integer $id
+     * 
+     * @return \common\models\Author
+     * @throws \yii\web\NotFoundHttpException
+     */
+    private function findAuthor($id) {
+        if (($author = Author::findOne((int) $id)) !== null) {
+            return $author;
+        }
+
+        throw new NotFoundHttpException(Yii::t('codices', 'Author not found.'));
+    }
+
+}

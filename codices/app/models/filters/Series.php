@@ -25,8 +25,6 @@ namespace app\models\filters;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-//-
-use common\models\Series;
 
 /**
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
@@ -59,7 +57,7 @@ final class Series extends Model {
      * @return \yii\data\ActiveDataProvider
      */
     public function search($params) {
-        $query = Series::find()->orderBy('nome');
+        $query = \common\models\Series::find()->orderBy('nome');
 
         $provider = new ActiveDataProvider([
             'query' => $query,

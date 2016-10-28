@@ -31,7 +31,7 @@ use yii\web\NotFoundHttpException;
 use common\models\Series;
 //-
 use app\models\forms\Series as Form;
-use app\models\filters\Series;
+use app\models\filters\Series as Filter;
 
 /**
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
@@ -61,7 +61,7 @@ final class SeriesController extends Controller {
      * @return string
      */
     public function actionIndex() {
-        return $this->render('index', ['filter' => new Series()]);
+        return $this->render('index', ['filter' => new Filter()]);
     }
 
     /**

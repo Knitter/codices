@@ -31,6 +31,7 @@ use yii\web\NotFoundHttpException;
 use common\models\Account;
 //-
 use app\models\forms\Account as Form;
+use app\models\forms\Profile;
 use app\models\filters\Accounts;
 
 /**

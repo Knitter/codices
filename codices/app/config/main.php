@@ -8,7 +8,7 @@ if (is_file(__DIR__ . '/params.php')) {
 $config = [
     'id' => 'codices-app',
     'basePath' => dirname(__DIR__),
-    'defaultRoute' => 'dashboard',
+    'defaultRoute' => 'codices',
     'components' => [
         'i18n' => [
             'translations' => [
@@ -25,10 +25,10 @@ $config = [
         'user' => [
             'identityClass' => 'common\models\Account',
             'enableAutoLogin' => true,
-            'loginUrl' => ['dashboard/login']
+            'loginUrl' => ['codices/login']
         ],
         'errorHandler' => [
-            'errorAction' => 'dashboard/error'
+            'errorAction' => 'codices/error'
         ]
     ],
     'params' => $params

@@ -31,7 +31,8 @@ use yii\db\ActiveRecord;
  * @property string $biography
  * @property string $url
  * @property string $photo
- *
+ * @property string $surname
+ * 
  * @property Book[] $books
  * @property Series[] $series
  * 
@@ -52,8 +53,8 @@ class Author extends ActiveRecord {
      */
     public function rules() {
         return [
-                [['name'], 'required'],
-                [['name', 'biography', 'url', 'photo'], 'string', 'max' => 255]
+                [['name', 'surname'], 'required'],
+                [['name', 'biography', 'url', 'photo', 'surname'], 'string', 'max' => 255]
         ];
     }
 
@@ -69,6 +70,14 @@ class Author extends ActiveRecord {
      */
     public function getSeries() {
         return $this->hasMany(Series::className(), ['authorId' => 'id'])->inverseOf('author');
+    }
+
+    /**
+     * Returns the author's full name, that for this version is assumed as the name followed by the surname.
+     * @return string
+     */
+    public function getFullName() {
+        return $this->name . ' ' . $this->surname;
     }
 
 }

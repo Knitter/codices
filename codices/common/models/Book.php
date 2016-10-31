@@ -101,4 +101,18 @@ final class Book extends ActiveRecord {
         return $this->hasMany(Author::className(), ['id' => 'authorId'])->viaTable('BookAuthor', ['bookId' => 'id']);
     }
 
+    /**
+     * @param string $separator
+     * @return string
+     */
+    public function getAuthorsNames($separator = ', ') {
+        $names = [];
+
+        foreach ($this->authors as $author) {
+            $names[] = $author->fullName;
+        }
+
+        return implode($separator, $names);
+    }
+
 }

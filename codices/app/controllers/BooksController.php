@@ -120,6 +120,7 @@ final class BooksController extends Controller {
 
     public function actionGallery() {
         //@TODO: ...
+        return $this->render('gallery');
     }
     
     public function actionExport() {

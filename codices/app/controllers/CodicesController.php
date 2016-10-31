@@ -1,7 +1,7 @@
 <?php
 
 /*
- * DashboardController.php
+ * CodicesController.php
  * 
  * Small book management software.
  * Copyright (C) 2016 Sérgio Lopes (knitter.is@gmail.com)
@@ -24,8 +24,6 @@
 namespace app\controllers;
 
 use Yii;
-use yii\data\ArrayDataProvider;
-use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 //-
@@ -35,7 +33,7 @@ use app\models\forms\Login;
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016, Sérgio Lopes (knitter.is@gmail.com)
  */
-final class DashboardController extends Controller {
+final class CodicesController extends Controller {
 
     /**
      * @inheritdoc
@@ -48,7 +46,7 @@ final class DashboardController extends Controller {
                 'rules' => [
                         ['allow' => true, 'roles' => ['?'], 'actions' => ['login']],
                         ['allow' => false, 'roles' => ['?']],
-                        ['allow' => true, 'roles' => ['@'], 'actions' => ['logout', 'search', 'index']]
+                        ['allow' => true, 'roles' => ['@'], 'actions' => ['logout', 'index']]
                 ]
             ]
         ];
@@ -65,11 +63,15 @@ final class DashboardController extends Controller {
         ];
     }
 
+    public function actionDashboard() {
+        return $this->render('dashboard');
+    }
+
     /**
      * @return string
      */
     public function actionIndex() {
-        return $this->render('index');
+        return $this->redirect(['dashboard']);
     }
 
     /**
@@ -97,10 +99,6 @@ final class DashboardController extends Controller {
     public function actionLogout() {
         Yii::$app->user->logout();
         return $this->redirect(['index']);
-    }
-
-    public function actionSearch($q) {
-        
     }
 
 }

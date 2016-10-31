@@ -8,27 +8,21 @@ use yii\grid\GridView;
 
 $this->title = 'Codices :: ' . Yii::t('codices', 'Authors');
 $this->params = [
-    'title' => Yii::t('codices', 'Authors'),
+    'title' => Yii::t('codices', 'Author List'),
     'search' => ['authors/index'],
     'tab' => 'authors'
 ];
 ?>
 
-<div class="row">
-    <div class="col-xs-12">
-        <div class="card">
-            <div class="card-body no-padding">
-                <?=
-                GridView::widget([
-                    'dataProvider' => $filter->search(Yii::$app->request->get()),
-                    'layout' => '{items} {summary} {pager}',
-                    'columns' => [
-                        'id',
-                        'fullName'
-                    ]
-                ])
-                ?>
-            </div>
-        </div>
-    </div>
+<div class="table-responsive">
+    <?=
+    GridView::widget([
+        'dataProvider' => $filter->search(Yii::$app->request->get()),
+        'layout' => '{items} {summary} {pager}',
+        'columns' => [
+            'id',
+            'fullName'
+        ]
+    ])
+    ?>
 </div>

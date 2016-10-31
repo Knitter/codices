@@ -133,17 +133,17 @@ final class AccountsController extends Controller {
     /**
      * @return \yii\web\Response|string
      */
-    public function actionMyProfile() {
+    public function actionMyAccount() {
         $form = new Profile($this->findAccount(Yii::$app->user->identity->id));
 
         if ($form->load(Yii::$app->request->post())) {
             if ($form->save()) {
                 Yii::$app->session->setFlash('success', Yii::t('codices', 'Profile detailes updated.'));
-                return $this->redirect(['my-profile']);
+                return $this->redirect(['my-account']);
             }
         }
 
-        return $this->render('my-profile', ['model' => $form]);
+        return $this->render('my-account', ['model' => $form]);
     }
 
     /**

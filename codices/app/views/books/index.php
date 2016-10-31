@@ -3,6 +3,15 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
+
+/* @var $filter \app\models\filters\Books */
+
+$this->title = 'Codices :: ' . Yii::t('codices', 'Books');
+$this->params = [
+    'title' => Yii::t('codices', 'Books'),
+    'search' => ['books/index'],
+    'tab' => 'books'
+];
 ?>
 
 <div class="row">
@@ -13,9 +22,11 @@ use yii\grid\GridView;
                 <?=
                 GridView::widget([
                     'dataProvider' => $filter->search(Yii::$app->request->get()),
-                    'filterModel' => $filter,
                     'layout' => '{items} {summary} {pager}',
                     'columns' => [
+                        'id',
+                        'title',
+                        'isbn'
                     ]
                 ])
                 ?>

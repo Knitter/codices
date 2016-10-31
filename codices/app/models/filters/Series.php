@@ -46,7 +46,7 @@ final class Series extends Model {
      */
     public function rules() {
         return [
-                [['nome'], 'string', 'max' => 255],
+                [['name'], 'string', 'max' => 255],
                 [['complete', 'bookCount'], 'integer']
         ];
     }
@@ -57,7 +57,7 @@ final class Series extends Model {
      * @return \yii\data\ActiveDataProvider
      */
     public function search($params) {
-        $query = \common\models\Series::find()->orderBy('nome');
+        $query = \common\models\Series::find()->orderBy('name');
 
         $provider = new ActiveDataProvider([
             'query' => $query,

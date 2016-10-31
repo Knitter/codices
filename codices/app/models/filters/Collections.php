@@ -52,7 +52,7 @@ final class Collections extends Model {
      * @return \yii\data\ActiveDataProvider
      */
     public function search($params) {
-        $query = Collection::find()->orderBy('nome');
+        $query = Collection::find()->orderBy('name');
 
         $provider = new ActiveDataProvider([
             'query' => $query,

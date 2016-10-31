@@ -66,7 +66,7 @@ final class Books extends Model {
      */
     public function search($params) {
         $query = Book::find()->orderBy('title')
-                ->joinWith(['author'])
+                ->joinWith(['authors'])
                 ->joinWith(['series']);
 
         $provider = new ActiveDataProvider([
@@ -81,7 +81,7 @@ final class Books extends Model {
 
         $query->andFilterWhere(['like', 'title', $this->title])
                 ->andFilterWhere(['like', 'isbn', $this->isbn])
-                ->andFilterWhere(['like', 'author.name', $this->authorName])
+                ->andFilterWhere(['like', 'authors.surname', $this->authorName])
                 ->andFilterWhere(['like', 'series.name', $this->seriesName])
                 ->andFilterWhere(['>=', 'rating', $this->rating]);
 

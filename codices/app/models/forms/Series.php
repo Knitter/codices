@@ -92,9 +92,8 @@ final class Series extends Model {
             $this->series = new \common\models\Series();
         }
 
-        $series->name = $this->name;
-        $series->valorLiquidacao = $this->complete ? 1 : 0;
-        $series->descricao = $this->bookCount ?: null;
+        $this->series->name = $this->name;
+        $this->series->bookCount = $this->bookCount ?: 0;
 
         if (!$this->series->save()) {
             return false;

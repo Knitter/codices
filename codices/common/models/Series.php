@@ -49,7 +49,7 @@ final class Series extends ActiveRecord {
     /**
      * @inheritdoc
      */
-    public function rule() {
+    public function rules() {
         return [
                 [['name'], 'required'],
                 [['name'], 'string', 'max' => 255],

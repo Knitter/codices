@@ -17,3 +17,6 @@ phpunit.phar
 vagrant.config.lock
 ui/node_modules
 .vagrant
+
+# Misc
+*.sql

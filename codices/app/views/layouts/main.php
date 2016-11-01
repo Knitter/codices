@@ -85,7 +85,6 @@ $this->beginPage();
                         <li class="list-group-item"><a href="<?= Url::to(['codices/dashboard']) ?>"><i class="fa fa-home"></i><?= Yii::t('codices', 'Dashboard') ?></a></li>
                         <li class="list-group-item"><a href="<?= Url::to(['books/index']) ?>"><i class="fa fa-book"></i><?= Yii::t('codices', 'Books') ?></a></li>
                         <li class="list-group-item"><a href="<?= Url::to(['authors/index']) ?>"><i class="fa fa-pencil"></i><?= Yii::t('codices', 'Authors') ?></a></li>
-                        <li class="list-group-item"><a href="<?= Url::to(['collections/index']) ?>"><i class="fa fa-archive"></i><?= Yii::t('codices', 'Collections') ?></a></li>
                         <li class="list-group-item"><a href="<?= Url::to(['series/index']) ?>"><i class="fa fa-bookmark"></i><?= Yii::t('codices', 'Series') ?></li>
                     </ul>
                 </div>

@@ -1,7 +1,8 @@
+
 <?php
 
 /*
- * Collections.php
+ * m161101_201244_remove_collection_entity.php
  * 
  * Small book management software.
  * Copyright (C) 2016 Sérgio Lopes (knitter.is@gmail.com)
@@ -21,52 +22,28 @@
  * (c) 2016 Sérgio Lopes
  */
 
-namespace app\models\filters;
-
-use yii\base\Model;
-use yii\data\ActiveDataProvider;
-//-
-use common\models\Collection;
+use yii\db\Migration;
 
 /**
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016, Sérgio Lopes (knitter.is@gmail.com)
  */
-final class Collections extends Model {
-
-    /** @var string */
-    public $name;
+class m161101_201244_remove_collection_entity extends Migration {
 
     /**
      * @inheritdoc
      */
-    public function rules() {
-        return [
-                [['name'], 'string', 'max' => 255]
-        ];
+    public function up() {
+        $this->dropTable('BookCollection');
+        $this->dropTable('Collection');
     }
 
     /**
-     * @param array $params
-     * 
-     * @return \yii\data\ActiveDataProvider
+     * @inheritdoc
      */
-    public function search($params) {
-        $query = Collection::find()->orderBy('name');
-
-        $provider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => ['pageSize' => 35],
-            'sort' => false
-        ]);
-
-        if (!($this->load($params) && $this->validate())) {
-            return $provider;
-        }
-
-        $query->andFilterWhere(['like', 'name', $this->name]);
-
-        return $provider;
+    public function down() {
+        echo "m161101_201244_remove_collection_entity cannot be reverted.\n";
+        return false;
     }
 
 }

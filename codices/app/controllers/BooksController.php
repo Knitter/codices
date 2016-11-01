@@ -43,13 +43,14 @@ final class BooksController extends Controller {
      * @inheritdoc
      */
     public function behaviors() {
-        return [];
         return [
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
+                        ['allow' => true, 'actions' => ['gallery']],
                         ['allow' => false, 'roles' => ['?']],
-                        ['allow' => true, 'roles' => ['@']]
+                        ['allow' => true, 'roles' => ['@']],
+                        ['allow' => false]
                 ]
             ]
         ];
@@ -122,7 +123,7 @@ final class BooksController extends Controller {
         //@TODO: ...
         return $this->render('gallery');
     }
-    
+
     public function actionExport() {
         //@TODO: ...
     }

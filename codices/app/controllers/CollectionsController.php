@@ -43,13 +43,13 @@ final class CollectionsController extends Controller {
      * @inheritdoc
      */
     public function behaviors() {
-        return [];
         return [
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
                         ['allow' => false, 'roles' => ['?']],
-                        ['allow' => true, 'roles' => ['@']]
+                        ['allow' => true, 'roles' => ['@']],
+                        ['allow' => false]
                 ]
             ]
         ];

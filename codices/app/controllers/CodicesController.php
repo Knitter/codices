@@ -46,9 +46,9 @@ final class CodicesController extends Controller {
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                        ['allow' => true, 'roles' => ['?'], 'actions' => ['login']],
-                        ['allow' => false, 'roles' => ['?']],
-                        ['allow' => true, 'roles' => ['@'], 'actions' => ['logout', 'index']]
+                        ['allow' => true, 'roles' => ['?'], 'actions' => ['login', 'error']],
+                        ['allow' => true, 'roles' => ['@'], 'actions' => ['logout', 'index', 'dashboard']],
+                        ['allow' => false]
                 ]
             ]
         ];

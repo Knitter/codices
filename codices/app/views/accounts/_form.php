@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 
 $inputFieldOptions = [
     'labelOptions' => ['class' => 'col-md-2 control-label'],
-    'template' => '{label}<div class="col-md-10">{input}</div>'
+    'template' => '{label}<div class="col-md-8">{input}</div>'
 ];
 
 $form = ActiveForm::begin(['options' => ['class' => 'form-horizontal', 'role' => 'form']]);

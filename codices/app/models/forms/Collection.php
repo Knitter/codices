@@ -39,7 +39,7 @@ final class Collection extends Model {
     public $name;
 
     /** @var integer */
-    public $bookcount;
+    public $bookCount;
 
     /**
      * @param \common\models\Movel $collection
@@ -50,7 +50,7 @@ final class Collection extends Model {
 
         if ($this->collection) {
             $this->name = $this->collection->name;
-            $this->bookcount = $this->collection->bookCount;
+            $this->bookCount = $this->collection->bookCount;
         }
 
         parent::__construct($config);
@@ -60,7 +60,11 @@ final class Collection extends Model {
      * @inheritdoc
      */
     public function rules() {
-        return (new \common\models\Collection())->rules();
+        return [
+                [['name'], 'required'],
+                [['name'], 'string', 'max' => 255],
+                [['bookCount'], 'integer']
+        ];
     }
 
     /**
@@ -89,7 +93,7 @@ final class Collection extends Model {
         }
 
         $this->collection->name = $this->name;
-        $this->collection->bookCount = $this->bookcount ?: null;
+        $this->collection->bookCount = $this->bookCount ?: null;
 
         if (!$this->collection->save()) {
             return false;

@@ -1,64 +1,32 @@
 <?php
 
-use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\bootstrap\ActiveForm;
+use yii\widgets\ActiveForm;
 
-$form = ActiveForm::begin(['layout' => 'horizontal']);
+/* @var $this \yii\web\View */
+/* @var $model \app\models\forms\Collection */
+
+$form = ActiveForm::begin(['options' => ['class' => 'form-horizontal', 'role' => 'form']]);
 ?>
-<div class = "col-md-12">
-    <div class = "card">
-        <div class = "card-header">@TODO</div>
-        <div class = "card-body">
-            <form class = "form form-horizontal">
-                <div class = "section">
-                    <div class = "section-body">
 
-                        <!-- //@TODO: Extract/Replace -->
-                        <div class = "form-group">
-                            <label class = "col-md-3 control-label">Name</label>
-                            <div class = "col-md-9">
-                                <input type = "text" class = "form-control" placeholder = "">
-                            </div>
-                        </div>
-                        <div class = "form-group">
-                            <div class = "col-md-3">
-                                <label class = "control-label">Description</label>
-                                <p class = "control-label-help">( short detail of products, 150 max words )</p>
-                            </div>
-                            <div class = "col-md-9">
-                                <textarea class = "form-control"></textarea>
-                            </div>
-                        </div>
-                        <div class = "form-group">
-                            <label class = "col-md-3 control-label">Price</label>
-                            <div class = "col-md-9">
-                                <div class = "input-group">
-                                    <span class = "input-group-addon">$</span>
-                                    <input type = "text" class = "form-control" aria-label = "Amount (to the nearest dollar)">
-                                </div>
-                            </div>
-                        </div>
+<?=
+$form->field($model, 'name', [
+    'labelOptions' => ['class' => 'col-md-2 control-label'],
+    'template' => '{label}<div class="col-md-8">{input}</div>'
+])->textInput(['class' => 'form-control'])
+?>
 
-                        <!-- //END: @TODO -->
-                    </div>
-                </div>
+<?=
+$form->field($model, 'bookCount', [
+    'labelOptions' => ['class' => 'col-md-2 control-label'],
+    'template' => '{label}<div class="col-md-3">{input}</div>'
+])->textInput(['class' => 'form-control'])
+?>
 
-                <div class = "form-footer">
-                    <div class = "form-group">
-                        <div class = "col-md-9 col-md-offset-3">
-                            <?= Html::submitButton('Guardar', ['class' => 'btn btn-primary']) ?>
-
-                            <?=
-                            Html::a(Yii::t('codices', 'Cancelar')
-                                    , Url::to(['aditamento/index', 'id' => $processo->id])
-                                    , ['class' => 'btn btn-default'])
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <button class="btn btn-success" type="submit"><?= Yii::t('codices', 'Submit') ?></button>
+        <a class="form-cancel-btn text-warning" href="<?= Url::to(['collections/index']) ?>"><?= Yii::t('codices', 'Cancel') ?></a>
     </div>
 </div>
 

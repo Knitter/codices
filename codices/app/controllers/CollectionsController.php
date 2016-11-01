@@ -28,7 +28,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 //-
-use commo\models\Collection;
+use common\models\Collection;
 //-
 use app\models\forms\Collection as Form;
 use app\models\filters\Collections;
@@ -75,6 +75,7 @@ final class CollectionsController extends Controller {
      */
     public function actionCreate() {
         $form = new Form();
+        
         if ($form->load(Yii::$app->request->post())) {
             if ($form->save()) {
                 Yii::$app->session->setFlash('success', Yii::t('codices', 'New collection created.'));

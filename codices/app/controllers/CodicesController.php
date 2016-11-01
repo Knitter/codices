@@ -30,6 +30,9 @@ use yii\web\Controller;
 use app\models\forms\Login;
 
 /**
+ * Default controller that holds system wide actions like login, logout and error actions. Also offers a small 
+ * dashboard action to show some system stats (not implemented yet).
+ * 
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016, Sérgio Lopes (knitter.is@gmail.com)
  */
@@ -39,7 +42,6 @@ final class CodicesController extends Controller {
      * @inheritdoc
      */
     public function behaviors() {
-        return [];
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -63,18 +65,30 @@ final class CodicesController extends Controller {
         ];
     }
 
+    /**
+     * Implements a small dashboard, that may be expanded to include more info, but that at this point serves only as 
+     * a placeholder view after login or as default controller/action when a user doesn't specify any.
+     * 
+     * @return string
+     */
     public function actionDashboard() {
         return $this->render('dashboard');
     }
 
     /**
-     * @return string
+     * Placeholder, it just redirects to the dashboard action. Present as this is the standard default action for a 
+     * WEB controller.
+     * 
+     * @return \yii\web\Response
      */
     public function actionIndex() {
         return $this->redirect(['dashboard']);
     }
 
     /**
+     * Login action allows users to authenticate. Shows the login form and delegates the login/authentication 
+     * process to the Login form model.
+     * 
      * @return string|\yii\web\Response
      */
     public function actionLogin() {
@@ -82,23 +96,25 @@ final class CodicesController extends Controller {
 
         $app = Yii::$app;
         if (!$app->user->isGuest) {
-            return $this->redirect(['dashboard/index']);
+            return $this->redirect(['dashboard']);
         }
 
         $login = new Login();
-        if ($app->request->post('Login') && $login->login($app->request->post())) {
-            return $this->redirect(['dashboard/index']);
+        if ($login->load($app->request->post()) && $login->login()) {
+            return $this->redirect(['dashboard']);
         }
 
         return $this->render('login', ['login' => $login]);
     }
 
     /**
+     * Logs the user out of the system and redirects to the login action.
+     * 
      * @return \yii\web\Response
      */
     public function actionLogout() {
         Yii::$app->user->logout();
-        return $this->redirect(['index']);
+        return $this->redirect(['login']);
     }
 
 }

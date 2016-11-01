@@ -57,8 +57,8 @@ final class Login extends Model {
      * 
      * @return boolean
      */
-    public function login($params) {
-        if ($this->load($params) && $this->validate()) {
+    public function login() {
+        if ($this->validate()) {
             if (($account = Account::findOne(['email' => $this->email]))) {
                 try {
                     if ($account->validatePassword($this->password)) {
@@ -71,9 +71,9 @@ final class Login extends Model {
 
             $this->addError('email', Yii::t('codices', 'Wrong user or password.'));
             $this->addError('password', Yii::t('codices', 'Wrong user or password.'));
-
-            return false;
         }
+
+        return false;
     }
 
 }

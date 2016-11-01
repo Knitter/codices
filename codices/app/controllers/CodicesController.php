@@ -46,8 +46,9 @@ final class CodicesController extends Controller {
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
+                        ['allow' => true, 'actions' => ['index']],
                         ['allow' => true, 'roles' => ['?'], 'actions' => ['login', 'error']],
-                        ['allow' => true, 'roles' => ['@'], 'actions' => ['logout', 'index', 'dashboard']],
+                        ['allow' => true, 'roles' => ['@'], 'actions' => ['logout', 'dashboard']],
                         ['allow' => false]
                 ]
             ]
@@ -76,12 +77,16 @@ final class CodicesController extends Controller {
     }
 
     /**
-     * Placeholder, it just redirects to the dashboard action. Present as this is the standard default action for a 
-     * WEB controller.
+     * Default action that just redirects the user to the dashboard (if an authenticated user) or to the public gallery 
+     * if the user is a guest.
      * 
      * @return \yii\web\Response
      */
     public function actionIndex() {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['books/gallery']);
+        }
+
         return $this->redirect(['dashboard']);
     }
 

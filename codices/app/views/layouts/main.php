@@ -103,9 +103,11 @@ $this->beginPage();
             </div>
         </div>
 
+        <div class="clearfix"></div>
+
         <div class="site-footer">
             <div class="container">
-                <div class="copyright clearfix">&copy; <?= date('Y') ?> Codices. @TODO: Add other copyright/credits info.</div>
+                <div class="copyright clearfix">&copy; <?= date('Y') ?> Codices.</div>
             </div>
         </div>
         <?php $this->endBody() ?>

@@ -134,4 +134,8 @@ final class Book extends ActiveRecord {
         ];
     }
 
+    public function getPhotoURL() {
+        return ($this->cover ? \yii\helpers\Url::base() . '/uploads/covers/' . $this->cover : '');
+    }
+
 }

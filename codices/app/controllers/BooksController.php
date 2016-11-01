@@ -76,7 +76,7 @@ final class BooksController extends Controller {
      */
     public function actionCreate() {
         $form = new Form();
-        
+
         if ($form->load(Yii::$app->request->post())) {
             if ($form->save()) {
                 Yii::$app->session->setFlash('success', Yii::t('codices', 'New book created.'));
@@ -120,12 +120,18 @@ final class BooksController extends Controller {
         return $this->redirect(['index']);
     }
 
+    /**
+     * Shows a book gallery with only the book's cover and its title.
+     * 
+     * @return string
+     */
     public function actionGallery() {
-        //@TODO: ...
+        $this->layout = 'gallery';
+
         return $this->render('gallery');
     }
 
-    public function actionExport() {
+    public function actionExport($ft = 'html') {
         //@TODO: ...
     }
 

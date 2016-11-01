@@ -27,6 +27,9 @@ use Yii;
 use yii\base\Model;
 
 /**
+ * Form model that adapts the Account entity/model to the form view and handles validating and saving the user provided 
+ * data.
+ * 
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016, Sérgio Lopes (knitter.is@gmail.com)
  */
@@ -93,7 +96,7 @@ final class Account extends Model {
 
         $this->account->name = $this->name;
         $this->account->email = $this->email;
-        //@TODO: $this->account->password = $this->password;
+        $this->account->password = $this->password;
 
         if (!$this->account->save()) {
             return false;
@@ -103,10 +106,23 @@ final class Account extends Model {
     }
 
     /**
+     * Returns the account's ID, if the model as already been saved. If not, the ID is zero.
+     * 
      * @return integer
      */
     public function getId() {
         return $this->account ? $this->account->id : 0;
+    }
+
+    /**
+     * Since we're reusing the rules provided by the Account model class, and given that one of the rules requires 
+     * searching the database, we're implementing one of the automatically invoced methods but only delegating to the 
+     * standard model find().
+     * 
+     * @return \yii\db\ActiveQuery
+     */
+    public static function find() {
+        return \common\models\Account::find();
     }
 
 }

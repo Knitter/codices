@@ -34,13 +34,13 @@ $this->params = [
                 [
                 'attribute' => 'name',
                 'content' => function($model, $key, $index, $column) {
-                    return Html::a($model->name, Url::to(['accounts/update', 'id' => $model->id]));
+                    return Html::a($model->name, Url::to(['accounts/view', 'id' => $model->id]));
                 }
             ],
                 [
                 'attribute' => 'email',
                 'content' => function($model, $key, $index, $column) {
-                    return Html::a($model->email, Url::to(['accounts/update', 'id' => $model->id]));
+                    return Html::a($model->email, Url::to(['accounts/view', 'id' => $model->id]));
                 }
             ],
                 [
@@ -53,7 +53,7 @@ $this->params = [
                         return Html::a('<i class="fa fa-pencil"></i>', Url::to(['accounts/update', 'id' => $model->id]), ['class' => 'text-primary']);
                     },
                     'delete' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-trash"></i>', Url::to(['accounts/delete', 'id' => $model->id]), ['class' => 'text-danger', 'data-confirm' => Yii::t('codices', 'Tem a certeza que deseja remover a categoria?')]);
+                        return Html::a('<i class="fa fa-trash"></i>', Url::to(['accounts/delete', 'id' => $model->id]), ['class' => 'text-danger', 'data-confirm' => Yii::t('codices', 'Are you sure you want to remove the selected account?')]);
                     }
                 ]
             ]

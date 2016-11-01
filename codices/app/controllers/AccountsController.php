@@ -76,12 +76,13 @@ final class AccountsController extends Controller {
     }
 
     /**
-     * Allows creating new user accounts.
+     * Action that allows the creation of new user accounts.
      * 
      * @return \yii\web\Response|string
      */
     public function actionCreate() {
         $form = new Form();
+
         if ($form->load(Yii::$app->request->post())) {
             if ($form->save()) {
                 Yii::$app->session->setFlash('success', Yii::t('codices', 'New account created.'));

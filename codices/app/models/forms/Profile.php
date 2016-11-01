@@ -93,7 +93,7 @@ final class Profile extends Model {
 
         $this->account->name = $this->name;
         $this->account->email = $this->email;
-        //@TODO: $this->account->password = $this->password;
+        $this->account->password = $this->password;
 
         if (!$this->account->save()) {
             return false;
@@ -103,10 +103,14 @@ final class Profile extends Model {
     }
 
     /**
-     * @return integer
+     * Since we're reusing the rules provided by the Account model class, and given that one of the rules requires 
+     * searching the database, we're implementing one of the automatically invoced methods but only delegating to the 
+     * standard model find().
+     * 
+     * @return \yii\db\ActiveQuery
      */
-    public function getId() {
-        return $this->account ? $this->account->id : 0;
+    public static function find() {
+        return \common\models\Account::find();
     }
 
 }

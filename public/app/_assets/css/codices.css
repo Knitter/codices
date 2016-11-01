@@ -1079,7 +1079,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     border-color: #373E4A
 }
 
-
 /* CODICES CUSTOM */
 .id-column {
     width: 60px;
@@ -1088,4 +1087,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .action-buttons {
     width: 100px;
     text-align: center;
+}
+
+.form-cancel-btn {
+    margin-left: 1rem;
 }

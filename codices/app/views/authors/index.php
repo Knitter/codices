@@ -31,15 +31,13 @@ $this->params = [
                 'attribute' => 'id',
                 'label' => '#',
                 'headerOptions' => ['class' => 'id-column']
-            ],
-                [
+            ], [
                 'attribute' => 'fullName',
                 'label' => 'Name',
                 'content' => function($model, $key, $index, $column) {
                     return Html::a($model->fullName, Url::to(['authors/view', 'id' => $model->id]));
                 }
-            ],
-                [
+            ], [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{update} {delete}',
                 'headerOptions' => ['class' => 'action-buttons'],

@@ -92,23 +92,23 @@ final class Book extends Model {
     public function __construct(\common\models\Book $book = null, $config = []) {
         $this->book = $book;
 
-//        if ($this->book) {
-//            $this->title = $this->book->title;
-//            $this->plot = $this->book->plot;
-//            $this->isbn = $this->book->isbn;
-//            $this->format = $this->book->format;
-//            $this->pageCount = $this->book->pageCount;
-//            $this->publicationDate = $this->book->publicationDate;
-//            $this->language = $this->book->language;
-//            $this->edition = $this->book->edition;
-//            $this->publisher = $this->book->publisher;
-//            $this->rating = $this->book->rating;
-//            $this->read = $this->book->read;
-//            $this->url = $this->book->url;
-//            $this->review = $this->book->review;
-//            $this->order = $this->book->order;
-//            $this->seriesId = $this->book->seriesId;
-//        }
+        if ($this->book) {
+            $this->title = $this->book->title;
+            $this->plot = $this->book->plot;
+            $this->isbn = $this->book->isbn;
+            $this->format = $this->book->format;
+            $this->pageCount = $this->book->pageCount;
+            $this->publicationDate = $this->book->publicationDate;
+            $this->language = $this->book->language;
+            $this->edition = $this->book->edition;
+            $this->publisher = $this->book->publisher;
+            $this->rating = $this->book->rating;
+            $this->read = $this->book->read;
+            $this->url = $this->book->url;
+            $this->review = $this->book->review;
+            $this->order = $this->book->order;
+            $this->seriesId = $this->book->seriesId;
+        }
 
         parent::__construct($config);
     }
@@ -117,15 +117,16 @@ final class Book extends Model {
      * @inheritdoc
      */
     public function rules() {
-//        return [
-//                [['title', 'accountId'], 'required'],
-//                [['title', 'language', 'edition', 'publisher', 'url', 'cover'], 'string', 'max' => 255],
-//                [['plot', 'publicationDate', 'addedOn', 'review'], 'string'],
-//                [['isbn'], 'string', 'max' => 25],
-//                [['format'], 'string', 'max' => 5],
-//                [['pageCount', 'order', 'read', 'seriesId', 'accountId'], 'integer'],
-//                [['rating'], 'numerical']
-//        ];
+        return [
+                [['title'], 'required'],
+                [['title', 'language', 'edition', 'publisher', 'url'], 'string', 'max' => 255],
+                [['plot', 'publicationDate', 'addedOn', 'review'], 'string'],
+                [['isbn'], 'string', 'max' => 25],
+                [['format'], 'string', 'max' => 5],
+                [['pageCount', 'order', 'read', 'seriesId'], 'integer'],
+                [['rating'], 'numerical'],
+                [['photo'], 'file', 'extensions' => 'png, jpg, jpeg']
+        ];
     }
 
     /**
@@ -147,6 +148,7 @@ final class Book extends Model {
             'url' => Yii::t('codices', 'Website/URL'),
             'cover' => Yii::t('codices', 'Cover'),
             'order' => Yii::t('codices', 'Order'),
+            'review' => Yii::t('codices', 'Review'),
             'seriesId' => Yii::t('codices', 'Series')
         ];
     }

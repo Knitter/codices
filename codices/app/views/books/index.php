@@ -10,7 +10,6 @@ use yii\grid\GridView;
 $this->title = 'Codices :: ' . Yii::t('codices', 'Books');
 $this->params = [
     'title' => Yii::t('codices', 'Book List'),
-    'search' => ['books/index'],
     'tab' => 'books'
 ];
 ?>
@@ -32,26 +31,22 @@ $this->params = [
                 'attribute' => 'id',
                 'label' => '#',
                 'headerOptions' => ['class' => 'id-column']
-            ],
-                [
+            ], [
                 'attribute' => 'title',
                 'label' => 'Title',
                 'content' => function($model, $key, $index, $column) {
                     return Html::a($model->title, Url::to(['books/view', 'id' => $model->id]));
                 }
-            ],
-                [
+            ], [
                 'attribute' => 'isbn',
                 'label' => 'ISBN'
-            ],
-                [
+            ], [
                 'attribute' => 'series.name',
                 'label' => 'Series',
                 'content' => function($model, $key, $index, $column) {
                     return $model->series ? $model->series->name : '';
                 }
-            ],
-                [
+            ], [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{update} {delete}',
                 'headerOptions' => ['class' => 'action-buttons'],

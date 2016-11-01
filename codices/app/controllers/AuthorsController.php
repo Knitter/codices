@@ -75,6 +75,7 @@ final class AuthorsController extends Controller {
      */
     public function actionCreate() {
         $form = new Form();
+
         if ($form->load(Yii::$app->request->post())) {
             if ($form->save()) {
                 Yii::$app->session->setFlash('success', Yii::t('codices', 'New author created.'));

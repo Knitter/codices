@@ -30,20 +30,17 @@ $this->params = [
                 'attribute' => 'id',
                 'label' => '#',
                 'headerOptions' => ['class' => 'id-column']
-            ],
-                [
+            ], [
                 'attribute' => 'name',
                 'content' => function($model, $key, $index, $column) {
                     return Html::a($model->name, Url::to(['accounts/view', 'id' => $model->id]));
                 }
-            ],
-                [
+            ], [
                 'attribute' => 'email',
                 'content' => function($model, $key, $index, $column) {
                     return Html::a($model->email, Url::to(['accounts/view', 'id' => $model->id]));
                 }
-            ],
-                [
+            ], [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{update} {delete}',
                 'headerOptions' => ['class' => 'action-buttons'],

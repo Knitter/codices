@@ -1,6 +1,6 @@
 <?php
 
-use \yii\helpers\Url;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this \yii\web\View */

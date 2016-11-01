@@ -30,8 +30,7 @@ $this->params = [
                 'attribute' => 'id',
                 'label' => '#',
                 'headerOptions' => ['class' => 'id-column']
-            ],
-                [
+            ], [
                 'attribute' => 'name',
                 'content' => function($model, $key, $index, $column) {
                     return Html::a($model->name, Url::to(['collections/view', 'id' => $model->id]));
@@ -43,16 +42,14 @@ $this->params = [
                 'content' => function($model, $key, $index, $column) {
                     return $model->ownCount ?: 0;
                 }
-            ],
-                [
+            ], [
                 'attribute' => 'bookCount',
                 'label' => 'Total',
                 'headerOptions' => ['style' => 'width: 120px;'],
                 'content' => function($model, $key, $index, $column) {
                     return $model->ownCount ?: 0;
                 }
-            ],
-                [
+            ], [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{update} {delete}',
                 'headerOptions' => ['class' => 'action-buttons'],

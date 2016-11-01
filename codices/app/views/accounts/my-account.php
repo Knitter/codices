@@ -11,8 +11,6 @@ $this->params = [
     'title' => Yii::t('codices', 'My Account')
 ];
 
-
-
 $inputFieldOptions = [
     'labelOptions' => ['class' => 'col-md-2 control-label'],
     'template' => '{label}<div class="col-md-10">{input}</div>'

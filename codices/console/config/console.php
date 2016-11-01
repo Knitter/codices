@@ -10,7 +10,6 @@ $config = [
             'translations' => [
                 '*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
-                    'sourceLanguage' => 'pt-PT',
                     'basePath' => '@app/messages'
                 ]
             ]

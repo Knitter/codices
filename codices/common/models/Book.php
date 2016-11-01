@@ -103,6 +103,9 @@ final class Book extends ActiveRecord {
     }
 
     /**
+     * Returns all author names, separated by the given separator string, or by a comma and and a space if none is 
+     * provided.
+     * 
      * @param string $separator
      * @return string
      */
@@ -117,6 +120,8 @@ final class Book extends ActiveRecord {
     }
 
     /**
+     * Returns the label used by users to refer to the various book formats.
+     * 
      * @return string
      */
     public function getFormatLabel() {
@@ -125,6 +130,8 @@ final class Book extends ActiveRecord {
     }
 
     /**
+     * List of possible formats to be used by lists, dropdowns and other UI elements.
+     * 
      * @return array
      */
     public static function formatList() {
@@ -134,6 +141,11 @@ final class Book extends ActiveRecord {
         ];
     }
 
+    /**
+     * Returns the full URL to the book's cover.
+     * 
+     * @return string
+     */
     public function getPhotoURL() {
         return ($this->cover ? \yii\helpers\Url::base() . '/uploads/covers/' . $this->cover : '');
     }

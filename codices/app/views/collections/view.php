@@ -1,6 +1,6 @@
 <?php
 
-use \yii\helpers\Url;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this \yii\web\View */
@@ -26,20 +26,16 @@ $this->params = [
                 [
                 'attribute' => 'id',
                 'label' => '#'
-            ],
-                [
+            ], [
                 'attribute' => 'name',
                 'label' => Yii::t('codices', 'Name')
-            ],
-                [
+            ], [
                 'attribute' => 'bookCount',
                 'label' => Yii::t('codices', 'Total')
-            ],
-                [
+            ], [
                 'attribute' => 'ownCount',
                 'label' => Yii::t('codices', 'Owned')
-            ],
-                [
+            ], [
                 'attribute' => 'complete',
                 'label' => Yii::t('codices', 'Complete')
             ]

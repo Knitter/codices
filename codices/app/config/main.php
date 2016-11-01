@@ -21,7 +21,7 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true
         ],
-        'request' => [ 'cookieValidationKey' => '0SyovBjBjvnVapjq07fal12ShC0BKrVeD#Fb'],
+        'request' => ['cookieValidationKey' => '0SyovBjBjvnVapjq07fal12ShC0BKrVeD#Fb'],
         'user' => [
             'identityClass' => 'common\models\Account',
             'enableAutoLogin' => true,

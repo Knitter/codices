@@ -1,6 +1,6 @@
 <?php
 
-use \yii\helpers\Url;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this \yii\web\View */
@@ -26,21 +26,17 @@ $this->params = [
                 [
                 'attribute' => 'id',
                 'label' => '#'
-            ],
-                [
+            ], [
                 'attribute' => 'fullName',
                 'label' => Yii::t('codices', 'Name')
-            ],
-                [
+            ], [
                 'attribute' => 'url',
                 'label' => Yii::t('codices', 'Website/URL'),
                 'format' => 'url'
-            ],
-                [
+            ], [
                 'attribute' => 'biography',
                 'label' => Yii::t('codices', 'Biography')
-            ],
-                [
+            ], [
                 'attribute' => 'photo',
                 'label' => Yii::t('codices', 'Photo')
             ]

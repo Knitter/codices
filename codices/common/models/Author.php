@@ -74,6 +74,7 @@ class Author extends ActiveRecord {
 
     /**
      * Returns the author's full name, that for this version is assumed as the name followed by the surname.
+     * 
      * @return string
      */
     public function getFullName() {

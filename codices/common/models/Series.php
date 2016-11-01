@@ -26,6 +26,8 @@ namespace common\models;
 use yii\db\ActiveRecord;
 
 /**
+ * Represents a database series that groups related books.
+ * 
  * @property integer $id
  * @property string $name
  * @property integer $complete

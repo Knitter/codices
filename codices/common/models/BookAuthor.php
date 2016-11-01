@@ -26,6 +26,8 @@ namespace common\models;
 use yii\db\ActiveRecord;
 
 /**
+ * Represents the relation between the book and all its authors.
+ * 
  * @property integer $bookId
  * @property integer $authorId
  * 

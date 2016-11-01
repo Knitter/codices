@@ -48,11 +48,10 @@ therefore be developed faster than the WEB version.
 
 Codices uses a modified version of the Bootflat-Admin template, that is also based in Bootflat. These projects where 
 the base of the admin/backend user interface and can be found 
-at [https://github.com/silverbux/bootflat-admin](https://github.com/silverbux/bootflat-admin] 
-and[http://bootflat.github.io](http://bootflat.github.io.). Icons are from 
-the [FontAwesome](http://fontawesome.io/) project.
+at [https://github.com/silverbux/bootflat-admin](https://github.com/silverbux/bootflat-admin)
+and[http://bootflat.github.io](http://bootflat.github.io).
 
-# LICENSE
+# License
 
 Codices is licensed under the AGPL Open Source license. Please check the LICENSE.txt file for more information
 Bootflat-Admin is licensed under the MIT Open Source license. For more information, please see the 

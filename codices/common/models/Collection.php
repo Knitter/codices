@@ -26,11 +26,14 @@ namespace common\models;
 use yii\db\ActiveRecord;
 
 /**
+ * Sometimes books are sold or grouped in collections. This entity aims to manage those collections that are less 
+ * common than series and usually created by the publisher.
+ * 
  * @property integer $id
  * @property string $name
- * @property integer $bookCount
- * @property integer $accountId
- * @property integer $ownCount
+ * @property integer $bookCount The total number of books in this collection.
+ * @property integer $accountId The user that owns the collection.
+ * @property integer $ownCount The number of owned books in the collection.
  * 
  * @property Account $owner
  * @property Book[] $books

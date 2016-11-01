@@ -1,64 +1,69 @@
 <?php
 
-use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\bootstrap\ActiveForm;
+use yii\helpers\ArrayHelper;
+use yii\widgets\ActiveForm;
+//-
+use common\models\Book;
+use common\models\Series;
 
-$form = ActiveForm::begin(['layout' => 'horizontal']);
+/* @var $this \yii\web\View */
+/* @var $model \app\models\forms\Book */
+
+$series = ArrayHelper::map(Series::find()->orderBy('name')->all(), 'id', 'name');
+
+$standardFieldOptions = [
+    'labelOptions' => ['class' => 'col-md-2 control-label'],
+    'template' => '{label}<div class="col-md-8">{input}</div>'
+];
+
+$mediumFieldOptions = [
+    'labelOptions' => ['class' => 'col-md-2 control-label'],
+    'template' => '{label}<div class="col-md-4">{input}</div>'
+];
+
+$smallFieldOptions = [
+    'labelOptions' => ['class' => 'col-md-2 control-label'],
+    'template' => '{label}<div class="col-md-3">{input}</div>'
+];
+
+$form = ActiveForm::begin(['options' => ['class' => 'form-horizontal', 'role' => 'form']]);
 ?>
-<div class = "col-md-12">
-    <div class = "card">
-        <div class = "card-header">@TODO</div>
-        <div class = "card-body">
-            <form class = "form form-horizontal">
-                <div class = "section">
-                    <div class = "section-body">
 
-                        <!-- //@TODO: Extract/Replace -->
-                        <div class = "form-group">
-                            <label class = "col-md-3 control-label">Name</label>
-                            <div class = "col-md-9">
-                                <input type = "text" class = "form-control" placeholder = "">
-                            </div>
-                        </div>
-                        <div class = "form-group">
-                            <div class = "col-md-3">
-                                <label class = "control-label">Description</label>
-                                <p class = "control-label-help">( short detail of products, 150 max words )</p>
-                            </div>
-                            <div class = "col-md-9">
-                                <textarea class = "form-control"></textarea>
-                            </div>
-                        </div>
-                        <div class = "form-group">
-                            <label class = "col-md-3 control-label">Price</label>
-                            <div class = "col-md-9">
-                                <div class = "input-group">
-                                    <span class = "input-group-addon">$</span>
-                                    <input type = "text" class = "form-control" aria-label = "Amount (to the nearest dollar)">
-                                </div>
-                            </div>
-                        </div>
+<?= $form->field($model, 'title', $standardFieldOptions)->textInput(['class' => 'form-control']) ?>
 
-                        <!-- //END: @TODO -->
-                    </div>
-                </div>
+<?= $form->field($model, 'plot', $standardFieldOptions)->textarea(['class' => 'form-control']) ?>
 
-                <div class = "form-footer">
-                    <div class = "form-group">
-                        <div class = "col-md-9 col-md-offset-3">
-                            <?= Html::submitButton('Guardar', ['class' => 'btn btn-primary']) ?>
+<?= $form->field($model, 'isbn', $mediumFieldOptions)->textInput(['class' => 'form-control']) ?>
 
-                            <?=
-                            Html::a(Yii::t('codices', 'Cancelar')
-                                    , Url::to(['aditamento/index', 'id' => $processo->id])
-                                    , ['class' => 'btn btn-default'])
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
+<?= $form->field($model, 'format', $mediumFieldOptions)->dropDownList(Book::formatList()) ?>
+
+<?= $form->field($model, 'pageCount', $smallFieldOptions)->textInput(['class' => 'form-control']) ?>
+
+<?= $form->field($model, 'publicationDate', $mediumFieldOptions)->textInput(['class' => 'form-control']) ?>
+
+<?= $form->field($model, 'language', $mediumFieldOptions)->textInput(['class' => 'form-control']) ?>
+
+<?= $form->field($model, 'edition', $mediumFieldOptions)->textInput(['class' => 'form-control']) ?>
+
+<?= $form->field($model, 'publisher', $standardFieldOptions)->textInput(['class' => 'form-control']) ?>
+
+<?= $form->field($model, 'rating', $smallFieldOptions)->textInput() ?>
+
+<?= $form->field($model, 'url', $standardFieldOptions)->textInput(['class' => 'form-control']) ?>
+
+<?= $form->field($model, 'review', $standardFieldOptions)->textarea(['class' => 'form-control']) ?>
+
+<?= $form->field($model, 'cover', $standardFieldOptions)->fileInput() ?>
+
+<?= $form->field($model, 'order', $smallFieldOptions)->textInput(['class' => 'form-control']) ?>
+
+<?= $form->field($model, 'seriesId', $standardFieldOptions)->dropDownList($series, ['class' => 'form-control']) ?>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <button class="btn btn-success" type ="submit"><?= Yii::t('codices', 'Submit') ?></button>
+        <a class="form-cancel-btn text-warning" href="<?= Url::to(['books/index']) ?>"><?= Yii::t('codices', 'Cancel') ?></a>
     </div>
 </div>
 

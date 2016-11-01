@@ -23,6 +23,7 @@
 
 namespace common\models;
 
+use Yii;
 use yii\db\ActiveRecord;
 
 /**
@@ -113,6 +114,24 @@ final class Book extends ActiveRecord {
         }
 
         return implode($separator, $names);
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormatLabel() {
+        $formats = self::formatList();
+        return $this->format ? $formats[$this->format] : '';
+    }
+
+    /**
+     * @return array
+     */
+    public static function formatList() {
+        return [
+            self::FORMAT_HARDCOVER => Yii::t('codices', 'Hard Cover'),
+            self::FORMAT_PAPERBACK => Yii::t('codices', 'Paper Back')
+        ];
     }
 
 }

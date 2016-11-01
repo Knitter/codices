@@ -28,7 +28,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 //-
-use commo\models\Book;
+use common\models\Book;
 //-
 use app\models\forms\Book as Form;
 use app\models\filters\Books;
@@ -76,6 +76,7 @@ final class BooksController extends Controller {
      */
     public function actionCreate() {
         $form = new Form();
+        
         if ($form->load(Yii::$app->request->post())) {
             if ($form->save()) {
                 Yii::$app->session->setFlash('success', Yii::t('codices', 'New book created.'));

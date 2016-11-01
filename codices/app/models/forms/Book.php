@@ -73,6 +73,9 @@ final class Book extends Model {
     /** @var string */
     public $url;
 
+    /** @var string */
+    public $review;
+
     /** @var integer */
     public $order;
 
@@ -86,25 +89,26 @@ final class Book extends Model {
      * @param \common\models\Book $book
      * @param array $config
      */
-    public function __construct(\common\models\DireitoImovel $book = null, $config = []) {
+    public function __construct(\common\models\Book $book = null, $config = []) {
         $this->book = $book;
 
-        if ($this->book) {
-            $this->title = $this->book->title;
-            $this->plot = $this->book->plot;
-            $this->isbn = $this->book->isbn;
-            $this->format = $this->book->format;
-            $this->pageCount = $this->book->pageCount;
-            $this->publicationDate = $this->book->publicationDate;
-            $this->language = $this->book->language;
-            $this->edition = $this->book->edition;
-            $this->publisher = $this->book->publisher;
-            $this->rating = $this->book->rating;
-            $this->read = $this->book->read;
-            $this->url = $this->book->url;
-            $this->order = $this->book->order;
-            $this->seriesId = $this->book->seriesId;
-        }
+//        if ($this->book) {
+//            $this->title = $this->book->title;
+//            $this->plot = $this->book->plot;
+//            $this->isbn = $this->book->isbn;
+//            $this->format = $this->book->format;
+//            $this->pageCount = $this->book->pageCount;
+//            $this->publicationDate = $this->book->publicationDate;
+//            $this->language = $this->book->language;
+//            $this->edition = $this->book->edition;
+//            $this->publisher = $this->book->publisher;
+//            $this->rating = $this->book->rating;
+//            $this->read = $this->book->read;
+//            $this->url = $this->book->url;
+//            $this->review = $this->book->review;
+//            $this->order = $this->book->order;
+//            $this->seriesId = $this->book->seriesId;
+//        }
 
         parent::__construct($config);
     }
@@ -113,7 +117,15 @@ final class Book extends Model {
      * @inheritdoc
      */
     public function rules() {
-        return (new \common\models\Book())->rules();
+//        return [
+//                [['title', 'accountId'], 'required'],
+//                [['title', 'language', 'edition', 'publisher', 'url', 'cover'], 'string', 'max' => 255],
+//                [['plot', 'publicationDate', 'addedOn', 'review'], 'string'],
+//                [['isbn'], 'string', 'max' => 25],
+//                [['format'], 'string', 'max' => 5],
+//                [['pageCount', 'order', 'read', 'seriesId', 'accountId'], 'integer'],
+//                [['rating'], 'numerical']
+//        ];
     }
 
     /**
@@ -167,6 +179,7 @@ final class Book extends Model {
         $this->book->rating = $this->rating ?: null;
         $this->book->read = $this->read ? 1 : 0;
         $this->book->url = $this->url ?: null;
+        $this->book->review = $this->review ?: null;
         $this->book->order = $this->order ?: null;
         $this->book->seriesId = $this->seriesId ?: null;
 
@@ -179,7 +192,7 @@ final class Book extends Model {
                 mkdir($folder, 0777, true);
             }
 
-            $end = explode('.', $this->title);
+            $end = explode('.', $file->name);
             $this->book->cover = Inflector::slug($this->title) . '.' . end($end);
 
             $filepath = $folder . '/' . $this->book->title;

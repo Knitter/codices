@@ -41,9 +41,12 @@ final class Author extends Model {
     public $name;
 
     /** @var string */
+    public $surname;
+
+    /** @var string */
     public $biography;
 
-    /** @var string *//** @var float */
+    /** @var string */
     public $url;
 
     /** @var yii\web\UploadedFile */
@@ -53,13 +56,14 @@ final class Author extends Model {
      * @param \common\models\Author $author
      * @param array $config
      */
-    public function __construct(\common\models\Viatura $author = null, $config = []) {
+    public function __construct(\common\models\Author $author = null, $config = []) {
         $this->author = $author;
 
         if ($this->author) {
             $this->name = $this->author->name;
             $this->biography = $this->author->biography;
             $this->url = $this->author->url;
+            $this->surname = $this->author->surname;
         }
         parent::__construct($config);
     }
@@ -68,7 +72,11 @@ final class Author extends Model {
      * @inheritdoc
      */
     public function rules() {
-        return (new \common\models\Author())->rules();
+        return [
+                [['name', 'surname'], 'required'],
+                [['name', 'biography', 'url', 'surname'], 'string', 'max' => 255],
+                [['photo'], 'file', 'extensions' => 'png, jpg, jpeg']
+        ];
     }
 
     /**
@@ -77,6 +85,7 @@ final class Author extends Model {
     public function attributeLabels() {
         return [
             'name' => Yii::t('codices', 'Name'),
+            'surname' => Yii::t('codices', 'Surname'),
             'biography' => Yii::t('codices', 'Biography'),
             'url' => Yii::t('codices', 'Website/URL'),
             'photo' => Yii::t('codices', 'Photo')
@@ -98,6 +107,7 @@ final class Author extends Model {
         }
 
         $this->author->name = $this->name;
+        $this->author->surname = $this->surname;
         $this->author->biography = $this->biography ?: null;
         $this->author->url = $this->url ?: null;
 
@@ -110,7 +120,7 @@ final class Author extends Model {
                 mkdir($folder, 0777, true);
             }
 
-            $end = explode('.', $this->namee);
+            $end = explode('.', $file->name);
             $this->author->photo = Inflector::slug($this->name) . '.' . end($end);
 
             $filepath = $folder . '/' . $this->author->photo;

@@ -128,7 +128,7 @@ final class BooksController extends Controller {
     public function actionGallery() {
         $this->layout = 'gallery';
 
-        $books = Book::find()->orderBy('name')->all();
+        $books = Book::find()->orderBy('title')->all();
 
         return $this->render('gallery', ['books' => $books]);
     }

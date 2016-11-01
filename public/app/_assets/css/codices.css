@@ -1078,3 +1078,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     background-color: #373E4A;
     border-color: #373E4A
 }
+
+
+/* CODICES CUSTOM */
+.id-column {
+    width: 60px;
+}
+
+.action-buttons {
+    width: 100px;
+    text-align: center;
+}

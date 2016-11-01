@@ -44,7 +44,6 @@ final class AccountsController extends Controller {
      * @inheritdoc
      */
     public function behaviors() {
-        return [];
         return [
             'access' => [
                 'class' => AccessControl::className(),

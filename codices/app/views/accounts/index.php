@@ -14,6 +14,11 @@ $this->params = [
 ];
 ?>
 
+<div class="btn-group pull-right">
+    <a class="btn" href="<?= Url::to(['accounts/create']) ?>"><i class="fa fa-plus"></i></a>
+</div>
+
+<div class="clearfix"></div><br />
 
 <div class="table-responsive">
     <?=
@@ -21,9 +26,37 @@ $this->params = [
         'dataProvider' => $filter->search(Yii::$app->request->get()),
         'layout' => '{items} {summary} {pager}',
         'columns' => [
-            'id',
-            'name',
-            'email'
+                [
+                'attribute' => 'id',
+                'label' => '#',
+                'headerOptions' => ['class' => 'id-column']
+            ],
+                [
+                'attribute' => 'name',
+                'content' => function($model, $key, $index, $column) {
+                    return Html::a($model->name, Url::to(['accounts/update', 'id' => $model->id]));
+                }
+            ],
+                [
+                'attribute' => 'email',
+                'content' => function($model, $key, $index, $column) {
+                    return Html::a($model->email, Url::to(['accounts/update', 'id' => $model->id]));
+                }
+            ],
+                [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{update} {delete}',
+                'headerOptions' => ['class' => 'action-buttons'],
+                'contentOptions' => ['class' => 'action-buttons'],
+                'buttons' => [
+                    'update' => function ($url, $model, $key) {
+                        return Html::a('<i class="fa fa-pencil"></i>', Url::to(['accounts/update', 'id' => $model->id]), ['class' => 'text-primary']);
+                    },
+                    'delete' => function ($url, $model, $key) {
+                        return Html::a('<i class="fa fa-trash"></i>', Url::to(['accounts/delete', 'id' => $model->id]), ['class' => 'text-danger', 'data-confirm' => Yii::t('codices', 'Tem a certeza que deseja remover a categoria?')]);
+                    }
+                ]
+            ]
         ]
     ])
     ?>

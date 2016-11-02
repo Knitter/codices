@@ -39,7 +39,7 @@ class m161102_091356_account_id_on_series_and_new_counters extends Migration {
         $this->dropColumn('Series', 'complete');
         $this->addColumn('Series', 'finished', 'TINYINT NOT NULL DEFAULT 0');
 
-        $this->addColumn('Book', 'authorId', $this->integer()->notNull());
+        $this->addColumn('Book', 'authorId', $this->integer());
         $this->addForeignKey('fkBookAuthor', 'Book', 'authorId', 'Author', 'id');
     }
 

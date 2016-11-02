@@ -7,15 +7,15 @@ $this->title = 'Codices :: ' . Yii::t('codices', 'Gallery');
 
 <div class="row">
     <?php foreach ($books as $book) { ?>
-        <?php if (($url = $book->photoURL)) { ?>
-            <div class="col-xs-3 col-md-2 col-lg-1">
-                <div class="thumbnail">
+        <div class="col-xs-3 col-lg-2">
+            <div class="thumbnail">
+                <?php if (($url = $book->photoURL)) { ?>
                     <img class="img-rounded" src="<?= $url ?>">
-                    <div class="caption text-center">
-                        <h3><?= $book->title ?></h3>
-                    </div>
+                <?php } ?>
+                <div class="caption text-center">
+                    <h3><?= $book->title ?></h3>
                 </div>
             </div>
-        <?php } ?>
+        </div>
     <?php } ?>
 </div>

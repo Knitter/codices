@@ -1,8 +1,9 @@
+
 <?php
 
 /*
- * BookAuthor.php
- *
+ * m161102_091356_account_id_on_series_and_new_counters.php
+ * 
  * Small book management software.
  * Copyright (C) 2016 Sérgio Lopes (knitter.is@gmail.com)
  * 
@@ -21,26 +22,33 @@
  * (c) 2016 Sérgio Lopes
  */
 
-namespace common\models;
-
-use yii\db\ActiveRecord;
+use yii\db\Migration;
 
 /**
- * Represents the relation between the book and all its authors.
- * 
- * @property integer $bookId
- * @property integer $authorId
- * 
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016, Sérgio Lopes (knitter.is@gmail.com)
  */
-final class BookAuthor extends ActiveRecord {
+class m161102_091356_account_id_on_series_and_new_counters extends Migration {
 
     /**
      * @inheritdoc
      */
-    public static function tableName() {
-        return 'BookAuthor';
+    public function up() {
+        $this->dropTable('BookAuthor');
+
+        $this->dropColumn('Series', 'complete');
+        $this->addColumn('Series', 'finished', 'TINYINT NOT NULL DEFAULT 0');
+
+        $this->addColumn('Book', 'authorId', $this->integer()->notNull());
+        $this->addForeignKey('fkBookAuthor', 'Book', 'authorId', 'Author', 'id');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function down() {
+        echo "m161102_091356_account_id_on_series_and_new_counters cannot be reverted.\n";
+        return false;
     }
 
 }

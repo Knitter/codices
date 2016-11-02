@@ -37,6 +37,7 @@ use yii\db\ActiveRecord;
  * @property string $addedOn
  * @property string $language
  * @property integer $edition
+ * @property string $publisher
  * @property float $rating
  * @property integer $read
  * @property string $url
@@ -44,12 +45,11 @@ use yii\db\ActiveRecord;
  * @property string $cover
  * @property integer $order
  * @property integer $seriesId
- * @property integer $publisherId
- *
+ * @property integer $authorId
+ * @property integer $copies
+ * 
  * @property Series $series
- * @property Author[] $authors
- * @property Tag[] $tags
- * @property Publisher $publisher
+ * @property Author $author
  * 
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016, Sérgio Lopes (knitter.is@gmail.com)
@@ -71,12 +71,12 @@ final class Book extends ActiveRecord {
      */
     public function rules() {
         return [
-                [['title', 'accountId'], 'required'],
+                [['title'], 'required'],
                 [['title', 'language', 'edition', 'publisher', 'url', 'cover'], 'string', 'max' => 255],
                 [['plot', 'publicationDate', 'addedOn', 'review'], 'string'],
                 [['isbn'], 'string', 'max' => 25],
                 [['format'], 'string', 'max' => 5],
-                [['pageCount', 'order', 'read', 'seriesId', 'accountId'], 'integer'],
+                [['pageCount', 'order', 'read', 'seriesId', 'accountId', 'authorId', 'copies'], 'integer'],
                 [['rating'], 'numerical']
         ];
     }
@@ -98,25 +98,8 @@ final class Book extends ActiveRecord {
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAuthors() {
-        return $this->hasMany(Author::className(), ['id' => 'authorId'])->viaTable('BookAuthor', ['bookId' => 'id']);
-    }
-
-    /**
-     * Returns all author names, separated by the given separator string, or by a comma and and a space if none is 
-     * provided.
-     * 
-     * @param string $separator
-     * @return string
-     */
-    public function getAuthorsNames($separator = ', ') {
-        $names = [];
-
-        foreach ($this->authors as $author) {
-            $names[] = $author->fullName;
-        }
-
-        return implode($separator, $names);
+    public function getAuthor() {
+        return $this->hasOne(Author::className(), ['id' => 'authorId']);
     }
 
     /**

@@ -82,6 +82,12 @@ final class Book extends Model {
     /** @var integer */
     public $seriesId;
 
+    /** @var integer */
+    public $authorId;
+
+    /** @var integer */
+    public $copies;
+
     /** @var yii\web\UploadedFile */
     public $cover;
 
@@ -108,6 +114,8 @@ final class Book extends Model {
             $this->review = $this->book->review;
             $this->order = $this->book->order;
             $this->seriesId = $this->book->seriesId;
+            $this->authorId = $this->book->autorId;
+            $this->copies = $this->book->copies;
         }
 
         parent::__construct($config);
@@ -123,7 +131,7 @@ final class Book extends Model {
                 [['plot', 'publicationDate', 'addedOn', 'review'], 'string'],
                 [['isbn'], 'string', 'max' => 25],
                 [['format'], 'string', 'max' => 5],
-                [['pageCount', 'order', 'read', 'seriesId'], 'integer'],
+                [['pageCount', 'order', 'read', 'seriesId', 'authorId', 'copies'], 'integer'],
                 [['rating'], 'numerical'],
                 [['photo'], 'file', 'extensions' => 'png, jpg, jpeg']
         ];
@@ -149,7 +157,9 @@ final class Book extends Model {
             'cover' => Yii::t('codices', 'Cover'),
             'order' => Yii::t('codices', 'Order'),
             'review' => Yii::t('codices', 'Review'),
-            'seriesId' => Yii::t('codices', 'Series')
+            'seriesId' => Yii::t('codices', 'Series'),
+            'authorId' => Yii::t('codices', 'Author'),
+            'copies' => Yii::t('codices', 'Owned Copies')
         ];
     }
 
@@ -184,6 +194,8 @@ final class Book extends Model {
         $this->book->review = $this->review ?: null;
         $this->book->order = $this->order ?: null;
         $this->book->seriesId = $this->seriesId ?: null;
+        $this->book->authorId = $this->authorId ?: null;
+        $this->book->copies = $this->copies ?: 1;
 
         $filepath = null;
         if (($file = UploadedFile::getInstance($this, 'cover'))) {

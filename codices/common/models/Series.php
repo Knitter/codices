@@ -30,9 +30,9 @@ use yii\db\ActiveRecord;
  * 
  * @property integer $id
  * @property string $name
- * @property integer $complete
  * @property integer $bookCount
  * @property integer $ownCount
+ * @property integer $finished
  *
  * @property Book[] $books
  * 
@@ -55,7 +55,7 @@ final class Series extends ActiveRecord {
         return [
                 [['name'], 'required'],
                 [['name'], 'string', 'max' => 255],
-                [['complete', 'bookCount'], 'integer']
+                [['finished', 'bookCount'], 'integer']
         ];
     }
 

@@ -39,7 +39,7 @@ final class Series extends Model {
     public $name;
 
     /** @var integer */
-    public $complete;
+    public $finished;
 
     /** @var integer */
     public $bookCount;
@@ -53,7 +53,7 @@ final class Series extends Model {
 
         if ($this->series) {
             $this->name = $series->name;
-            $this->complete = $series->complete;
+            $this->finished = $series->finished;
             $this->bookCount = $series->bookCount;
         }
 
@@ -73,7 +73,7 @@ final class Series extends Model {
     public function attributeLabels() {
         return [
             'name' => Yii::t('codices', 'Name'),
-            'complete' => Yii::t('codices', 'Complete Series'),
+            'finished' => Yii::t('codices', 'Finished Series'),
             'bookCount' => Yii::t('codices', 'Book Count')
         ];
     }

@@ -34,7 +34,6 @@ use yii\db\ActiveRecord;
  * @property string $surname
  * 
  * @property Book[] $books
- * @property Series[] $series
  * 
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016, Sérgio Lopes (knitter.is@gmail.com)
@@ -62,14 +61,7 @@ class Author extends ActiveRecord {
      * @return \yii\db\ActiveQuery
      */
     public function getBooks() {
-        return $this->hasMany(Book::className(), ['id' => 'bookId'])->viaTable('BookAuthor', ['authorId' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSeries() {
-        return $this->hasMany(Series::className(), ['authorId' => 'id'])->inverseOf('author');
+        return $this->hasMany(Book::className(), ['authorId' => 'id'])->inverseOf('author');
     }
 
     /**

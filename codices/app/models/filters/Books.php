@@ -43,6 +43,9 @@ final class Books extends Model {
     /** @var string */
     public $seriesName;
 
+    /** @var string */
+    public $authorName;
+
     /** @var float */
     public $rating;
 
@@ -51,7 +54,7 @@ final class Books extends Model {
      */
     public function rules() {
         return [
-                [['title', 'isbn', 'seriesName'], 'string', 'max' => 255],
+                [['title', 'isbn', 'seriesName', 'authorName'], 'string', 'max' => 255],
                 [['rating'], 'number']
         ];
     }
@@ -63,7 +66,8 @@ final class Books extends Model {
      */
     public function search($params) {
         $query = Book::find()->orderBy('title')
-                ->joinWith(['series']);
+                ->joinWith(['series'])
+                ->joinWith(['author']);
 
         $provider = new ActiveDataProvider([
             'query' => $query,
@@ -78,6 +82,7 @@ final class Books extends Model {
         $query->andFilterWhere(['like', 'title', $this->title])
                 ->andFilterWhere(['like', 'isbn', $this->isbn])
                 ->andFilterWhere(['like', 'series.name', $this->seriesName])
+                ->andFilterWhere(['like', 'author.name', $this->authorName])
                 ->andFilterWhere(['>=', 'rating', $this->rating]);
 
         return $provider;

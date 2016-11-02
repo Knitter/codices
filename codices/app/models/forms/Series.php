@@ -90,6 +90,7 @@ final class Series extends Model {
 
         if (!$this->series) {
             $this->series = new \common\models\Series();
+            $this->series->accountId = Yii::$app->user->id;
         }
 
         $this->series->name = $this->name;

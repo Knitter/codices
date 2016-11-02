@@ -1,7 +1,8 @@
+
 <?php
 
 /*
- * Series.php
+ * m161102_161831_adds_account_id_to_series.php
  * 
  * Small book management software.
  * Copyright (C) 2016 Sérgio Lopes (knitter.is@gmail.com)
@@ -21,57 +22,27 @@
  * (c) 2016 Sérgio Lopes
  */
 
-namespace common\models;
-
-use yii\db\ActiveRecord;
+use yii\db\Migration;
 
 /**
- * Represents a database series that groups related books.
- * 
- * @property integer $id
- * @property string $name
- * @property integer $bookCount
- * @property integer $ownCount
- * @property integer $finished
- * @property integer $accountId
- *
- * @property Book[] $books
- * 
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016, Sérgio Lopes (knitter.is@gmail.com)
  */
-final class Series extends ActiveRecord {
+class m161102_161831_adds_account_id_to_series extends Migration {
+    
+    /**
+     * @inheritdoc
+     */
+    public function up() {
+        $this->addColumn('Series', 'accountId', $this->integer()->notNull());
+        $this->addForeignKey('fkSeriesAccoun', 'Series', 'accountId', 'Account', 'id');
+    }
 
     /**
      * @inheritdoc
      */
-    public static function tableName() {
-        return 'Series';
+    public function down() {
+        echo "m161102_161831_adds_account_id_to_series cannot be reverted.\n";
+        return false;
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function rules() {
-        return [
-                [['name'], 'required'],
-                [['name'], 'string', 'max' => 255],
-                [['finished', 'bookCount', 'accountId'], 'integer']
-        ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBooks() {
-        return $this->hasMany(Book::className(), ['seriesId' => 'id'])->inverseOf('series');
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAccount() {
-        return $this->hasOne(Account::className(), ['id' => 'accountId']);
-    }
-
 }

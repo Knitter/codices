@@ -53,6 +53,5 @@ and [http://bootflat.github.io](http://bootflat.github.io).
 
 # License
 
-Codices is licensed under the AGPL Open Source license. Please check the LICENSE.txt file for more information
-Bootflat-Admin is licensed under the MIT Open Source license. For more information, please see the 
-[LICENSE.txt](https://raw.githubusercontent.com/Knitter/codices/master/LICENSE.txt) for more information.
+Codices is licensed under the AGPL Open Source license. Please check the 
+[LICENSE.txt](https://raw.githubusercontent.com/Knitter/codices/master/LICENSE.txt) file for more information.

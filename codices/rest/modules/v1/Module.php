@@ -23,26 +23,10 @@
 
 namespace app\modules\v1;
 
-use Yii;
-use yii\web\Response;
-//
-use app\filters\RequestAuthorization;
-
 /**
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016, Sérgio Lopes (knitter.is@gmail.com)
  */
 final class Module extends \yii\base\Module {
-    //public function behaviors() {
-    //$behaviors = parent::behaviors();
-    //unset($behaviors['authenticator']);F
-    //$behaviors['corsFilter'] = [
-    //    'class' => \yii\filters\Cors::className(),
-    //];
-    //$behaviors['authenticator'] = [
-    //    'class' => RequestAuthorization::className()
-    //];
-    //$behaviors['authenticator']['except'] = ['options'];
-    //return $behaviors;
-    //}
+    
 }

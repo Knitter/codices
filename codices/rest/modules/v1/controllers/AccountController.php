@@ -24,12 +24,15 @@
 namespace app\modules\v1\controllers;
 
 use Yii;
+use yii\filters\Cors;
+use yii\rest\ActiveController;
 use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
 use yii\web\UnauthorizedHttpException;
-use yii\rest\ActiveController;
-//
+//-
 use common\models\Account;
+//-
+use app\filters\RequestAuthorization;
 
 /**
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
@@ -38,6 +41,22 @@ use common\models\Account;
 final class AccountController extends ActiveController {
 
     public $modelClass = '\common\models\Account';
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors() {
+        $behaviors = parent::behaviors();
+        unset($behaviors['authenticator']);
+
+        $behaviors['corsFilter'] = ['class' => Cors::className()];
+        $behaviors['authenticator'] = [
+            'class' => RequestAuthorization::className(),
+            'except' => ['options', 'authenticate']
+        ];
+
+        return $behaviors;
+    }
 
     public function actionAuthenticate() {
         $request = Yii::$app->request;

@@ -23,7 +23,10 @@
 
 namespace app\modules\v1\controllers;
 
+use yii\filters\Cors;
 use yii\rest\ActiveController;
+//-
+use app\filters\RequestAuthorization;
 
 /**
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
@@ -32,5 +35,21 @@ use yii\rest\ActiveController;
 final class AuthorController extends ActiveController {
 
     public $modelClass = '\common\models\Author';
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors() {
+        $behaviors = parent::behaviors();
+        unset($behaviors['authenticator']);
+
+        $behaviors['corsFilter'] = ['class' => Cors::className()];
+        $behaviors['authenticator'] = [
+            'class' => RequestAuthorization::className(),
+            'except' => ['options']
+        ];
+
+        return $behaviors;
+    }
 
 }

@@ -25,8 +25,10 @@ namespace app\filters;
 
 use Yii;
 use yii\base\ActionFilter;
-use yii\web\UnauthorizedHttpException;
 use yii\filters\auth\AuthInterface;
+use yii\web\UnauthorizedHttpException;
+//-
+use common\models\Account;
 
 /**
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL

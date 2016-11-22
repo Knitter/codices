@@ -43,13 +43,13 @@ final class CodicesBundle extends AssetBundle {
         '_assets/css/codices.css'
     ];
     public $js = [
-        '_assets/js/jquery-3.1.1.min.js',
         '_assets/js/bootstrap.min.js',
         '_assets/js/icheck.min.js',
         '_assets/js/jquery.fs.selecter.min.js',
         '_assets/js/jquery.fs.stepper.min.js'
     ];
     public $depends = [
+        'yii\web\YiiAsset',
     ];
 
 }

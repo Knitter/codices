@@ -10,6 +10,16 @@ $config = [
     'basePath' => dirname(__DIR__),
     'defaultRoute' => 'codices',
     'components' => [
+        'assetManager' => [
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'sourcePath' => null,
+                    'basePath' => '@webroot',
+                    'baseUrl' => '@web',
+                    'js' => ['_assets/js/jquery-3.1.1.min.js']
+                ]
+            ]
+        ],
         'i18n' => [
             'translations' => [
                 '*' => [

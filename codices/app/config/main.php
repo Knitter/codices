@@ -7,7 +7,7 @@ if (is_file(__DIR__ . '/params.php')) {
 
 $config = [
     'id' => 'codices-app',
-    'version' => '1.0.2',
+    'version' => '1.0.3',
     'basePath' => dirname(__DIR__),
     'defaultRoute' => 'codices',
     'components' => [

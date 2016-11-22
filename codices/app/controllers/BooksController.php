@@ -83,7 +83,7 @@ final class BooksController extends Controller {
                 return $this->redirect(['update', 'id' => $form->id]);
             }
         }
-
+        
         return $this->render('create', ['model' => $form]);
     }
 

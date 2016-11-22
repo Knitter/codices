@@ -3,6 +3,7 @@
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
+use kartik\date\DatePicker;
 //-
 use common\models\Book;
 use common\models\Series;
@@ -10,7 +11,7 @@ use common\models\Series;
 /* @var $this \yii\web\View */
 /* @var $model \app\models\forms\Book */
 
-$series = ArrayHelper::map(Series::find()->orderBy('name')->all(), 'id', 'name');
+$series = [0 => Yii::t('codices', '- none -')] + ArrayHelper::map(Series::find()->orderBy('name')->all(), 'id', 'name');
 
 $standardFieldOptions = [
     'labelOptions' => ['class' => 'col-md-2 control-label'],
@@ -40,7 +41,17 @@ $form = ActiveForm::begin(['options' => ['class' => 'form-horizontal', 'role' =>
 
 <?= $form->field($model, 'pageCount', $smallFieldOptions)->textInput(['class' => 'form-control']) ?>
 
-<?= $form->field($model, 'publicationDate', $mediumFieldOptions)->textInput(['class' => 'form-control']) ?>
+<?=
+$form->field($model, 'publicationDate', $mediumFieldOptions)->widget(DatePicker::className(), [
+    'type' => DatePicker::TYPE_COMPONENT_APPEND,
+    'removeButton' => false,
+    //'language' => 'pt',
+    'pluginOptions' => [
+        'autoclose' => true,
+        'format' => 'yyyy-mm-dd'
+    ]
+]);
+?>
 
 <?= $form->field($model, 'language', $mediumFieldOptions)->textInput(['class' => 'form-control']) ?>
 
@@ -59,6 +70,8 @@ $form = ActiveForm::begin(['options' => ['class' => 'form-horizontal', 'role' =>
 <?= $form->field($model, 'order', $smallFieldOptions)->textInput(['class' => 'form-control']) ?>
 
 <?= $form->field($model, 'seriesId', $standardFieldOptions)->dropDownList($series, ['class' => 'form-control']) ?>
+
+<?= $form->field($model, 'copies', $smallFieldOptions)->textInput(['class' => 'form-control']) ?>
 
 <div class="form-group">
     <div class="col-md-offset-2 col-md-10">

@@ -114,8 +114,7 @@ final class Book extends Model {
             $this->review = $this->book->review;
             $this->order = $this->book->order;
             $this->seriesId = $this->book->seriesId;
-            $this->authorId = $this->book->autorId;
-            $this->copies = $this->book->copies;
+            $this->authorId = $this->book->authorId;
         }
 
         parent::__construct($config);
@@ -128,12 +127,12 @@ final class Book extends Model {
         return [
                 [['title'], 'required'],
                 [['title', 'language', 'edition', 'publisher', 'url'], 'string', 'max' => 255],
-                [['plot', 'publicationDate', 'addedOn', 'review'], 'string'],
+                [['plot', 'publicationDate', 'review'], 'string'],
                 [['isbn'], 'string', 'max' => 25],
                 [['format'], 'string', 'max' => 5],
                 [['pageCount', 'order', 'read', 'seriesId', 'authorId', 'copies'], 'integer'],
-                [['rating'], 'numerical'],
-                [['photo'], 'file', 'extensions' => 'png, jpg, jpeg']
+                [['rating'], 'number'],
+                [['cover'], 'file', 'extensions' => 'png, jpg, jpeg']
         ];
     }
 
@@ -207,9 +206,13 @@ final class Book extends Model {
             }
 
             $end = explode('.', $file->name);
-            $this->book->cover = Inflector::slug($this->title) . '.' . end($end);
+            $this->book->cover = $this->isbn . '.' . end($end);
 
-            $filepath = $folder . '/' . $this->book->title;
+            if (empty($this->isbn)) {
+                $this->book->cover = Inflector::slug($this->title) . '.' . end($end);
+            }
+
+            $filepath = $folder . '/' . $this->book->cover;
             if (!$file->saveAs($filepath)) {
                 $this->book->cover = null;
             }

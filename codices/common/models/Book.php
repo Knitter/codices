@@ -77,7 +77,7 @@ final class Book extends ActiveRecord {
                 [['isbn'], 'string', 'max' => 25],
                 [['format'], 'string', 'max' => 5],
                 [['pageCount', 'order', 'read', 'seriesId', 'accountId', 'authorId', 'copies'], 'integer'],
-                [['rating'], 'numerical']
+                [['rating'], 'number']
         ];
     }
 
@@ -131,6 +131,33 @@ final class Book extends ActiveRecord {
      */
     public function getPhotoURL() {
         return ($this->cover ? \yii\helpers\Url::base() . '/uploads/covers/' . $this->cover : '');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function delete() {
+        $transaction = $this->getDb()->beginTransaction();
+
+        if ($this->seriesId) {
+            $series = $this->series;
+
+            $series->ownCount = $series->ownCount - 1;
+            $series->finished = 0;
+
+            if (!$series->save(false)) {
+                $transaction->rollBack();
+                return false;
+            }
+        }
+
+        if (!parent::delete()) {
+            $transaction->rollBack();
+            return false;
+        }
+
+        $transaction->commit();
+        return true;
     }
 
 }

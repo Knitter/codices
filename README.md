@@ -49,7 +49,7 @@ therefore be developed faster than the WEB version.
 Codices uses a modified version of the Bootflat-Admin template, that is also based in Bootflat. These projects where 
 the base of the admin/backend user interface and can be found 
 at [https://github.com/silverbux/bootflat-admin](https://github.com/silverbux/bootflat-admin)
-and[http://bootflat.github.io](http://bootflat.github.io).
+and [http://bootflat.github.io](http://bootflat.github.io).
 
 # License
 

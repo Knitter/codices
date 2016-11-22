@@ -52,10 +52,15 @@ final class RequestAuthorization extends ActionFilter implements AuthInterface {
     public function authenticate($user, $request, $response) {
         $headers = $request->getHeaders();
 
-        //@TODO: ..
-        //$user->switchIdentity();
+        $account = null;
+        if (empty($headers['X-CODICESUSER-TOKEN']) ||
+                !($account = Account::findOne(['sessionId' => $headers['X-CODICESUSER-TOKEN']]))) {
 
-        return;
+            throw new UnauthorizedHttpException('Wrong credentials.');
+        }
+
+        $user->switchIdentity($account);
+        return $account;
     }
 
     /**

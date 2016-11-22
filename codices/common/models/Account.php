@@ -32,6 +32,7 @@ use yii\web\IdentityInterface;
  * @property string $name
  * @property string $email
  * @property string $password
+ * @property string $sessionId
  * 
  * @property Collection $collections
  * 
@@ -145,6 +146,18 @@ final class Account extends ActiveRecord implements IdentityInterface {
      */
     public static function randomPassword() {
         return Yii::$app->security->generateRandomString(8);
+    }
+
+    /**
+     * @return string
+     */
+    public function generateSessionId() {
+        $this->sessionId = sha1($this->hash . $this->email . time() . $this->name);
+        if ($this->save(false)) {
+            return $this->sessionId;
+        }
+
+        return null;
     }
 
 }

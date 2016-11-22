@@ -25,6 +25,8 @@ namespace app\modules\v1;
 
 use Yii;
 use yii\web\Response;
+//
+use app\filters\RequestAuthorization;
 
 /**
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
@@ -33,27 +35,14 @@ use yii\web\Response;
 final class Module extends \yii\base\Module {
     //public function behaviors() {
     //$behaviors = parent::behaviors();
-    // remove authentication filter
-    //$auth = $behaviors['authenticator'];
-    //unset($behaviors['authenticator']);
-    // add CORS filter
+    //unset($behaviors['authenticator']);F
     //$behaviors['corsFilter'] = [
     //    'class' => \yii\filters\Cors::className(),
     //];
-    // re-add authentication filter
-    //$behaviors['authenticator'] = $auth;
-    // avoid authentication on CORS-pre-flight requests (HTTP OPTIONS method)
+    //$behaviors['authenticator'] = [
+    //    'class' => RequestAuthorization::className()
+    //];
     //$behaviors['authenticator']['except'] = ['options'];
     //return $behaviors;
     //}
-
-    /**
-     * @inheritdoc
-     */
-    public function init() {
-        parent::init();
-
-        Yii::$app->response->format = Response::FORMAT_JSON;
-    }
-
 }

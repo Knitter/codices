@@ -23,7 +23,13 @@
 
 namespace app\modules\v1\controllers;
 
+use Yii;
+use yii\web\NotFoundHttpException;
+use yii\web\ServerErrorHttpException;
+use yii\web\UnauthorizedHttpException;
 use yii\rest\ActiveController;
+//
+use common\models\Account;
 
 /**
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
@@ -32,5 +38,37 @@ use yii\rest\ActiveController;
 final class AccountController extends ActiveController {
 
     public $modelClass = '\common\models\Account';
+
+    public function actionAuthenticate() {
+        $request = Yii::$app->request;
+
+        $email = $request->post('email');
+        $password = $request->post('password');
+
+        if (empty($email) || empty($password)) {
+            throw new UnauthorizedHttpException('Missing credentials.');
+        }
+
+        if (!($account = Account::find()->where(['email' => $email])->one())) {
+            throw new NotFoundHttpException('Invalid user account.');
+        }
+
+        if (!$account->validatePassword($password)) {
+            throw new UnauthorizedHttpException('Wrong credentials.');
+        }
+
+        if (!($token = $account->generateSessionId())) {
+            throw new ServerErrorHttpException('Server error. Unable to create session id.');
+        }
+
+        return (object) [
+                    'token' => $token,
+                    'account' => (object) [
+                        'id' => $account->id,
+                        'name' => $account->name,
+                        'email' => $account->email
+                    ]
+        ];
+    }
 
 }

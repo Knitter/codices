@@ -1,7 +1,8 @@
+
 <?php
 
 /*
- * CollectionController.php
+ * m161122_222711_api_session_on_account.php
  * 
  * Small book management software.
  * Copyright (C) 2016 Sérgio Lopes (knitter.is@gmail.com)
@@ -21,16 +22,26 @@
  * (c) 2016 Sérgio Lopes
  */
 
-namespace app\modules\v1\controllers;
-
-use yii\rest\ActiveController;
+use yii\db\Migration;
 
 /**
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016, Sérgio Lopes (knitter.is@gmail.com)
  */
-final class CollectionController extends ActiveController {
+class m161122_222711_api_session_on_account extends Migration {
 
-    public $modelClass = '\common\models\Collection';
+    /**
+     * @inheritdoc
+     */
+    public function up() {
+        $this->addColumn('Account', 'sessionId', $this->string());
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function down() {
+        $this->dropColumn('Account', 'sessionId');
+    }
 
 }

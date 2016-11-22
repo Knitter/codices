@@ -40,6 +40,7 @@ final class CodicesBundle extends AssetBundle {
         '_assets/css/bootstrap.min.css',
         '_assets/css/bootflat.min.css',
         '_assets/css/bootflat-admin.css',
+        '_assets/css/icheck/aero.css',
         '_assets/css/codices.css'
     ];
     public $js = [

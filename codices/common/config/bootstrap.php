@@ -6,3 +6,5 @@ Yii::setAlias('@common', realpath(__DIR__ . '/../../common'));
 Yii::setAlias('@console', realpath(__DIR__ . '/../../console'));
 Yii::setAlias('@rest', realpath(__DIR__ . '/../../rest'));
 Yii::setAlias('@app', realpath(__DIR__ . '/../../app'));
+//
+Yii::setAlias('@covers', realpath(__DIR__ . '/../../../public/app/uploads'));

@@ -64,7 +64,11 @@ final class Series extends Model {
      * @inheritdoc
      */
     public function rules() {
-        return (new \common\models\Series())->rules();
+        return [
+                [['name'], 'required'],
+                [['name'], 'string', 'max' => 255],
+                [['finished', 'bookCount'], 'integer']
+        ];
     }
 
     /**

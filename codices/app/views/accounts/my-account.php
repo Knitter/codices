@@ -4,7 +4,7 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /* @var $this \yii\web\View */
-/* @var $model \app\models\forms\Account */
+/* @var $model \app\models\forms\Profile */
 
 $this->title = 'Codices :: ' . Yii::t('codices', 'My Account');
 $this->params = [
@@ -23,7 +23,12 @@ $form = ActiveForm::begin(['options' => ['class' => 'form-horizontal', 'role' =>
 
 <?= $form->field($model, 'email', $inputFieldOptions)->textInput(['class' => 'form-control']) ?>
 
-<?= $form->field($model, 'password', $inputFieldOptions)->passwordInput(['class' => 'form-control']) ?>
+<?=
+$form->field($model, 'password', $inputFieldOptions)->passwordInput([
+    'class' => 'form-control',
+    'placeholder' => Yii::t('codices', 'Leave empty to keep the same password ...')
+])
+?>
 
 <div class="form-group">
     <div class="col-md-offset-2 col-md-10">

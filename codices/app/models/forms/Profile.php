@@ -67,7 +67,25 @@ final class Profile extends Model {
      * @inheritdoc
      */
     public function rules() {
-        return (new \common\models\Account())->rules();
+        return [
+                [['name', 'email'], 'required'],
+                [['name', 'email', 'password'], 'string', 'max' => 255],
+                [['email'], 'checkUnique']
+        ];
+    }
+
+    /**
+     * @param string $attribute
+     * @param array $params
+     */
+    public function checkUnique($attribute, $params) {
+        if (!empty($this->email) && $this->account->oldAttributes &&
+                $this->account->oldAttributes['email'] != $this->email) {
+
+            if ((\common\models\Account::find()->where(['email' => $this->email])->one()) != null) {
+                $this->addError('email', Yii::t('codices', 'E-mail must be unique, an account using the same e-mail address is already present.'));
+            }
+        }
     }
 
     /**
@@ -93,7 +111,7 @@ final class Profile extends Model {
 
         $this->account->name = $this->name;
         $this->account->email = $this->email;
-        $this->account->password = $this->password;
+        $this->account->password = $this->password ?: null;
 
         if (!$this->account->save()) {
             return false;

@@ -53,7 +53,7 @@ $this->beginPage();
                         <li class="dropdown">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="fa fa-user"></i> <b class="caret"></b></a>
                             <ul role="menu" class="dropdown-menu">
-                                <li class="dropdown-header">@name</li>
+                                <li class="dropdown-header"><?= Yii::$app->user->identity->name ?></li>
                                 <li><a href="<?= Url::to(['accounts/my-account']) ?>"><?= Yii::t('codices', 'My Account') ?></a></li>
                                 <li class="divider"></li>
                                 <li><a href="<?= Url::to(['codices/logout']) ?>"><?= Yii::t('codices', 'Logout') ?></a></li>

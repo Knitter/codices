@@ -79,7 +79,7 @@ final class Account extends Model {
      */
     public function checkUnique($attribute, $params) {
         if (!empty($this->email) && ($this->getIsNewRecord() ||
-                $this->account->oldAttributes['email'] != $this->email)) {
+                ($this->account->oldAttributes && $this->account->oldAttributes['email'] != $this->email))) {
 
             if ((\common\models\Account::find()->where(['email' => $this->email])->one()) != null) {
                 $this->addError('email', Yii::t('codices', 'E-mail must be unique, an account using the same e-mail address is already present.'));

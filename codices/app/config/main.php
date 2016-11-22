@@ -17,6 +17,13 @@ $config = [
                     'basePath' => '@webroot',
                     'baseUrl' => '@web',
                     'js' => ['_assets/js/jquery-3.1.1.min.js']
+                ],
+                'yii\bootstrap\BootstrapAsset' => [
+                    'sourcePath' => null,
+                    'basePath' => '@webroot',
+                    'baseUrl' => '@web',
+                    'js' => ['_assets/js/bootstrap.min.js'],
+                    'css' => ['_assets/css/bootstrap.min.css']
                 ]
             ]
         ],

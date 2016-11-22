@@ -37,20 +37,19 @@ final class CodicesBundle extends AssetBundle {
     public $baseUrl = '@web';
     public $css = [
         '_assets/css/font-awesome.min.css',
-        '_assets/css/bootstrap.min.css',
         '_assets/css/bootflat.min.css',
         '_assets/css/bootflat-admin.css',
         '_assets/css/icheck/aero.css',
         '_assets/css/codices.css'
     ];
     public $js = [
-        '_assets/js/bootstrap.min.js',
         '_assets/js/icheck.min.js',
         '_assets/js/jquery.fs.selecter.min.js',
         '_assets/js/jquery.fs.stepper.min.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
+        //'yii\bootstrap\BootstrapPluginAsset'
     ];
 
 }

@@ -24,6 +24,7 @@ $this->params = [
     <?=
     GridView::widget([
         'dataProvider' => $filter->search(Yii::$app->request->get()),
+        'filterModel' => $filter,
         'layout' => '{items} {summary} {pager}',
         'columns' => [
                 [

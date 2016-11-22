@@ -25,6 +25,7 @@ $this->params = [
     <?=
     GridView::widget([
         'dataProvider' => $filter->search(Yii::$app->request->get()),
+        'filterModel' => $filter,
         'layout' => '{items} {summary} {pager}',
         'columns' => [
                 [
@@ -38,13 +39,19 @@ $this->params = [
                     return Html::a($model->title, Url::to(['books/view', 'id' => $model->id]));
                 }
             ], [
+                'attribute' => 'authorName',
+                'label' => 'Author',
+                'content' => function($model, $key, $index, $column) {
+                    return $model->authorId ? $model->author->fullName : '';
+                }
+            ], [
                 'attribute' => 'isbn',
                 'label' => 'ISBN'
             ], [
-                'attribute' => 'series.name',
+                'attribute' => 'seriesName',
                 'label' => 'Series',
                 'content' => function($model, $key, $index, $column) {
-                    return $model->series ? $model->series->name : '';
+                    return $model->seriesId ? $model->series->name : '';
                 }
             ], [
                 'class' => 'yii\grid\ActionColumn',
@@ -53,10 +60,10 @@ $this->params = [
                 'contentOptions' => ['class' => 'action-buttons'],
                 'buttons' => [
                     'update' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-pencil"></i>', Url::to(['series/update', 'id' => $model->id]), ['class' => 'text-primary']);
+                        return Html::a('<i class="fa fa-pencil"></i>', Url::to(['books/update', 'id' => $model->id]), ['class' => 'text-primary']);
                     },
                     'delete' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-trash"></i>', Url::to(['series/delete', 'id' => $model->id]), ['class' => 'text-danger', 'data-confirm' => Yii::t('codices', 'Are you sure you want to remove the selected book series?')]);
+                        return Html::a('<i class="fa fa-trash"></i>', Url::to(['books/delete', 'id' => $model->id]), ['class' => 'text-danger', 'data-confirm' => Yii::t('codices', 'Are you sure you want to remove the selected book?')]);
                     }
                 ]
             ]

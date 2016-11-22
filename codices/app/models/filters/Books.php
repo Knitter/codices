@@ -81,8 +81,8 @@ final class Books extends Model {
 
         $query->andFilterWhere(['like', 'title', $this->title])
                 ->andFilterWhere(['like', 'isbn', $this->isbn])
-                ->andFilterWhere(['like', 'series.name', $this->seriesName])
-                ->andFilterWhere(['like', 'author.name', $this->authorName])
+                ->andFilterWhere(['like', 'Series.name', $this->seriesName])
+                ->andFilterWhere(['like', 'CONCAT(Author.name, " ", Author.surname)', $this->authorName])
                 ->andFilterWhere(['>=', 'rating', $this->rating]);
 
         return $provider;

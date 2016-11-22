@@ -25,6 +25,7 @@ $this->params = [
     <?=
     GridView::widget([
         'dataProvider' => $filter->search(Yii::$app->request->get()),
+        'filterModel' => $filter,
         'layout' => '{items} {summary} {pager}',
         'columns' => [
                 [
@@ -32,7 +33,7 @@ $this->params = [
                 'label' => '#',
                 'headerOptions' => ['class' => 'id-column']
             ], [
-                'attribute' => 'fullName',
+                'attribute' => 'name',
                 'label' => 'Name',
                 'content' => function($model, $key, $index, $column) {
                     return Html::a($model->fullName, Url::to(['authors/view', 'id' => $model->id]));

@@ -28,7 +28,7 @@ use yii\base\ActionFilter;
 use yii\filters\auth\AuthInterface;
 use yii\web\UnauthorizedHttpException;
 //-
-use common\models\Account;
+use common\models\Session;
 
 /**
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
@@ -54,13 +54,13 @@ final class RequestAuthorization extends ActionFilter implements AuthInterface {
     public function authenticate($user, $request, $response) {
         $headers = $request->getHeaders();
 
-        $account = null;
         if (empty($headers['X-CODICESUSER-TOKEN']) ||
-                !($account = Account::findOne(['sessionId' => $headers['X-CODICESUSER-TOKEN']]))) {
+                !($session = Session::findOne(['accessToken' => $headers['X-CODICESUSER-TOKEN']]))) {
 
             throw new UnauthorizedHttpException('Wrong credentials.');
         }
-
+        $account = $session->account;
+        
         $user->switchIdentity($account);
         return $account;
     }

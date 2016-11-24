@@ -31,6 +31,7 @@ use yii\web\ServerErrorHttpException;
 use yii\web\UnauthorizedHttpException;
 //-
 use common\models\Account;
+use common\models\Session;
 //-
 use app\filters\RequestAuthorization;
 
@@ -76,12 +77,16 @@ final class AccountController extends ActiveController {
             throw new UnauthorizedHttpException('Wrong credentials.');
         }
 
-        if (!($token = $account->generateSessionId())) {
+        $session = new Session();
+        $session->accessToken = $account->generateSessionToken();
+        $session->accountId = $account->id;
+
+        if (!$session->save()) {
             throw new ServerErrorHttpException('Server error. Unable to create session id.');
         }
 
         return (object) [
-                    'token' => $token,
+                    'token' => $session->accessToken,
                     'account' => (object) [
                         'id' => $account->id,
                         'name' => $account->name,

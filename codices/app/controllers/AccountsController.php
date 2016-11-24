@@ -33,6 +33,7 @@ use common\models\Account;
 use app\models\forms\Account as Form;
 use app\models\forms\Profile;
 use app\models\filters\Accounts;
+use app\models\filters\Sessions;
 
 /**
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
@@ -144,7 +145,7 @@ final class AccountsController extends Controller {
             }
         }
 
-        return $this->render('my-account', ['model' => $form]);
+        return $this->render('my-account', ['model' => $form, 'filter' => new Sessions()]);
     }
 
     /**

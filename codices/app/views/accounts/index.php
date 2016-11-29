@@ -48,10 +48,10 @@ $this->params = [
                 'contentOptions' => ['class' => 'action-buttons'],
                 'buttons' => [
                     'update' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-pencil"></i>', Url::to(['accounts/update', 'id' => $model->id]), ['class' => 'text-primary']);
+                        return Html::a('<i class="fa fa-pencil"></i>', Url::to(['accounts/update', 'id' => $model->id]), ['class' => 'btn btn-xs btn-primary']);
                     },
                     'delete' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-trash"></i>', Url::to(['accounts/delete', 'id' => $model->id]), ['class' => 'text-danger', 'data-confirm' => Yii::t('codices', 'Are you sure you want to remove the selected account?')]);
+                        return Html::a('<i class="fa fa-trash"></i>', Url::to(['accounts/delete', 'id' => $model->id]), ['class' => 'btn btn-xs btn-danger', 'data-confirm' => Yii::t('codices', 'Are you sure you want to remove the selected account?')]);
                     }
                 ]
             ]

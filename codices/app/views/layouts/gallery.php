@@ -86,7 +86,7 @@ $this->beginPage();
 
         <div class="site-footer">
             <div class="container">
-                <div class="copyright clearfix">&copy; <?= date('Y') ?> Codices.</div>
+                <div class="copyright clearfix">&copy; <?= date('Y') ?> Codices. v<?= Yii::$app->version ?></div>
             </div>
         </div>
         <?php $this->endBody() ?>

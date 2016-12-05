@@ -1,6 +1,5 @@
 <?php
 
 return [
-    'ioskey' => '@TODO',
-    'androidkey' => '@TODO'
+        //NOTE: currently unused
 ];

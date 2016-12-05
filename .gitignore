@@ -1,22 +1,26 @@
-# IDE file
+# IDE files
+# Configuration files and folders for common IDE
+#
 .idea
-nbproject
 .buildpath
 .project
 .settings
+nbproject
 
-# OS files
+# OS Cache files
+# 
 Thumbs.db
 .DS_Store
 
-# Dev files
+# Development related files
+# 
+/codices/common/config/config.local.php
 /vendor
-composer.phar
-phpunit.phar
-/phpunit.xml
+phpunit.xml
 vagrant.config.lock
-ui/node_modules
 .vagrant
 
 # Misc
+# 
 *.sql
+/logs

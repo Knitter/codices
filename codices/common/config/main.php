@@ -4,7 +4,7 @@ $db = require(__DIR__ . '/db.php');
 $params = require(__DIR__ . '/params.php');
 
 $config = [
-    'version' => '1.1.1',
+    'version' => '1.2.0',
     'vendorPath' => __DIR__ . '/../../../vendor',
     'components' => [
         'cache' => ['class' => 'yii\caching\FileCache'],
@@ -25,7 +25,7 @@ if (defined('YII_DEBUG')) {
     ];
 }
 
-if (defined('YII_ENV') && YII_ENV == 'dev' && is_file(__DIR__ . '/config.local.php')) {
+if (is_file(__DIR__ . '/config.local.php')) {
     include __DIR__ . '/config.local.php';
 }
 

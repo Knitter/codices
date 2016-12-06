@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Url;
-use yii\widgets\DetailView;
 
 /* @var $this \yii\web\View */
 /* @var $author \common\models\Author */
@@ -19,28 +18,28 @@ $this->params = [
 <div class="clearfix"></div><br />
 
 <div class="table-responsive">
-    <?=
-    DetailView::widget([
-        'model' => $author,
-        'attributes' => [
-                [
-                'attribute' => 'id',
-                'label' => '#'
-            ], [
-                'attribute' => 'fullName',
-                'label' => Yii::t('codices', 'Name')
-            ], [
-                'attribute' => 'url',
-                'label' => Yii::t('codices', 'Website/URL'),
-                'format' => 'url'
-            ], [
-                'attribute' => 'biography',
-                'label' => Yii::t('codices', 'Biography')
-            ], [
-                'attribute' => 'photo',
-                'label' => Yii::t('codices', 'Photo')
-            ]
-        ]
-    ])
-    ?>
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th>#</th>
+            <td><?= $author->id ?></td>
+            <td rowspan="4" class="text-center" style="width: 180px;">
+                <?php if (($url = $author->photoURL)) { ?>
+                    <img class="img-rounded preview" src="<?= $url ?>">
+                <?php } ?>
+            </td>
+        </tr>
+
+        <tr><th><?= Yii::t('codices', 'Name') ?></th><td><?= $author->fullName ?></td></tr>
+
+        <tr>
+            <th><?= Yii::t('codices', 'Website/URL') ?></th>
+            <td>
+                <?php if ($author->url) { ?>
+                    <a href="<?= $author->url ?>" target="_blank"><?= $author->url ?> <i class="fa fa-external-link"></i></a>
+                    <?php }  ?>
+            </td>
+        </tr>
+
+        <tr><th><?= Yii::t('codices', 'Biography') ?></th><td><?= $author->biography ?></td></tr>
+    </table>
 </div>

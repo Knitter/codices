@@ -73,4 +73,13 @@ class Author extends ActiveRecord {
         return $this->name . ' ' . $this->surname;
     }
 
+    /**
+     * Returns the full URL to the authors' photo.
+     * 
+     * @return string
+     */
+    public function getPhotoURL() {
+        return ($this->photo ? \yii\helpers\Url::base() . '/uploads/authors/' . $this->photo : '');
+    }
+
 }

@@ -461,3 +461,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
         overflow: hidden;
     }
 }
+
+td > img.preview {
+    width: auto;
+    height: auto;
+    max-height: 225px;
+}

@@ -1,10 +1,9 @@
 <?php
 
 use yii\helpers\Url;
-use yii\widgets\DetailView;
 
 /* @var $this \yii\web\View */
-/* @var $account \common\models\Account */
+/* @var $series \common\models\Series */
 
 $this->title = 'Codices :: ' . Yii::t('codices', 'Series Details');
 $this->params = [
@@ -19,27 +18,11 @@ $this->params = [
 <div class="clearfix"></div><br />
 
 <div class="table-responsive">
-    <?=
-    DetailView::widget([
-        'model' => $series,
-        'attributes' => [
-                [
-                'attribute' => 'id',
-                'label' => '#'
-            ], [
-                'attribute' => 'name',
-                'label' => Yii::t('codices', 'Name')
-            ], [
-                'attribute' => 'bookCount',
-                'label' => Yii::t('codices', 'Total')
-            ], [
-                'attribute' => 'ownCount',
-                'label' => Yii::t('codices', 'Owned')
-            ], [
-                'attribute' => 'complete',
-                'label' => Yii::t('codices', 'Complete')
-            ]
-        ]
-    ])
-    ?>
+    <table class="table table-striped table-bordered">
+        <tr><th>#</th><td><?= $series->id ?></td></tr>
+        <tr><th><?= Yii::t('codices', 'Name') ?></th><td><?= $series->name ?></td></tr>
+        <tr><th><?= Yii::t('codices', 'Finished') ?></th><td><i class="fa <?= $series->finished ? 'fa-check' : 'fa-times' ?>"></i></td></tr>
+        <tr><th><?= Yii::t('codices', 'Owned') ?></th><td><?= $series->ownCount ?></td></tr>
+        <tr><th><?= Yii::t('codices', 'Total') ?></th><td><?= $series->bookCount ?></td></tr>
+    </table>
 </div>

@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Url;
-use yii\widgets\DetailView;
 
 /* @var $this \yii\web\View */
 /* @var $book \common\models\Book */
@@ -19,63 +18,78 @@ $this->params = [
 <div class="clearfix"></div><br />
 
 <div class="table-responsive">
-    <?=
-    DetailView::widget([
-        'model' => $book,
-        'attributes' => [
-                [
-                'attribute' => 'id',
-                'label' => '#'
-            ], [
-                'attribute' => 'title',
-                'label' => Yii::t('codices', 'Title')
-            ], [
-                'attribute' => 'isbn',
-                'label' => Yii::t('codices', 'ISBN')
-            ], [
-                'attribute' => 'pageCount',
-                'label' => Yii::t('codices', 'Pages')
-            ], [
-                'attribute' => 'publicationDate',
-                'label' => Yii::t('codices', 'Published at')
-            ], [
-                'attribute' => 'formatLabel',
-                'label' => Yii::t('codices', 'Format')
-            ], [
-                'attribute' => 'language',
-                'label' => Yii::t('codices', 'Language')
-            ], [
-                'attribute' => 'edition',
-                'label' => Yii::t('codices', 'Edition')
-            ], [
-                'attribute' => 'series.name',
-                'label' => Yii::t('codices', 'Series')
-            ], [
-                'attribute' => 'order',
-                'label' => Yii::t('codices', 'Order')
-            ], [
-                'attribute' => 'plot',
-                'label' => Yii::t('codices', 'Plot')
-            ], [
-                'attribute' => 'publisher',
-                'label' => Yii::t('codices', 'Publisher')
-            ], [
-                'attribute' => 'read',
-                'label' => Yii::t('codices', 'Read')
-            ], [
-                'attribute' => 'rating',
-                'label' => Yii::t('codices', 'Rating')
-            ], [
-                'attribute' => 'url',
-                'label' => Yii::t('codices', 'Website/URL')
-            ], [
-                'attribute' => 'review',
-                'label' => Yii::t('codices', 'Review')
-            ], [
-                'attribute' => 'cover',
-                'label' => Yii::t('codices', 'Cover')
-            ]
-        ]
-    ])
-    ?>
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th>#</th>
+            <td><?= $book->id, ' - ', $book->addedOn ?></td>
+            <td rowspan="7" class="text-center" style="width: 180px;">
+                <?php if (($url = $book->photoURL)) { ?>
+                    <img class="img-rounded preview" src="<?= $url ?>">
+                <?php } ?>
+            </td>
+        </tr>
+
+        <tr><th><?= Yii::t('codices', 'Title') ?></th><td><?= $book->title ?></td></tr>
+
+        <tr>
+            <th><?= Yii::t('codices', 'Website/URL') ?></th>
+            <td>
+                <?php if ($book->url) { ?>
+                    <a href="<?= $book->url ?>" target="_blank"><?= $book->url ?> <i class="fa fa-external-link"></i></a>
+                <?php }  ?>
+            </td>
+        </tr>
+
+        <tr><th><?= Yii::t('codices', 'ISBN') ?></th><td><?= $book->isbn ?></td></tr>
+        <tr><th><?= Yii::t('codices', 'Rating') ?></th><td><?= $book->rating ?></td></tr>
+
+        <tr>
+            <th><?= Yii::t('codices', 'Author') ?></th>
+            <td>
+                <?php if ($book->authorId) { ?>
+                    <a href="<?= Url::to(['authors/view', 'id' => $book->authorId]) ?>"><?= $book->author->fullName ?></a>
+                <?php } else { ?>
+                    //TODO: action button to add author
+                <?php } ?>
+            </td>
+        </tr>
+
+        <tr>
+            <th><?= Yii::t('codices', 'Series') ?></th>
+            <td>
+                <?php if ($book->seriesId) { ?>
+                    #<?= $book->order ?>, <a href="<?= Url::to(['series/view', 'id' => $book->seriesId]) ?>"><?= $book->series->name ?></a>
+                <?php } else { ?>
+                    //TODO: action button to add series
+                <?php } ?>
+            </td>
+        </tr>
+        <tr><th><?= Yii::t('codices', 'Plot') ?></th><td colspan="2"><?= $book->plot ?></td></tr>
+
+        <tr>
+            <th><?= Yii::t('codices', 'Publication') ?></th>
+            <td colspan="2">
+                <?=
+                ($book->edition ? ($book->edition . ', ') : ''),
+                ($book->publicationDate ? ($book->publicationDate . ', ') : ''),
+                ($book->publisher ?: '')
+                ?>
+            </td>
+        </tr>
+
+        <tr><th><?= Yii::t('codices', 'Language') ?></th><td colspan="2"><?= $book->language ?></td></tr>
+        <tr><th><?= Yii::t('codices', 'Format') ?></th><td colspan="2"><?= $book->formatLabel ?></td></tr>
+        <tr><th><?= Yii::t('codices', 'Pages') ?></th><td colspan="2"><?= $book->pageCount ?></td></tr>
+        <tr><th><?= Yii::t('codices', 'Read') ?></th><td colspan="2"><i class="fa <?= $book->read ? 'fa-check' : 'fa-times' ?>"></i></td></tr>
+                <?php if ($book->copies > 1) { ?>
+            <tr><th><?= Yii::t('codices', 'Copies') ?></th><td colspan="2"><?= $book->copies ?></td></tr>
+        <?php } ?>
+        <tr><th><?= Yii::t('codices', 'Review') ?></th><td colspan="2"><?= $book->review ?></td></tr>
+    </table>
 </div>
+
+
+
+
+
+

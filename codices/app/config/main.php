@@ -24,6 +24,10 @@ $config = [
                     'baseUrl' => '@web',
                     'js' => ['_assets/js/bootstrap.min.js'],
                     'css' => ['_assets/css/bootstrap.min.css']
+                ],
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'js' => [],
+                    'css' => []
                 ]
             ]
         ],

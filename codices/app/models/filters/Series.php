@@ -36,7 +36,7 @@ final class Series extends Model {
     public $name;
 
     /** @var integer */
-    public $bookCount;
+    public $finished;
 
     /**
      * @inheritdoc
@@ -44,7 +44,7 @@ final class Series extends Model {
     public function rules() {
         return [
                 [['name'], 'string', 'max' => 255],
-                [['bookCount'], 'integer']
+                [['finished'], 'integer']
         ];
     }
 
@@ -67,7 +67,7 @@ final class Series extends Model {
         }
 
         $query->andFilterWhere(['like', 'name', trim($this->name)])
-                ->andFilterWhere(['>=', 'bookCount', $this->bookCount]);
+                ->andFilterWhere(['finished' => (int) $this->finished]);
 
         return $provider;
     }

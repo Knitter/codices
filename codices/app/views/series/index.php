@@ -15,7 +15,7 @@ $this->params = [
 ?>
 
 <div class="btn-group pull-right">
-    <a class="btn" href="<?= Url::to(['series/create']) ?>"><i class="fa fa-plus"></i></a>
+    <a class="btn btn-success" href="<?= Url::to(['series/create']) ?>"><i class="fa fa-plus"></i></a>
 </div>
 
 <div class="clearfix"></div><br />
@@ -33,23 +33,32 @@ $this->params = [
                 'headerOptions' => ['class' => 'id-column']
             ], [
                 'attribute' => 'name',
+                'label' => Yii::t('codices', 'Name'),
                 'content' => function($model, $key, $index, $column) {
                     return Html::a($model->name, Url::to(['series/view', 'id' => $model->id]));
                 }
             ], [
                 'attribute' => 'ownCount',
-                'label' => 'Owned',
+                'label' => Yii::t('codices', 'Owned'),
                 'headerOptions' => ['style' => 'width: 120px;'],
                 'content' => function($model, $key, $index, $column) {
                     return $model->ownCount ?: 0;
                 }
             ], [
                 'attribute' => 'bookCount',
-                'label' => 'Total',
+                'label' => Yii::t('codices', 'Total'),
                 'headerOptions' => ['style' => 'width: 120px;'],
                 'content' => function($model, $key, $index, $column) {
-                    return $model->ownCount ?: 0;
+                    return $model->bookCount ?: 0;
                 }
+            ], [
+                'attribute' => 'finished',
+                'label' => Yii::t('codices', 'Completed'),
+                'headerOptions' => ['style' => 'width: 120px;'],
+                'content' => function($model, $key, $index, $column) {
+                    return $model->finished ? '<i class="fa fa-check"></i>' : '';
+                },
+                'filter' => [0 => Yii::t('codices', 'No'), 1 => Yii::t('codices', 'Yes')]
             ], [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{update} {delete}',

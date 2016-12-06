@@ -12,7 +12,9 @@ $this->params = [
 ?>
 
 <div class="btn-group pull-right">
-    <a class="btn" href="<?= Url::to(['authors/update', 'id' => $author->id]) ?>"><i class="fa fa-pencil"></i></a>
+    <a class="btn btn-default" href="<?= Url::to(['authors/index']) ?>"><i class="fa fa-list"></i></a>
+    <a class="btn btn-primary" href="<?= Url::to(['authors/update', 'id' => $author->id]) ?>"><i class="fa fa-pencil"></i></a>
+    <a class="btn btn-success" href="<?= Url::to(['authors/create']) ?>"><i class="fa fa-plus"></i></a>
 </div>
 
 <div class="clearfix"></div><br />

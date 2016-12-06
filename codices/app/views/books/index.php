@@ -15,7 +15,7 @@ $this->params = [
 ?>
 
 <div class="btn-group pull-right">
-    <a class="btn" href="<?= Url::to(['books/create']) ?>"><i class="fa fa-plus"></i></a>
+    <a class="btn btn-success" href="<?= Url::to(['books/create']) ?>"><i class="fa fa-plus"></i></a>
 </div>
 
 <div class="clearfix"></div><br />

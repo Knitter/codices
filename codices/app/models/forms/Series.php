@@ -99,6 +99,7 @@ final class Series extends Model {
 
         $this->series->name = $this->name;
         $this->series->bookCount = $this->bookCount ?: 0;
+        $this->series->finished = $this->finished ?: 0;
 
         if (!$this->series->save()) {
             return false;

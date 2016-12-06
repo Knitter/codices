@@ -14,7 +14,6 @@ $this->params = [
 ];
 ?>
 
-
 <div class="btn-group pull-right">
     <a class="btn" href="<?= Url::to(['books/create']) ?>"><i class="fa fa-plus"></i></a>
 </div>

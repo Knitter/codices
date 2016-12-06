@@ -37,16 +37,6 @@ $this->beginPage();
         <!--nav-->
         <nav role="navigation" class="navbar navbar-custom">
             <div class="container-fluid">
-                <div class="navbar-header">
-                    <button data-target="#navmenu" data-toggle="collapse" class="navbar-toggle" type="button">
-                        <span class="sr-only"><?= Yii::t('codices', 'Toggle navigation') ?></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a href="#" class="navbar-brand">Codices</a>
-                </div>
-
                 <div id="navmenu" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="<?= Url::to(['books/gallery']) ?>"><?= Yii::t('codices', 'Gallery') ?></a></li>

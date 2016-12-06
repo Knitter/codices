@@ -119,8 +119,8 @@ final class Book extends ActiveRecord {
      */
     public static function formatList() {
         return [
-            self::FORMAT_HARDCOVER => Yii::t('codices', 'Hard Cover'),
-            self::FORMAT_PAPERBACK => Yii::t('codices', 'Paper Back')
+            self::FORMAT_PAPERBACK => Yii::t('codices', 'Paper Back'),
+            self::FORMAT_HARDCOVER => Yii::t('codices', 'Hard Cover')
         ];
     }
 

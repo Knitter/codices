@@ -64,7 +64,7 @@ final class Authors extends Model {
             return $provider;
         }
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'CONCAT(name, " ", surname)', trim($this->name)]);
 
         return $provider;
     }

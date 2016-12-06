@@ -66,7 +66,7 @@ final class Series extends Model {
             return $provider;
         }
 
-        $query->andFilterWhere(['like', 'name', $this->name])
+        $query->andFilterWhere(['like', 'name', trim($this->name)])
                 ->andFilterWhere(['>=', 'bookCount', $this->bookCount]);
 
         return $provider;

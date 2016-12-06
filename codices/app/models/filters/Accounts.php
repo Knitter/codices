@@ -67,8 +67,8 @@ final class Accounts extends Model {
             return $provider;
         }
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-                ->andFilterWhere(['like', 'email', $this->email]);
+        $query->andFilterWhere(['like', 'name', trim($this->name)])
+                ->andFilterWhere(['like', 'email', trim($this->email)]);
 
         return $provider;
     }

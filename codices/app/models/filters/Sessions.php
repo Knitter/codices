@@ -68,7 +68,7 @@ final class Sessions extends Model {
             return $provider;
         }
 
-        $query->andFilterWhere(['like', 'creationDate', $this->creationDate])
+        $query->andFilterWhere(['like', 'creationDate', trim($this->creationDate)])
                 ->andFilterWhere(['valid' => $this->valid]);
 
         return $provider;

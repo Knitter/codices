@@ -83,7 +83,7 @@ final class BooksController extends Controller {
                 return $this->redirect(['update', 'id' => $form->id]);
             }
         }
-        
+
         return $this->render('create', ['model' => $form]);
     }
 
@@ -125,12 +125,13 @@ final class BooksController extends Controller {
      * 
      * @return string
      */
-    public function actionGallery() {
+    public function actionGallery($mode = 'all') {
         $this->layout = 'gallery';
+        if ($mode != 'all' && $mode != 'ordered') {
+            $mode = 'ordered';
+        }
 
-        $books = Book::find()->orderBy('title')->all();
-
-        return $this->render('gallery', ['books' => $books]);
+        return $this->render('gallery', ['books' => $books, 'type' => $mode]);
     }
 
     public function actionExport($ft = 'html') {

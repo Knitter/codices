@@ -39,7 +39,14 @@ $this->beginPage();
             <div class="container-fluid">
                 <div id="navmenu" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="<?= Url::to(['books/gallery']) ?>"><?= Yii::t('codices', 'Gallery') ?></a></li>
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#"><?= Yii::t('codices', 'Gallery') ?> <b class="caret"></b></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="<?= Url::to(['books/gallery']) ?>"><?= Yii::t('codices', 'All Books') ?></a></li>
+                                <li class="divider"></li>
+                                <li><a href="<?= Url::to(['books/gallery', 'mode' => 'ordered']) ?>"><?= Yii::t('codices', 'Grouped by title') ?></a></li>
+                            </ul>
+                        </li>
                         <?php if (!Yii::$app->user->isGuest) { ?>
 
                             <li><a href="<?= Url::to(['codices/dashboard']) ?>"><?= Yii::t('codices', 'Dashboard') ?></a></li>

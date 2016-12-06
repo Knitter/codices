@@ -467,3 +467,7 @@ td > img.preview {
     height: auto;
     max-height: 225px;
 }
+
+.book-index-key {
+    padding: 0 .2rem 0 .2rem;
+}

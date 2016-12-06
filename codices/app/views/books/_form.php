@@ -117,7 +117,11 @@ $form->field($model, 'read', [
 ])->checkbox(null, false)
 ?>
 
-<?= $form->field($model, 'copies', $smallFieldOptions)->dropDownList([1, 2, 3, 4, 5], ['class' => 'form-control']) ?>
+<?=
+$form->field($model, 'copies', $smallFieldOptions)->dropDownList(
+        [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5], ['class' => 'form-control']
+)
+?>
 
 <?= $form->field($model, 'review', $standardFieldOptions)->textarea(['class' => 'form-control']) ?>
 
@@ -126,7 +130,9 @@ $form->field($model, 'read', [
 <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
         <button class="btn btn-success" type ="submit"><?= Yii::t('codices', 'Submit') ?></button>
-        <a class="form-cancel-btn text-warning" href="<?= Url::to(['books/index']) ?>"><?= Yii::t('codices', 'Cancel') ?></a>
+        <a class="form-cancel-btn text-warning" href="<?= Url::to(['books/index']) ?>">
+            <?= Yii::t('codices', 'Cancel') ?>
+        </a>
     </div>
 </div>
 

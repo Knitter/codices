@@ -115,6 +115,7 @@ final class Book extends Model {
             $this->order = $this->book->order;
             $this->seriesId = $this->book->seriesId;
             $this->authorId = $this->book->authorId;
+            $this->copies = $this->book->copies;
         }
 
         parent::__construct($config);

@@ -9,6 +9,10 @@ made for eBooks, you may be able to use it to manage your eBook collection.
 
 Codices will also feature a companion APP, for both Android and iOS that will offer access to the existing API.
 
+**NOTICE:** This project, along with the [Books Android APP](https://github.com/Knitter/amsi-books), is being used as 
+part of the course *Acesso Móvel a Sistemas de Informação*, therefore it will have some features needed in the course 
+and the APP.
+
 # Platform Structure
 
 ```

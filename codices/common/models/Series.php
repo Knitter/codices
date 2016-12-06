@@ -34,8 +34,11 @@ use yii\db\ActiveRecord;
  * @property integer $ownCount
  * @property integer $finished
  * @property integer $accountId
+ * @property integer $authorId
  *
  * @property Book[] $books
+ * @property Account $account
+ * @property Author $author
  * 
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016, Sérgio Lopes (knitter.is@gmail.com)
@@ -56,7 +59,7 @@ final class Series extends ActiveRecord {
         return [
                 [['name'], 'required'],
                 [['name'], 'string', 'max' => 255],
-                [['finished', 'bookCount', 'accountId'], 'integer']
+                [['finished', 'bookCount', 'accountId', 'authorId'], 'integer']
         ];
     }
 
@@ -72,6 +75,13 @@ final class Series extends ActiveRecord {
      */
     public function getAccount() {
         return $this->hasOne(Account::className(), ['id' => 'accountId']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAuthor() {
+        return $this->hasOne(Author::className(), ['id' => 'authorId']);
     }
 
 }

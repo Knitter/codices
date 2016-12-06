@@ -34,6 +34,7 @@ use yii\db\ActiveRecord;
  * @property string $surname
  * 
  * @property Book[] $books
+ * @property Series[] $series
  * 
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016, Sérgio Lopes (knitter.is@gmail.com)
@@ -80,6 +81,13 @@ class Author extends ActiveRecord {
      */
     public function getPhotoURL() {
         return ($this->photo ? \yii\helpers\Url::base() . '/uploads/authors/' . $this->photo : '');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSeries() {
+        return $this->hasMany(Series::className(), ['authorId' => 'id'])->inverseOf('author');
     }
 
 }

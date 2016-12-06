@@ -45,7 +45,8 @@ final class CodicesBundle extends AssetBundle {
     public $js = [
         '_assets/js/icheck.min.js',
         '_assets/js/jquery.fs.selecter.min.js',
-        '_assets/js/jquery.fs.stepper.min.js'
+        '_assets/js/jquery.fs.stepper.min.js',
+        '_assets/js/codices.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

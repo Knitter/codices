@@ -13,6 +13,7 @@ $this->params = [
 ?>
 
 <div class="btn-group pull-right">
+    <a class="btn btn-primary" href="<?= Url::to(['books/view', 'id' => $model->id]) ?>"><i class="fa fa-eye"></i></a>
     <a class="btn" href="<?= Url::to(['books/create']) ?>"><i class="fa fa-plus"></i></a>
 </div>
 

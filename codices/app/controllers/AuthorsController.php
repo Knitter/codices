@@ -27,6 +27,7 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 //-
 use common\models\Author;
 //-
@@ -117,6 +118,35 @@ final class AuthorsController extends Controller {
         }
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * @return string
+     */
+    public function actionAjaxCreate() {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        if (($name = Yii::$app->request->post('name')) && ($surname = Yii::$app->request->post('surname'))) {
+            $newAuthor = new Author();
+            $newAuthor->name = $name;
+            $newAuthor->surname = $surname;
+
+            if ($newAuthor->save(false)) {
+                $authors = Author::find()->orderBy(['(CONCAT(name, " ", surname))' => SORT_ASC])
+                        ->asArray()
+                        ->all();
+
+                $html = ('<option value="0">' . Yii::t('codices', '- none -') . '</option>');
+                foreach ($authors as $author) {
+                    $html .= '<option value="' . $author['id'] . '"' . ($author['id'] == $newAuthor->id ? ' selected ' : '')
+                            . '>' . $author['name'] . ($author['surname'] ? (' ' . $author['surname']) : '')
+                            . '</option>';
+                }
+
+                return (object) ['ok' => true, 'html' => $html];
+            }
+        }
+
+        return (object) ['ok' => false];
     }
 
     /**

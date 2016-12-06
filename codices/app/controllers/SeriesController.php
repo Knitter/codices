@@ -27,7 +27,9 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 //-
+use common\models\Author;
 use common\models\Series;
 //-
 use app\models\forms\Series as Form;
@@ -123,6 +125,61 @@ final class SeriesController extends Controller {
         }
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * @return \stdClass
+     */
+    public function actionAjaxCreate() {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        if (($name = Yii::$app->request->post('name'))) {
+            $newSeries = new Series();
+            $newSeries->name = $name;
+            $newSeries->accountId = Yii::$app->user->identity->id;
+
+            if (($authorId = (int) Yii::$app->request->post('author'))) {
+                if (($author = Author::findOne($authorId))) {
+                    $newSeries->authorId = $author->id;
+                }
+            }
+
+            if ($newSeries->save(false)) {
+
+                $html = ('<option value="0">' . Yii::t('codices', '- none -') . '</option>');
+                if ($author) {
+                    foreach ($author->getSeries()->asArray()->all() as $series) {
+                        $html .= '<option value="' . $series['id'] . '"' . ($series['id'] == $newSeries->id ? ' selected ' : '')
+                                . '>' . $series['name'] . '</option>';
+                    }
+                } else {
+                    $html .= '<option value="' . $newSeries->id . '">' . $newSeries->name . '</option>';
+                }
+
+                return (object) ['ok' => true, 'html' => $html];
+            }
+        }
+
+        return (object) ['ok' => false];
+    }
+
+    /**
+     * @return \stdClass
+     */
+    public function actionAjaxList($id) {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        if (($author = Author::findOne((int) $id))) {
+            $html = ('<option value="0">' . Yii::t('codices', '- none -') . '</option>');
+            if ($author) {
+                foreach ($author->getSeries()->asArray()->all() as $series) {
+                    $html .= '<option value="' . $series['id'] . '">' . $series['name'] . '</option>';
+                }
+            }
+
+            return (object) ['ok' => true, 'html' => $html];
+        }
+
+        return (object) ['ok' => false];
     }
 
     /**

@@ -233,7 +233,7 @@ final class Book extends Model {
     /**
      * @return int
      */
-    public function getId(): bool {
+    public function getId(): int {
         return $this->book ? $this->book->id : 0;
     }
 

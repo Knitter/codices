@@ -91,7 +91,7 @@ final class CodicesController extends Controller {
                         ->andWhere(['Book.accountId' => $accountId])
                         ->scalar();
 
-        $topLanguages = (new Query())->select(['Book.language', 'subQuery.total'])
+        $topLanguages = (new Query())->select(['subQuery.language', 'subQuery.total'])
                 ->from('(SELECT Book.language, COUNT(Book.id) AS total FROM Book WHERE Book.accountId = ' . $accountId
                         . ' GROUP BY Book.language) AS subQuery')
                 ->where('subQuery.language IS NOT NULL')

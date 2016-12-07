@@ -4,7 +4,7 @@ $db = require(__DIR__ . '/db.php');
 $params = require(__DIR__ . '/params.php');
 
 $config = [
-    'version' => '1.3.0',
+    'version' => '1.4.1',
     'vendorPath' => __DIR__ . '/../../../vendor',
     'components' => [
         'cache' => ['class' => 'yii\caching\FileCache'],

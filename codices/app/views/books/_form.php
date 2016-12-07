@@ -88,18 +88,10 @@ $form->field($model, 'url', [
 
 <?= $form->field($model, 'edition', $mediumFieldOptions)->textInput(['class' => 'form-control']) ?>
 
-<?php
-//TODO: Fix date widget
-//=
-//$form->field($model, 'publicationDate', $mediumFieldOptions)->widget(DatePicker::className(), [
-//    'type' => DatePicker::TYPE_COMPONENT_APPEND,
-//    'removeButton' => false,
-//    //'language' => 'pt',
-//    'pluginOptions' => [
-//        'autoclose' => true,
-//        'format' => 'yyyy-mm-dd'
-//    ]
-//]);
+<?=
+$form->field($model, 'publicationDate', $mediumFieldOptions)->textInput(
+        ['class' => 'form-control', 'placeholder' => 'format: yyyy-mm-dd']
+)
 ?>
 
 <?= $form->field($model, 'publisher', $standardFieldOptions)->textInput(['class' => 'form-control']) ?>

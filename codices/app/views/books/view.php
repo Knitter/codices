@@ -38,7 +38,7 @@ $this->params = [
             <td>
                 <?php if ($book->url) { ?>
                     <a href="<?= $book->url ?>" target="_blank"><?= $book->url ?> <i class="fa fa-external-link"></i></a>
-                <?php }  ?>
+                <?php } ?>
             </td>
         </tr>
 
@@ -89,9 +89,3 @@ $this->params = [
         <tr><th><?= Yii::t('codices', 'Review') ?></th><td colspan="2"><?= $book->review ?></td></tr>
     </table>
 </div>
-
-
-
-
-
-

@@ -41,6 +41,8 @@ use yii\db\ActiveRecord;
  */
 class Author extends ActiveRecord {
 
+    use ErrorDecorator;
+
     /**
      * @inheritdoc
      */

@@ -39,6 +39,8 @@ use yii\db\ActiveRecord;
  */
 final class Session extends ActiveRecord {
 
+    use ErrorDecorator;
+
     /**
      * @inheritdoc
      */

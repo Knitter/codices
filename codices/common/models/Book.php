@@ -56,6 +56,8 @@ use yii\db\ActiveRecord;
  */
 final class Book extends ActiveRecord {
 
+    use ErrorDecorator;
+
     const FORMAT_HARDCOVER = 'HC',
             FORMAT_PAPERBACK = 'PB';
 

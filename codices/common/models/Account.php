@@ -40,6 +40,8 @@ use yii\web\IdentityInterface;
  */
 final class Account extends ActiveRecord implements IdentityInterface {
 
+    use ErrorDecorator;
+
     public $hash;
 
     /**

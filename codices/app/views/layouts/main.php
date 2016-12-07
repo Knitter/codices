@@ -86,6 +86,25 @@ $this->beginPage();
                     </ul>
                 </div>
                 <div class="col-xs-12 col-sm-9 content">
+
+                    <?php
+                    if (Yii::$app->session->hasFlash('failure') || Yii::$app->session->hasFlash('success')) {
+                        $type = 'success';
+                        $msg = Yii::$app->session->getFlash('success');
+                        if (($msg2 = Yii::$app->session->getFlash('failure'))) {
+                            $type = 'warning';
+                        }
+
+                        $msg = $msg2 ?: $msg;
+                        $this->registerJs('setTimeout(function(){ $("#msg-alert").alert("close"); }, 3000);');
+                        ?>
+
+                        <div id="msg-alert" class="alert alert-dismissible fade in alert-<?= $type ?>">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <?= nl2br($msg) ?>
+                        </div>
+                    <?php } ?>
+
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="fa "></i> </a> <?= $title ?></h3>

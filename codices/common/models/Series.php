@@ -45,6 +45,8 @@ use yii\db\ActiveRecord;
  */
 final class Series extends ActiveRecord {
 
+    use ErrorDecorator;
+
     /**
      * @inheritdoc
      */

@@ -66,7 +66,7 @@ final class Series extends Model {
         }
 
         $query->andFilterWhere(['like', 'name', trim($this->name)])
-                ->andFilterWhere(['finished' => (int) $this->finished]);
+                ->andFilterWhere(['finished' => $this->finished]);
 
         return $provider;
     }

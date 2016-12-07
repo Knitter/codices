@@ -34,6 +34,12 @@ $this->params = [
                     return Html::a($model->name, Url::to(['series/view', 'id' => $model->id]));
                 }
             ], [
+                'attribute' => 'authorId',
+                'label' => Yii::t('codices', 'Author'),
+                'content' => function($model, $key, $index, $column) {
+                    return $model->authorId ? Html::a($model->author->name, Url::to(['author/view', 'id' => $model->authorId])) : '';
+                }
+            ], [
                 'attribute' => 'ownCount',
                 'label' => Yii::t('codices', 'Owned'),
                 'headerOptions' => ['style' => 'width: 120px;'],

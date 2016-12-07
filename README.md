@@ -45,7 +45,7 @@ You can use only the WEB version and ignore the RES API.
 ## REST API
 
 The REST API is also part of the Codices platform (as an Yii based sub-application) and will always be present, though 
-it may not be used. This API is being developed to help teach a mobile application development course I teach, it may 
+it may not be used. This API is being developed to help in a mobile application development course I teach, it may 
 therefore be developed faster than the WEB version.
 
 # Credits

@@ -49,7 +49,7 @@ $provider = new ArrayDataProvider([
             <td>
                 <?php if ($author->url) { ?>
                     <a href="<?= $author->url ?>" target="_blank"><?= $author->url ?> <i class="fa fa-external-link"></i></a>
-                <?php }  ?>
+                <?php } ?>
             </td>
         </tr>
 

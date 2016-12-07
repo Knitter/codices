@@ -9,8 +9,7 @@
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": ">=2.0.5",
-        "kartik-v/yii2-krajee-base": "*",
-        "kartik-v/yii2-widget-datepicker": "*"
+        "yiisoft/yii2-bootstrap": "*"
     },
     "require-dev": {
         "codeception/codeception": "*",

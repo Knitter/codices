@@ -16,5 +16,7 @@ $this->params = [
     <a class="btn btn-default" href="<?= Url::to(['authors/index']) ?>"><i class="fa fa-list"></i></a>
 </div>
 
+<div class="clearfix"></div><br />
+
 <?=
 $this->render('_form', ['model' => $model]);

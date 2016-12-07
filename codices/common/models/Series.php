@@ -86,4 +86,12 @@ final class Series extends ActiveRecord {
         return $this->hasOne(Author::className(), ['id' => 'authorId']);
     }
 
+    /**
+     * 
+     */
+    public function updateOwnBookCount() {
+        $this->ownCount = (int) Book::find()->where(['seriesId' => $this->id])->count();
+        $this->save(false);
+    }
+
 }

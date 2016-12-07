@@ -1,10 +1,21 @@
 <?php
 
+use yii\data\ArrayDataProvider;
+use yii\grid\GridView;
+use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /* @var $this \yii\web\View */
 /* @var $model \app\models\forms\Author */
+
+$provider = new ArrayDataProvider([
+    'allModels' => $model->books,
+    'pagination' => false,
+    'sort' => false,
+    'key' => function() {
+        return false;
+    }]);
 
 $inputFieldOptions = [
     'labelOptions' => ['class' => 'col-md-2 control-label'],
@@ -31,5 +42,45 @@ $form = ActiveForm::begin(['options' => ['class' => 'form-horizontal', 'role' =>
     </div>
 </div>
 
-<?php
-ActiveForm::end();
+<?php ActiveForm::end() ?>
+
+<div class="table-responsive">
+    <h6><?= Yii::t('codices', 'Books written by the author') ?></h6>
+    <?=
+    GridView::widget([
+        'dataProvider' => $provider,
+        'layout' => '{items} {summary}',
+        'columns' => [
+                [
+                'attribute' => 'title',
+                'label' => Yii::t('codices', 'Title'),
+                'content' => function($model, $key, $index, $column) {
+                    return Html::a($model->title, Url::to(['books/view', 'id' => $model->id]));
+                }
+            ], [
+                'attribute' => 'seriesName',
+                'label' => Yii::t('codices', 'Series'),
+                'content' => function($model, $key, $index, $column) {
+                    return $model->seriesId ? Html::a($model->series->name, Url::to(['series/view', 'id' => $model->seriesId])) : '';
+                }
+            ], [
+                'attribute' => 'isbn',
+                'label' => Yii::t('codices', 'ISBN')
+            ], [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update}',
+                'headerOptions' => ['class' => 'action-buttons'],
+                'contentOptions' => ['class' => 'action-buttons'],
+                'buttons' => [
+                    'view' => function ($url, $model, $key) {
+                        return Html::a('<i class="fa fa-eye"></i>', Url::to(['books/view', 'id' => $model->id]), ['class' => 'btn btn-xs btn-default']);
+                    },
+                    'update' => function ($url, $model, $key) {
+                        return Html::a('<i class="fa fa-pencil"></i>', Url::to(['books/update', 'id' => $model->id]), ['class' => 'btn btn-xs btn-primary']);
+                    }
+                ]
+            ]
+        ]
+    ])
+    ?>
+</div>

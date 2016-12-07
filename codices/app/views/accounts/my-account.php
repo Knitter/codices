@@ -40,48 +40,43 @@ $form->field($model, 'password', $inputFieldOptions)->passwordInput([
     </div>
 </div>
 
-<?php ActiveForm::end(); ?>
+<?php ActiveForm::end() ?>
 
-<br />
-<div class="row">
-    <div class="col-xs-12">
-        <div class="table-responsive">
-            <h6><?= Yii::t('codices', 'API Sessions') ?></h6>
-            <?=
-            GridView::widget([
-                'dataProvider' => $filter->search(Yii::$app->request->get()),
-                'filterModel' => $filter,
-                'layout' => '{items} {summary} {pager}',
-                'columns' => [
-                        [
-                        'attribute' => 'creationDate',
-                        'label' => Yii::t('codices', 'Date')
-                    ], [
-                        'attribute' => 'accessToken',
-                        'label' => Yii::t('codices', 'Access Token')
-                    ], [
-                        'attribute' => 'valid',
-                        'label' => Yii::t('codices', 'Valid'),
-                        'contentOptions' => ['class' => 'text-center'],
-                        'content' => function($model, $key, $index, $column) {
-                            return ($model->valid ? '<i class="fa fa-check"></i>' : '<i class="fa fa-cross"></i>');
-                        },
-                        'filter' => [0 => Yii::t('codices', 'No'), 1 => Yii::t('codices', 'Yes')]
-                    ], [
-                        'class' => 'yii\grid\ActionColumn',
-                        'template' => '{delete}',
-                        'headerOptions' => ['class' => 'action-buttons'],
-                        'contentOptions' => ['class' => 'action-buttons'],
-                        'buttons' => [
-                            'delete' => function ($url, $model, $key) {
-                                return Html::a('<i class="fa fa-trash"></i>', Url::to(['sessions/delete', 'id' => $model->id]), ['class' => 'btn btn-xs btn-danger', 'data-confirm' => Yii::t('codices', 'Are you sure you want to remove the selected session?')]);
-                            }
-                        ]
-                    ]
+
+<div class="table-responsive">
+    <h6><?= Yii::t('codices', 'API Sessions') ?></h6>
+    <?=
+    GridView::widget([
+        'dataProvider' => $filter->search(Yii::$app->request->get()),
+        'filterModel' => $filter,
+        'layout' => '{items} {summary} {pager}',
+        'columns' => [
+                [
+                'attribute' => 'creationDate',
+                'label' => Yii::t('codices', 'Date')
+            ], [
+                'attribute' => 'accessToken',
+                'label' => Yii::t('codices', 'Access Token')
+            ], [
+                'attribute' => 'valid',
+                'label' => Yii::t('codices', 'Valid'),
+                'contentOptions' => ['class' => 'text-center'],
+                'content' => function($model, $key, $index, $column) {
+                    return ($model->valid ? '<i class="fa fa-check"></i>' : '<i class="fa fa-cross"></i>');
+                },
+                'filter' => [0 => Yii::t('codices', 'No'), 1 => Yii::t('codices', 'Yes')]
+            ], [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{delete}',
+                'headerOptions' => ['class' => 'action-buttons'],
+                'contentOptions' => ['class' => 'action-buttons'],
+                'buttons' => [
+                    'delete' => function ($url, $model, $key) {
+                        return Html::a('<i class="fa fa-trash"></i>', Url::to(['sessions/delete', 'id' => $model->id]), ['class' => 'btn btn-xs btn-danger', 'data-confirm' => Yii::t('codices', 'Are you sure you want to remove the selected session?')]);
+                    }
                 ]
-            ])
-            ?>
-        </div>
-    </div>
-
+            ]
+        ]
+    ])
+    ?>
 </div>

@@ -44,6 +44,9 @@ final class Series extends Model {
     /** @var int */
     public $bookCount;
 
+    /** @var int */
+    public $authorId;
+
     /**
      * @param \common\models\Series $series
      * @param array $config
@@ -55,6 +58,7 @@ final class Series extends Model {
             $this->name = $series->name;
             $this->finished = $series->finished;
             $this->bookCount = $series->bookCount;
+            $this->authorId = $series->authorId;
         }
 
         parent::__construct($config);
@@ -67,7 +71,7 @@ final class Series extends Model {
         return [
                 [['name'], 'required'],
                 [['name'], 'string', 'max' => 255],
-                [['finished', 'bookCount'], 'integer']
+                [['finished', 'bookCount', 'authorId'], 'integer']
         ];
     }
 
@@ -78,7 +82,8 @@ final class Series extends Model {
         return [
             'name' => Yii::t('codices', 'Name'),
             'finished' => Yii::t('codices', 'Finished Series'),
-            'bookCount' => Yii::t('codices', 'Book Count')
+            'bookCount' => Yii::t('codices', 'Book Count'),
+            'authorId' => Yii::t('codices', 'Author')
         ];
     }
 
@@ -100,6 +105,7 @@ final class Series extends Model {
         $this->series->name = $this->name;
         $this->series->bookCount = $this->bookCount ?: 0;
         $this->series->finished = $this->finished ?: 0;
+        $this->series->authorId = $this->authorId ?: null;
 
         if (!$this->series->save()) {
             return false;
@@ -113,6 +119,13 @@ final class Series extends Model {
      */
     public function getId(): int {
         return $this->series ? $this->series->id : 0;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBooks() {
+        return $this->series ? $this->series->books : [];
     }
 
 }

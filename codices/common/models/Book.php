@@ -174,4 +174,12 @@ final class Book extends ActiveRecord {
         return is_file($file) && is_readable($file);
     }
 
+    public function afterSave($insert, $changedAttributes) {
+        parent::afterSave($insert, $changedAttributes);
+
+        if ($this->seriesId) {
+            $this->series->updateOwnBookCount();
+        }
+    }
+
 }

@@ -29,12 +29,8 @@ $this->params = [
         'layout' => '{items} {summary} {pager}',
         'columns' => [
                 [
-                'attribute' => 'id',
-                'label' => '#',
-                'headerOptions' => ['class' => 'id-column']
-            ], [
                 'attribute' => 'name',
-                'label' => 'Name',
+                'label' => Yii::t('codices', 'Name'),
                 'content' => function($model, $key, $index, $column) {
                     return Html::a($model->fullName, Url::to(['authors/view', 'id' => $model->id]));
                 }

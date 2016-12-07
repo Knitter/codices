@@ -75,9 +75,9 @@ $this->beginPage();
                         <li class="list-group-item"><i class="fa fa-align-justify"></i> <b><?= Yii::t('codices', 'MENU') ?></b></li>
 
                         <!-- SEARCH FORM -->
-                        <li class="list-group-item">
+                        <!-- <li class="list-group-item">
                             <input type="text" class="form-control search-query" placeholder="<?= Yii::t('codices', 'search ...') ?>">
-                        </li>
+                        </li> -->
 
                         <li class="list-group-item"><a href="<?= Url::to(['codices/dashboard']) ?>"><i class="fa fa-home"></i><?= Yii::t('codices', 'Dashboard') ?></a></li>
                         <li class="list-group-item"><a href="<?= Url::to(['books/index']) ?>"><i class="fa fa-book"></i><?= Yii::t('codices', 'Books') ?></a></li>

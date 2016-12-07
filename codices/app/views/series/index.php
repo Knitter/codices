@@ -28,10 +28,6 @@ $this->params = [
         'layout' => '{items} {summary} {pager}',
         'columns' => [
                 [
-                'attribute' => 'id',
-                'label' => '#',
-                'headerOptions' => ['class' => 'id-column']
-            ], [
                 'attribute' => 'name',
                 'label' => Yii::t('codices', 'Name'),
                 'content' => function($model, $key, $index, $column) {

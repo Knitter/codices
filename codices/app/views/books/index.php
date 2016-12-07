@@ -28,29 +28,25 @@ $this->params = [
         'layout' => '{items} {summary} {pager}',
         'columns' => [
                 [
-                'attribute' => 'id',
-                'label' => '#',
-                'headerOptions' => ['class' => 'id-column']
-            ], [
                 'attribute' => 'title',
-                'label' => 'Title',
+                'label' => Yii::t('codices', 'Title'),
                 'content' => function($model, $key, $index, $column) {
                     return Html::a($model->title, Url::to(['books/view', 'id' => $model->id]));
                 }
             ], [
                 'attribute' => 'authorName',
-                'label' => 'Author',
+                'label' => Yii::t('codices', 'Author'),
                 'content' => function($model, $key, $index, $column) {
-                    return $model->authorId ? $model->author->fullName : '';
+                    return $model->authorId ? Html::a($model->author->fullName, Url::to(['authors/view', 'id' => $model->authorId])) : '';
                 }
             ], [
                 'attribute' => 'isbn',
-                'label' => 'ISBN'
+                'label' => Yii::t('codices', 'ISBN')
             ], [
                 'attribute' => 'seriesName',
-                'label' => 'Series',
+                'label' => Yii::t('codices', 'Series'),
                 'content' => function($model, $key, $index, $column) {
-                    return $model->seriesId ? $model->series->name : '';
+                    return $model->seriesId ? Html::a($model->series->name, Url::to(['series/view', 'id' => $model->seriesId])) : '';
                 }
             ], [
                 'class' => 'yii\grid\ActionColumn',

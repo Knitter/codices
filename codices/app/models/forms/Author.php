@@ -147,4 +147,11 @@ final class Author extends Model {
         return $this->author ? $this->author->id : 0;
     }
 
+    /**
+     * @return array
+     */
+    public function getBooks(): array {
+        return $this->author ? $this->author->books : [];
+    }
+
 }

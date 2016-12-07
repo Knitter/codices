@@ -28,10 +28,6 @@ $this->params = [
         'layout' => '{items} {summary} {pager}',
         'columns' => [
                 [
-                'attribute' => 'id',
-                'label' => '#',
-                'headerOptions' => ['class' => 'id-column']
-            ], [
                 'attribute' => 'name',
                 'content' => function($model, $key, $index, $column) {
                     return Html::a($model->name, Url::to(['accounts/view', 'id' => $model->id]));

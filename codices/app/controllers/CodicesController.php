@@ -26,6 +26,7 @@ namespace app\controllers;
 use Yii;
 use yii\base\Exception;
 use yii\base\UserException;
+use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\HttpException;
@@ -65,7 +66,47 @@ final class CodicesController extends Controller {
      * @return string
      */
     public function actionDashboard() {
-        return $this->render('dashboard');
+        $accountId = Yii::$app->user->identity->id;
+
+        $topAuthors = (new Query())->select(['Author.*', 'subQuery.total'])
+                ->from('Author')
+                ->innerJoin('(SELECT Book.authorId, COUNT(Book.id) AS total FROM Book WHERE Book.accountId = '
+                        . $accountId . ' GROUP BY Book.authorId) AS subQuery', 'Author.id = subQuery.authorId')
+                ->where('subQuery.authorId IS NOT NULL')
+                ->orderBy([
+                    'subQuery.total' => SORT_DESC,
+                    'CONCAT(Author.name, " ", Author.surname)' => SORT_ASC
+                ])
+                ->limit(5)
+                ->all();
+
+        $total = (int) (new Query())->select('COUNT(Book.id) AS total')
+                        ->from('Book')
+                        ->where(['Book.accountId' => $accountId])
+                        ->scalar();
+
+        $totalRead = (int) (new Query())->select('COUNT(Book.id) AS total')
+                        ->from('Book')
+                        ->where('Book.read = 1')
+                        ->andWhere(['Book.accountId' => $accountId])
+                        ->scalar();
+
+        $topLanguages = (new Query())->select()
+                ->from('(SELECT Book.language, COUNT(Book.id) AS total FROM Book WHERE Book.accountId = ' . $accountId
+                        . ' GROUP BY Book.language) AS subQuery')
+                ->where('subQuery.language IS NOT NULL')
+                ->orderBy([
+                    'subQuery.total' => SORT_DESC,
+                    'subQuery.language' => SORT_ASC
+                ])
+                ->limit(5)
+                ->all();
+
+        return $this->render('dashboard', [
+                    'topAuthors' => $topAuthors,
+                    'readPercent' => round(($totalRead / (float) $total) * 100),
+                    'topLanguages' => $topLanguages
+        ]);
     }
 
     /**

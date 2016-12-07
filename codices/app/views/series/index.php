@@ -37,7 +37,7 @@ $this->params = [
                 'attribute' => 'authorId',
                 'label' => Yii::t('codices', 'Author'),
                 'content' => function($model, $key, $index, $column) {
-                    return $model->authorId ? Html::a($model->author->name, Url::to(['author/view', 'id' => $model->authorId])) : '';
+                    return $model->authorId ? Html::a($model->author->fullName, Url::to(['author/view', 'id' => $model->authorId])) : '';
                 }
             ], [
                 'attribute' => 'ownCount',

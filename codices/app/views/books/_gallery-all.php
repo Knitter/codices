@@ -12,8 +12,8 @@ $books = Book::find()->orderBy('title')->all();
     <?php foreach ($books as $book) { ?>
         <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
             <div class="thumbnail">
-                <?php if (($url = $book->photoURL)) { ?>
-                    <img class="img-rounded" src="<?= $url ?>">
+                <?php if ($book->isCoverFileAvailable) { ?>
+                    <img class="img-rounded" src="<?= $book->coverURL ?>">
                 <?php } ?>
                 <div class="caption text-center hidden-xs">
                     <h6><?= $book->title ?></h6>

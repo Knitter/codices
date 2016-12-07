@@ -25,8 +25,8 @@ $this->params = [
             <th>#</th>
             <td><?= $book->id, ' - ', $book->addedOn ?></td>
             <td rowspan="7" class="text-center" style="width: 180px;">
-                <?php if (($url = $book->photoURL)) { ?>
-                    <img class="img-rounded preview" src="<?= $url ?>">
+                <?php if ($book->isCoverFileAvailable) { ?>
+                    <img class="img-rounded preview" src="<?= $book->coverURL ?>">
                 <?php } ?>
             </td>
         </tr>

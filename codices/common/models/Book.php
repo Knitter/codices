@@ -129,7 +129,7 @@ final class Book extends ActiveRecord {
      * 
      * @return string
      */
-    public function getPhotoURL() {
+    public function getCoverURL() {
         return ($this->cover ? \yii\helpers\Url::base() . '/uploads/covers/' . $this->cover : '');
     }
 
@@ -158,6 +158,18 @@ final class Book extends ActiveRecord {
 
         $transaction->commit();
         return true;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsCoverFileAvailable() {
+        if (empty($this->cover)) {
+            return false;
+        }
+
+        $file = Yii::getAlias('@webroot/uploads/covers') . '/' . $this->cover;
+        return is_file($file) && is_readable($file);
     }
 
 }

@@ -44,7 +44,7 @@ final class SeriesController extends Controller {
     /**
      * @inheritdoc
      */
-    public function behaviors() {
+    public function behaviors(): array {
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -62,17 +62,17 @@ final class SeriesController extends Controller {
      * 
      * @return string
      */
-    public function actionIndex() {
+    public function actionIndex(): string {
         return $this->render('index', ['filter' => new Filter()]);
     }
 
     /**
      * Shows the details of a specific books series.
      * 
-     * @param integer $id The series' database ID.
+     * @param int $id The series' database ID.
      * @return string
      */
-    public function actionView($id) {
+    public function actionView(int $id): string {
         return $this->render('view', ['series' => $this->findSeries($id)]);
     }
 
@@ -95,10 +95,10 @@ final class SeriesController extends Controller {
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return \yii\web\Response|string
      */
-    public function actionUpdate($id) {
+    public function actionUpdate(int $id) {
         $form = new Form($this->findSeries($id));
 
         if ($form->load(Yii::$app->request->post())) {
@@ -112,10 +112,10 @@ final class SeriesController extends Controller {
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return \yii\web\Response
      */
-    public function actionDelete($id) {
+    public function actionDelete(int $id) {
         $series = $this->findSeries($id);
 
         if ($series->delete()) {
@@ -163,9 +163,10 @@ final class SeriesController extends Controller {
     }
 
     /**
+     * @param int $id
      * @return \stdClass
      */
-    public function actionAjaxList($id) {
+    public function actionAjaxList(int $id) {
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         if (($author = Author::findOne((int) $id))) {
@@ -183,13 +184,13 @@ final class SeriesController extends Controller {
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * 
      * @return \common\models\Series
      * @throws \yii\web\NotFoundHttpException
      */
-    private function findSeries($id) {
-        if (($series = Series::findOne((int) $id)) !== null) {
+    private function findSeries(int $id) {
+        if (($series = Series::findOne($id)) !== null) {
             return $series;
         }
 

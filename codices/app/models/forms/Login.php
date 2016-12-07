@@ -45,7 +45,7 @@ final class Login extends Model {
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules(): array {
         return [
                 [['email', 'password'], 'required'],
                 [['email'], 'email']
@@ -55,9 +55,9 @@ final class Login extends Model {
     /**
      * Loads the POST data, validates the model and sets the logged in user if the authentication was successfull.
      * 
-     * @return boolean
+     * @return bool
      */
-    public function login() {
+    public function login(): bool {
         if ($this->validate()) {
             if (($account = Account::findOne(['email' => $this->email]))) {
                 try {

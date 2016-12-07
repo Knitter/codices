@@ -50,7 +50,7 @@ final class Profile extends Model {
      * @param \common\models\Account $account
      * @param array $config
      */
-    public function __construct(Account $account, $config = []) {
+    public function __construct(Account $account, array $config = []) {
         $this->account = $account;
 
         if (!$this->account) {
@@ -66,7 +66,7 @@ final class Profile extends Model {
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules(): array {
         return [
                 [['name', 'email'], 'required'],
                 [['name', 'email', 'password'], 'string', 'max' => 255],
@@ -78,7 +78,7 @@ final class Profile extends Model {
      * @param string $attribute
      * @param array $params
      */
-    public function checkUnique($attribute, $params) {
+    public function checkUnique(string $attribute, array $params) {
         if (!empty($this->email) && $this->account->oldAttributes &&
                 $this->account->oldAttributes['email'] != $this->email) {
 
@@ -91,7 +91,7 @@ final class Profile extends Model {
     /**
      * @inheritdoc
      */
-    public function attributeLabels() {
+    public function attributeLabels(): array {
         return [
             'name' => Yii::t('codices', 'Name'),
             'email' => Yii::t('codices', 'E-mail'),
@@ -102,9 +102,9 @@ final class Profile extends Model {
     /**
      * Validates and saves the changes into the database.
      * 
-     * @return boolean
+     * @return bool
      */
-    public function save() {
+    public function save(): bool {
         if (!$this->validate()) {
             return false;
         }

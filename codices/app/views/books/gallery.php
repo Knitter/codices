@@ -5,4 +5,4 @@
 
 $this->title = 'Codices :: ' . Yii::t('codices', 'Gallery');
 
-echo $this->render('_gallery-' . $type);
+echo $this->render('_gallery-' . $type, ['books' => $books]);

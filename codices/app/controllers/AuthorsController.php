@@ -43,7 +43,7 @@ final class AuthorsController extends Controller {
     /**
      * @inheritdoc
      */
-    public function behaviors() {
+    public function behaviors(): array {
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -59,15 +59,15 @@ final class AuthorsController extends Controller {
     /**
      * @return string
      */
-    public function actionIndex() {
+    public function actionIndex(): string {
         return $this->render('index', ['filter' => new Authors()]);
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return string
      */
-    public function actionView($id) {
+    public function actionView(int $id) {
         return $this->render('view', ['author' => $this->findAuthor($id)]);
     }
 
@@ -88,10 +88,10 @@ final class AuthorsController extends Controller {
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return \yii\web\Response|string
      */
-    public function actionUpdate($id) {
+    public function actionUpdate(int $id) {
         $form = new Form($this->findAuthor($id));
 
         if ($form->load(Yii::$app->request->post())) {
@@ -105,10 +105,10 @@ final class AuthorsController extends Controller {
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return \yii\web\Response
      */
-    public function actionDelete($id) {
+    public function actionDelete(int $id) {
         $author = $this->findAuthor($id);
 
         if ($author->delete()) {
@@ -123,7 +123,7 @@ final class AuthorsController extends Controller {
     /**
      * @return string
      */
-    public function actionAjaxCreate() {
+    public function actionAjaxCreate(): string {
         Yii::$app->response->format = Response::FORMAT_JSON;
         if (($name = Yii::$app->request->post('name')) && ($surname = Yii::$app->request->post('surname'))) {
             $newAuthor = new Author();
@@ -150,13 +150,13 @@ final class AuthorsController extends Controller {
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * 
      * @return \common\models\Author
      * @throws \yii\web\NotFoundHttpException
      */
-    private function findAuthor($id) {
-        if (($author = Author::findOne((int) $id)) !== null) {
+    private function findAuthor(int $id) {
+        if (($author = Author::findOne($id)) !== null) {
             return $author;
         }
 

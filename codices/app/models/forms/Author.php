@@ -49,14 +49,14 @@ final class Author extends Model {
     /** @var string */
     public $url;
 
-    /** @var yii\web\UploadedFile */
+    /** @var \yii\web\UploadedFile */
     public $photo;
 
     /**
      * @param \common\models\Author $author
      * @param array $config
      */
-    public function __construct(\common\models\Author $author = null, $config = []) {
+    public function __construct(\common\models\Author $author = null, array $config = []) {
         $this->author = $author;
 
         if ($this->author) {
@@ -71,7 +71,7 @@ final class Author extends Model {
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules(): array {
         return [
                 [['name', 'surname'], 'required'],
                 [['name', 'biography', 'url', 'surname'], 'string', 'max' => 255],
@@ -82,7 +82,7 @@ final class Author extends Model {
     /**
      * @inheritdoc
      */
-    public function attributeLabels() {
+    public function attributeLabels(): array {
         return [
             'name' => Yii::t('codices', 'Name'),
             'surname' => Yii::t('codices', 'Surname'),
@@ -95,9 +95,9 @@ final class Author extends Model {
     /**
      * Validates and saves the changes into the database.
      * 
-     * @return boolean
+     * @return bool
      */
-    public function save() {
+    public function save(): array {
         if (!$this->validate()) {
             return false;
         }
@@ -141,9 +141,9 @@ final class Author extends Model {
     }
 
     /**
-     * @return integer
+     * @return int
      */
-    public function getId() {
+    public function getId(): int {
         return $this->author ? $this->author->id : 0;
     }
 

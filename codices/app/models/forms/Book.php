@@ -49,7 +49,7 @@ final class Book extends Model {
     /** @var string */
     public $format;
 
-    /** @var integer */
+    /** @var int */
     public $pageCount;
 
     /** @var string */
@@ -67,7 +67,7 @@ final class Book extends Model {
     /** @var float */
     public $rating;
 
-    /** @var integer */
+    /** @var int */
     public $read;
 
     /** @var string */
@@ -76,26 +76,26 @@ final class Book extends Model {
     /** @var string */
     public $review;
 
-    /** @var integer */
+    /** @var int */
     public $order;
 
-    /** @var integer */
+    /** @var int */
     public $seriesId;
 
-    /** @var integer */
+    /** @var int */
     public $authorId;
 
-    /** @var integer */
+    /** @var int */
     public $copies;
 
-    /** @var yii\web\UploadedFile */
+    /** @var \yii\web\UploadedFile */
     public $cover;
 
     /**
      * @param \common\models\Book $book
      * @param array $config
      */
-    public function __construct(\common\models\Book $book = null, $config = []) {
+    public function __construct(\common\models\Book $book = null, array $config = []) {
         $this->book = $book;
 
         if ($this->book) {
@@ -124,7 +124,7 @@ final class Book extends Model {
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules(): array {
         return [
                 [['title'], 'required'],
                 [['title', 'language', 'edition', 'publisher', 'url'], 'string', 'max' => 255],
@@ -140,7 +140,7 @@ final class Book extends Model {
     /**
      * @inheritdoc
      */
-    public function attributeLabels() {
+    public function attributeLabels(): array {
         return [
             'title' => Yii::t('codices', 'Title'),
             'plot' => Yii::t('codices', 'Plot'),
@@ -166,9 +166,9 @@ final class Book extends Model {
     /**
      * Validates and saves the changes into the database.
      * 
-     * @return boolean
+     * @return bool
      */
-    public function save() {
+    public function save(): bool {
         if (!$this->validate()) {
             return false;
         }
@@ -231,9 +231,9 @@ final class Book extends Model {
     }
 
     /**
-     * @return integer
+     * @return int
      */
-    public function getId() {
+    public function getId(): bool {
         return $this->book ? $this->book->id : 0;
     }
 

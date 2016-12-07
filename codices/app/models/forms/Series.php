@@ -38,17 +38,17 @@ final class Series extends Model {
     /** @var string */
     public $name;
 
-    /** @var integer */
+    /** @var int */
     public $finished;
 
-    /** @var integer */
+    /** @var int */
     public $bookCount;
 
     /**
      * @param \common\models\Series $series
      * @param array $config
      */
-    public function __construct(\common\models\Series $series = null, $config = []) {
+    public function __construct(\common\models\Series $series = null, array $config = []) {
         $this->series = $series;
 
         if ($this->series) {
@@ -63,7 +63,7 @@ final class Series extends Model {
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules(): array {
         return [
                 [['name'], 'required'],
                 [['name'], 'string', 'max' => 255],
@@ -74,7 +74,7 @@ final class Series extends Model {
     /**
      * @inheritdoc
      */
-    public function attributeLabels() {
+    public function attributeLabels(): array {
         return [
             'name' => Yii::t('codices', 'Name'),
             'finished' => Yii::t('codices', 'Finished Series'),
@@ -85,9 +85,9 @@ final class Series extends Model {
     /**
      * Validates and saves the changes into the database.
      * 
-     * @return boolean
+     * @return bool
      */
-    public function save() {
+    public function save(): bool {
         if (!$this->validate()) {
             return false;
         }
@@ -109,9 +109,9 @@ final class Series extends Model {
     }
 
     /**
-     * @return integer
+     * @return int
      */
-    public function getId() {
+    public function getId(): int {
         return $this->series ? $this->series->id : 0;
     }
 

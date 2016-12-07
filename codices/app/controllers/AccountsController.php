@@ -44,7 +44,7 @@ final class AccountsController extends Controller {
     /**
      * @inheritdoc
      */
-    public function behaviors() {
+    public function behaviors(): array {
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -62,17 +62,17 @@ final class AccountsController extends Controller {
      * 
      * @return string
      */
-    public function actionIndex() {
+    public function actionIndex(): string {
         return $this->render('index', ['filter' => new Accounts()]);
     }
 
     /**
      * Shows the details of a specific user's account.
      * 
-     * @param integer $id The account's database ID.
+     * @param int $id The account's database ID.
      * @return string
      */
-    public function actionView($id) {
+    public function actionView(int $id): string {
         return $this->render('view', ['account' => $this->findAccount($id)]);
     }
 
@@ -97,11 +97,10 @@ final class AccountsController extends Controller {
     /**
      * Allows editing a user's account details.
      * 
-     * @param integer $id The account's database ID.
-     * 
+     * @param int $id The account's database ID.
      * @return \yii\web\Response|string
      */
-    public function actionUpdate($id) {
+    public function actionUpdate(int $id) {
         $form = new Form($this->findAccount($id));
 
         if ($form->load(Yii::$app->request->post())) {
@@ -117,10 +116,10 @@ final class AccountsController extends Controller {
     /**
      * Removes a user from the system and redirects the caller to the account list action.
      * 
-     * @param integer $id
+     * @param int $id
      * @return \yii\web\Response
      */
-    public function actionDelete($id) {
+    public function actionDelete(int $id) {
         $account = $this->findAccount($id);
 
         if ($account->delete()) {
@@ -151,13 +150,12 @@ final class AccountsController extends Controller {
     /**
      * Locates an Account record based on the given record's ID.
      * 
-     * @param integer $id
-     * 
+     * @param int $id
      * @return \common\models\Account
      * @throws \yii\web\NotFoundHttpException
      */
-    private function findAccount($id) {
-        if (($account = Account::findOne((int) $id)) !== null) {
+    private function findAccount(int $id) {
+        if (($account = Account::findOne($id)) !== null) {
             return $account;
         }
 

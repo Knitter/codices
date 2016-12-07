@@ -1,11 +1,8 @@
 <?php
 
-use common\models\Book;
-
 /* @var $this \yii\web\View */
 /* @var $books \common\models\Book[] */
 
-$books = Book::find()->orderBy('title')->all();
 ?>
 
 <div class="row">

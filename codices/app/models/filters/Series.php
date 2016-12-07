@@ -35,13 +35,13 @@ final class Series extends Model {
     /** @var string */
     public $name;
 
-    /** @var integer */
+    /** @var int */
     public $finished;
 
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules(): array {
         return [
                 [['name'], 'string', 'max' => 255],
                 [['finished'], 'integer']
@@ -50,10 +50,9 @@ final class Series extends Model {
 
     /**
      * @param array $params
-     * 
      * @return \yii\data\ActiveDataProvider
      */
-    public function search($params) {
+    public function search(array $params) {
         $query = \common\models\Series::find()->orderBy('name');
 
         $provider = new ActiveDataProvider([

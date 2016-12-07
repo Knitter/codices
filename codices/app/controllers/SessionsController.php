@@ -39,7 +39,7 @@ final class SessionsController extends Controller {
     /**
      * @inheritdoc
      */
-    public function behaviors() {
+    public function behaviors(): array {
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -53,10 +53,10 @@ final class SessionsController extends Controller {
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return \yii\web\Response
      */
-    public function actionDelete($id) {
+    public function actionDelete(int $id) {
         $session = $this->findSession($id);
 
         if ($session->delete()) {
@@ -69,13 +69,13 @@ final class SessionsController extends Controller {
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * 
      * @return \common\models\Session
      * @throws \yii\web\NotFoundHttpException
      */
-    private function findSession($id) {
-        if (($session = Session::findOne((int) $id)) !== null) {
+    private function findSession(int $id) {
+        if (($session = Session::findOne($id)) !== null) {
             return $session;
         }
 

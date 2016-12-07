@@ -6,7 +6,7 @@ use common\models\Book;
 /* @var $books \common\models\Book[] */
 
 $ordered = [];
-foreach (Book::find()->orderBy('title')->all() as $book) {
+foreach ($books as $book) {
     $key = mb_strtoupper(mb_substr($book->title, 0, 1));
     if (is_numeric($key)) {
         $ordered['#'][] = $book;

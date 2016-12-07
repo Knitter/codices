@@ -42,7 +42,7 @@ final class BooksController extends Controller {
     /**
      * @inheritdoc
      */
-    public function behaviors() {
+    public function behaviors(): array {
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -59,15 +59,15 @@ final class BooksController extends Controller {
     /**
      * @return string
      */
-    public function actionIndex() {
+    public function actionIndex(): string {
         return $this->render('index', ['filter' => new Books()]);
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return string
      */
-    public function actionView($id) {
+    public function actionView(int $id): string {
         return $this->render('view', ['book' => $this->findBook($id)]);
     }
 
@@ -88,10 +88,10 @@ final class BooksController extends Controller {
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return \yii\web\Response|string
      */
-    public function actionUpdate($id) {
+    public function actionUpdate(int $id) {
         $form = new Form($this->findBook($id));
 
         if ($form->load(Yii::$app->request->post())) {
@@ -105,10 +105,10 @@ final class BooksController extends Controller {
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * @return \yii\web\Response
      */
-    public function actionDelete($id) {
+    public function actionDelete(int $id) {
         $book = $this->findBook($id);
 
         if ($book->delete()) {
@@ -125,8 +125,10 @@ final class BooksController extends Controller {
      * 
      * @return string
      */
-    public function actionGallery($mode = 'all') {
+    public function actionGallery(string $mode = 'all'): string {
         $this->layout = 'public';
+        $books = Book::find()->orderBy('title')->all();
+
         if ($mode != 'all' && $mode != 'ordered') {
             $mode = 'ordered';
         }
@@ -134,18 +136,22 @@ final class BooksController extends Controller {
         return $this->render('gallery', ['books' => $books, 'type' => $mode]);
     }
 
-    public function actionExport($ft = 'html') {
+    /**
+     * 
+     * @param string $ft
+     */
+    public function actionExport(string $ft = 'html') {
         //@TODO: ...
     }
 
     /**
-     * @param integer $id
+     * @param int $id
      * 
      * @return \common\models\Book
      * @throws \yii\web\NotFoundHttpException
      */
-    private function findBook($id) {
-        if (($book = Book::findOne((int) $id)) !== null) {
+    private function findBook(int $id) {
+        if (($book = Book::findOne($id)) !== null) {
             return $book;
         }
 

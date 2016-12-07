@@ -51,7 +51,7 @@ final class Account extends Model {
      * @param \common\models\Account $account
      * @param array $config
      */
-    public function __construct(\common\models\Account $account = null, $config = []) {
+    public function __construct(\common\models\Account $account = null, array $config = []) {
         $this->account = $account;
 
         if ($this->account) {
@@ -65,7 +65,7 @@ final class Account extends Model {
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules(): array {
         return [
                 [['name', 'email'], 'required'],
                 [['name', 'email', 'password'], 'string', 'max' => 255],
@@ -77,7 +77,7 @@ final class Account extends Model {
      * @param string $attribute
      * @param array $params
      */
-    public function checkUnique($attribute, $params) {
+    public function checkUnique(string $attribute, array $params) {
         if (!empty($this->email) && ($this->getIsNewRecord() ||
                 ($this->account->oldAttributes && $this->account->oldAttributes['email'] != $this->email))) {
 
@@ -90,7 +90,7 @@ final class Account extends Model {
     /**
      * @inheritdoc
      */
-    public function attributeLabels() {
+    public function attributeLabels(): array {
         return [
             'name' => Yii::t('codices', 'Name'),
             'email' => Yii::t('codices', 'E-mail'),
@@ -101,9 +101,9 @@ final class Account extends Model {
     /**
      * Validates and saves the changes into the database.
      * 
-     * @return boolean
+     * @return bool
      */
-    public function save() {
+    public function save(): bool {
         if (!$this->validate()) {
             return false;
         }
@@ -126,9 +126,9 @@ final class Account extends Model {
     /**
      * Returns the account's ID, if the model as already been saved. If not, the ID is zero.
      * 
-     * @return integer
+     * @return int
      */
-    public function getId() {
+    public function getId(): int {
         return $this->account ? $this->account->id : 0;
     }
 

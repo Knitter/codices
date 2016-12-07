@@ -43,7 +43,7 @@ final class Accounts extends Model {
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules(): array {
         return [
                 [['name', 'email'], 'string', 'max' => 255]
         ];
@@ -51,10 +51,9 @@ final class Accounts extends Model {
 
     /**
      * @param array $params
-     * 
      * @return \yii\data\ActiveDataProvider
      */
-    public function search($params) {
+    public function search(array $params) {
         $query = Account::find()->orderBy('name');
 
         $provider = new ActiveDataProvider([

@@ -37,13 +37,13 @@ final class Sessions extends Model {
     /** @var string */
     public $creationDate;
 
-    /** @var integer */
+    /** @var int */
     public $valid;
 
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules(): array {
         return [
                 [['creationDate'], 'string', 'max' => 255],
                 [['valid'], 'integer']
@@ -52,10 +52,9 @@ final class Sessions extends Model {
 
     /**
      * @param array $params
-     * 
      * @return \yii\data\ActiveDataProvider
      */
-    public function search($params) {
+    public function search(array $params) {
         $query = Session::find()->orderBy('creationDate DESC');
 
         $provider = new ActiveDataProvider([

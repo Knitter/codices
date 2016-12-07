@@ -45,7 +45,7 @@ final class CodicesController extends Controller {
     /**
      * @inheritdoc
      */
-    public function behaviors() {
+    public function behaviors(): array {
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -65,7 +65,7 @@ final class CodicesController extends Controller {
      * 
      * @return string
      */
-    public function actionDashboard() {
+    public function actionDashboard(): string {
         $accountId = Yii::$app->user->identity->id;
 
         $topAuthors = (new Query())->select(['Author.*', 'subQuery.total'])
@@ -162,7 +162,7 @@ final class CodicesController extends Controller {
      * 
      * @return string
      */
-    public function actionError() {
+    public function actionError(): string {
         $this->layout = 'public';
 
         if (($exception = Yii::$app->getErrorHandler()->exception) === null) {

@@ -40,7 +40,7 @@ final class Authors extends Model {
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules(): array {
         return [
                 [['name'], 'string', 'max' => 255]
         ];
@@ -48,10 +48,9 @@ final class Authors extends Model {
 
     /**
      * @param array $params
-     * 
      * @return \yii\data\ActiveDataProvider
      */
-    public function search($params) {
+    public function search(array $params) {
         $query = Author::find()->orderBy('name');
 
         $provider = new ActiveDataProvider([

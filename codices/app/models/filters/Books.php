@@ -52,7 +52,7 @@ final class Books extends Model {
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules(): array {
         return [
                 [['title', 'isbn', 'seriesName', 'authorName'], 'string', 'max' => 255],
                 [['rating'], 'number']
@@ -61,10 +61,9 @@ final class Books extends Model {
 
     /**
      * @param array $params
-     * 
      * @return \yii\data\ActiveDataProvider
      */
-    public function search($params) {
+    public function search(array $params) {
         $query = Book::find()->orderBy('title')
                 ->joinWith(['series'])
                 ->joinWith(['author']);

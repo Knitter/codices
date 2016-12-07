@@ -24,8 +24,11 @@
 namespace app\controllers;
 
 use Yii;
+use yii\base\Exception;
+use yii\base\UserException;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\HttpException;
 //-
 use app\models\forms\Login;
 
@@ -46,23 +49,12 @@ final class CodicesController extends Controller {
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                        ['allow' => true, 'actions' => ['index']],
+                        ['allow' => true, 'actions' => ['index', 'error']],
                         ['allow' => true, 'roles' => ['?'], 'actions' => ['login', 'error']],
                         ['allow' => true, 'roles' => ['@'], 'actions' => ['logout', 'dashboard']],
                         ['allow' => false]
                 ]
             ]
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function actions() {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
         ];
     }
 
@@ -120,6 +112,46 @@ final class CodicesController extends Controller {
     public function actionLogout() {
         Yii::$app->user->logout();
         return $this->redirect(['login']);
+    }
+
+    /**
+     * Reimplementing Yii's error handling action to control the used layout and the changes needed for Codices. The 
+     * standard ErrorAction (defined in the actions() method), given how we've implemented our controllers and 
+     * backend/frontend code, will expose some of the private options to visiting users.
+     * 
+     * @return string
+     */
+    public function actionError() {
+        $this->layout = 'public';
+
+        if (($exception = Yii::$app->getErrorHandler()->exception) === null) {
+            $exception = new HttpException(404, Yii::t('yii', 'Page not found.'));
+        }
+
+        $code = $exception->getCode();
+        if ($exception instanceof HttpException) {
+            $code = $exception->statusCode;
+        }
+
+        $name = Yii::t('yii', 'Error');
+        if ($exception instanceof Exception) {
+            $exception->getName();
+        }
+
+        if ($code) {
+            $name .= " (#$code)";
+        }
+
+        $message = Yii::t('yii', 'An internal server error occurred.');
+        if ($exception instanceof UserException) {
+            $exception->getMessage();
+        }
+
+        if (Yii::$app->getRequest()->getIsAjax()) {
+            return "$name: $message";
+        }
+
+        return $this->render('error', ['name' => $name, 'message' => $message, 'exception' => $exception]);
     }
 
 }

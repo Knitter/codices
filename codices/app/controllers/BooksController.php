@@ -126,7 +126,7 @@ final class BooksController extends Controller {
      * @return string
      */
     public function actionGallery($mode = 'all') {
-        $this->layout = 'gallery';
+        $this->layout = 'public';
         if ($mode != 'all' && $mode != 'ordered') {
             $mode = 'ordered';
         }

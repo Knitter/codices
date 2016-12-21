@@ -17,7 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'An internal server error occurred.' => '',
-    'Error' => '',
-    'Page not found.' => '',
+    'An internal server error occurred.' => 'Ocorreu um erro interno ao servidor.',
+    'Error' => 'Erro',
+    'Page not found.' => 'Página não encontrada.',
 ];

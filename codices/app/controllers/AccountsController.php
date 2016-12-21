@@ -139,7 +139,7 @@ final class AccountsController extends Controller {
 
         if ($form->load(Yii::$app->request->post())) {
             if ($form->save()) {
-                Yii::$app->session->setFlash('success', Yii::t('codices', 'Profile detailes updated.'));
+                Yii::$app->session->setFlash('success', Yii::t('codices', 'Profile details updated.'));
                 return $this->redirect(['my-account']);
             }
         }

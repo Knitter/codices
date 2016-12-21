@@ -28,10 +28,10 @@ trait ErrorDecorator {
     public final function squashErrorMessages() {
         $msgs = [];
         foreach ($this->errors as $error) {
-            $msgs = is_array($error) ? implode("\\n", $error) : $error;
+            $msgs[] = is_array($error) ? implode("\\n", $error) : $error;
         }
 
-        return implode("\\n", $error);
+        return implode("\\n", $msgs);
     }
 
 }

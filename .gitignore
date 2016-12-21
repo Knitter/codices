@@ -22,5 +22,5 @@ vagrant.config.lock
 
 # Misc
 # 
-*.sql
+/*.sql
 /logs

@@ -46,7 +46,7 @@ $this->registerJs($js);
 
 <div class="progress">
     <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<?= $readPercent ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?= $readPercent ?>%">
-        <?= $readPercent ?>% Read
+        <?= $readPercent ?>% <?= Yii::t('codices', 'Read') ?>
     </div>
 </div>
 

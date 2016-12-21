@@ -59,9 +59,9 @@ final class Series extends ActiveRecord {
      */
     public function rules() {
         return [
-                [['name'], 'required'],
-                [['name'], 'string', 'max' => 255],
-                [['finished', 'bookCount', 'accountId', 'authorId'], 'integer']
+            [['name'], 'required'],
+            [['name'], 'string', 'max' => 255],
+            [['finished', 'bookCount', 'accountId', 'authorId'], 'integer']
         ];
     }
 
@@ -87,10 +87,18 @@ final class Series extends ActiveRecord {
     }
 
     /**
+     * Updates owend book counter for the series and marks the series finished/completed the number of registered 
+     * books is the same as the number of total books in the series.
      * 
+     * This method issues a save() call.
      */
     public function updateOwnBookCount() {
         $this->ownCount = (int) Book::find()->where(['seriesId' => $this->id])->count();
+
+        if ($this->bookCount > 0 && $this->ownCount == $this->bookCount) {
+            $this->finished = 1;
+        }
+
         $this->save(false);
     }
 

@@ -47,10 +47,10 @@ final class BooksController extends Controller {
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                        ['allow' => true, 'actions' => ['gallery']],
-                        ['allow' => false, 'roles' => ['?']],
-                        ['allow' => true, 'roles' => ['@']],
-                        ['allow' => false]
+                    ['allow' => true, 'actions' => ['gallery']],
+                    ['allow' => false, 'roles' => ['?']],
+                    ['allow' => true, 'roles' => ['@']],
+                    ['allow' => false]
                 ]
             ]
         ];
@@ -134,6 +134,77 @@ final class BooksController extends Controller {
         }
 
         return $this->render('gallery', ['books' => $books, 'type' => $mode]);
+    }
+
+    /**
+     * @param int $id
+     * @return string
+     */
+    public function actionDetails(int $id): string {
+        $title = Yii::t('codices', 'Unable to find requested book.');
+
+        if (($book = Book::findOne($id))) {
+            $title = $book->title;
+        }
+
+        $details = '';
+
+        $author = '';
+        if ($book->authorId) {
+            $author = Yii::t('codices', 'Written by <strong>{author}</strong>', ['author' => $book->author->fullName]);
+        }
+
+        $series = '';
+        if ($book->seriesId) {
+            if ($book->order) {
+                $series = Yii::t('codices', '#{order} of the <strong>{series}</strong> series', [
+                            'order' => $book->order,
+                            'series' => $book->series->name
+                ]);
+            } else {
+                $series = Yii::t('codices', 'belonging to the {series} series', ['series' => $book->series->name]);
+            }
+        }
+
+        $isbn = $book->isbn;
+        $plot = $book->plot;
+
+        $coverUrl = '#';
+        if ($book->isCoverFileAvailable) {
+            $coverUrl = $book->coverURL;
+        }
+
+        $details .= $author;
+        if (!empty($series)) {
+            $details .= (', ' . $series);
+        }
+
+        if (!empty($isbn)) {
+            $details .= ((!empty($details) ? ' - ' : '') . 'ISBN13: ' . $isbn);
+        }
+
+        if (empty($author)) {
+            $details = ucfirst($details);
+        }
+
+        $dialog = <<<HTML
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="model-title">{$title}</h4>
+                        </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row"><div class="col-xs-12"><img class="img-rounded img-responsive" src="{$coverUrl}"></div></div>
+                            <div class="row"><div class="col-xs-12">{$details}</div></div>
+                            <div class="row"><div class="col-xs-12">{$plot}</div></div>
+                        </div>
+                    </div>
+                </div>
+HTML;
+
+        return $dialog;
     }
 
     /**

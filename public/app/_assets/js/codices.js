@@ -24,7 +24,7 @@
     /**
      * 
      */
-    codices.ajaxCreateAuthor = function (url) {
+    codices.ajaxCreateAuthor = function () {
         var $modal = $('#newauthor');
         $.ajax($modal.find('form').attr('action'), {
             type: 'POST',
@@ -63,7 +63,7 @@
     };
 
     /**
-     * 
+     * @param {String} url
      */
     codices.authorUpdated = function (url) {
         $.ajax(url, {
@@ -74,6 +74,17 @@
             if (response.ok) {
                 $('#book-seriesid').html(response.html);
             }
+        });
+    };
+
+    /**
+     * Prepares all existing gallery nodes/books so that the details modal is loaded from an AJAX request.
+     * 
+     * @param {String} target
+     */
+    codices.initGalleryModal = function (target) {
+        $(target).on('show.bs.modal', function (e) {
+            $(this).find(".modal-content").load($(e.relatedTarget).attr("href"));
         });
     };
 })(window.codices = window.codices || {}, jQuery);

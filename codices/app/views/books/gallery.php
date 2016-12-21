@@ -6,3 +6,5 @@
 $this->title = Yii::t('codices', 'Book Gallery');
 
 echo $this->render('_gallery-' . $type, ['books' => $books]);
+
+echo $this->render('_modal-book-details');

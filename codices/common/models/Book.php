@@ -47,6 +47,7 @@ use yii\db\ActiveRecord;
  * @property integer $seriesId
  * @property integer $authorId
  * @property integer $copies
+ * @property string $genre
  * 
  * @property Series $series
  * @property Author $author
@@ -74,7 +75,7 @@ final class Book extends ActiveRecord {
     public function rules() {
         return [
                 [['title'], 'required'],
-                [['title', 'language', 'edition', 'publisher', 'url', 'cover'], 'string', 'max' => 255],
+                [['title', 'language', 'edition', 'publisher', 'url', 'cover', 'genre'], 'string', 'max' => 255],
                 [['plot', 'publicationDate', 'addedOn', 'review'], 'string'],
                 [['isbn'], 'string', 'max' => 25],
                 [['format'], 'string', 'max' => 5],

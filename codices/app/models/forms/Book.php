@@ -87,6 +87,9 @@ final class Book extends Model {
 
     /** @var int */
     public $copies;
+    
+    /** @var string */
+    public $genre;
 
     /** @var \yii\web\UploadedFile */
     public $cover;
@@ -116,6 +119,7 @@ final class Book extends Model {
             $this->seriesId = $this->book->seriesId;
             $this->authorId = $this->book->authorId;
             $this->copies = $this->book->copies;
+            $this->genre = $this->book->genre;
         }
 
         parent::__construct($config);
@@ -126,14 +130,14 @@ final class Book extends Model {
      */
     public function rules(): array {
         return [
-                [['title'], 'required'],
-                [['title', 'language', 'edition', 'publisher', 'url'], 'string', 'max' => 255],
-                [['plot', 'publicationDate', 'review'], 'string'],
-                [['isbn'], 'string', 'max' => 25],
-                [['format'], 'string', 'max' => 5],
-                [['pageCount', 'order', 'read', 'seriesId', 'authorId', 'copies'], 'integer'],
-                [['rating'], 'number'],
-                [['cover'], 'file', 'extensions' => 'png, jpg, jpeg']
+            [['title'], 'required'],
+            [['title', 'language', 'edition', 'publisher', 'url', 'genre'], 'string', 'max' => 255],
+            [['plot', 'publicationDate', 'review'], 'string'],
+            [['isbn'], 'string', 'max' => 25],
+            [['format'], 'string', 'max' => 5],
+            [['pageCount', 'order', 'read', 'seriesId', 'authorId', 'copies'], 'integer'],
+            [['rating'], 'number'],
+            [['cover'], 'file', 'extensions' => 'png, jpg, jpeg']
         ];
     }
 
@@ -159,7 +163,8 @@ final class Book extends Model {
             'review' => Yii::t('codices', 'Review'),
             'seriesId' => Yii::t('codices', 'Series'),
             'authorId' => Yii::t('codices', 'Author'),
-            'copies' => Yii::t('codices', 'Owned Copies')
+            'copies' => Yii::t('codices', 'Owned Copies'),
+            'genre' => Yii::t('codices', 'Genre')
         ];
     }
 
@@ -196,6 +201,7 @@ final class Book extends Model {
         $this->book->seriesId = $this->seriesId ?: null;
         $this->book->authorId = $this->authorId ?: null;
         $this->book->copies = $this->copies ?: 1;
+        $this->book->genre = $this->genre ?: null;
 
         $filepath = null;
         if (($file = UploadedFile::getInstance($this, 'cover'))) {
@@ -235,6 +241,35 @@ final class Book extends Model {
      */
     public function getId(): int {
         return $this->book ? $this->book->id : 0;
+    }
+
+    /**
+     * @return array
+     */
+    public static function listOfSuggestedGenres(): array {
+        return [
+            Yii::t('codices', 'Science Fiction'),
+            Yii::t('codices', 'Fantasy'),
+            Yii::t('codices', 'Humor'),
+            Yii::t('codices', 'Horror'),
+            Yii::t('codices', 'Short Story'),
+            Yii::t('codices', 'Historical Fiction'),
+            Yii::t('codices', 'Fable'),
+            Yii::t('codices', 'Crime'),
+            Yii::t('codices', 'Drama'),
+            Yii::t('codices', 'Suspense/thriller'),
+            Yii::t('codices', 'Western'),
+            Yii::t('codices', 'Biography'),
+            Yii::t('codices', 'Adventure'),
+            Yii::t('codices', 'Novel'),
+            Yii::t('codices', 'Erotic'),
+            Yii::t('codices', 'Romance'),
+            Yii::t('codices', 'Historical Romance'),
+            Yii::t('codices', 'Post-apocalyptic'),
+            Yii::t('codices', 'Urban Fiction'),
+            Yii::t('codices', 'Essay'),
+            Yii::t('codices', 'Technical')
+        ];
     }
 
 }

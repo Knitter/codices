@@ -82,6 +82,8 @@ $form->field($model, 'url', [
 ])->textInput(['class' => 'form-control'])
 ?>
 
+<?= $form->field($model, 'genre', $mediumFieldOptions)->textInput(['class' => 'form-control']) ?>
+
 <?= $form->field($model, 'rating', $smallFieldOptions)->textInput() ?>
 
 <?= $form->field($model, 'plot', $standardFieldOptions)->textarea(['class' => 'form-control']) ?>

@@ -27,7 +27,7 @@ $this->params = [
         'filterModel' => $filter,
         'layout' => '{items} {summary} {pager}',
         'columns' => [
-                [
+            [
                 'attribute' => 'title',
                 'label' => Yii::t('codices', 'Title'),
                 'content' => function($model, $key, $index, $column) {
@@ -47,6 +47,12 @@ $this->params = [
                 'label' => Yii::t('codices', 'Series'),
                 'content' => function($model, $key, $index, $column) {
                     return $model->seriesId ? Html::a($model->series->name, Url::to(['series/view', 'id' => $model->seriesId])) : '';
+                }
+            ], [
+                'attribute' => 'genre',
+                'label' => Yii::t('codices', 'Genre'),
+                'content' => function($model, $key, $index, $column) {
+                    return $model->genre ?: '';
                 }
             ], [
                 'class' => 'yii\grid\ActionColumn',

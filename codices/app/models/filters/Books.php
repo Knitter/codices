@@ -46,16 +46,15 @@ final class Books extends Model {
     /** @var string */
     public $authorName;
 
-    /** @var float */
-    public $rating;
+    /** @var string */
+    public $genre;
 
     /**
      * @inheritdoc
      */
     public function rules(): array {
         return [
-                [['title', 'isbn', 'seriesName', 'authorName'], 'string', 'max' => 255],
-                [['rating'], 'number']
+            [['title', 'isbn', 'seriesName', 'authorName', 'genre'], 'string', 'max' => 255]
         ];
     }
 
@@ -82,7 +81,7 @@ final class Books extends Model {
                 ->andFilterWhere(['like', 'isbn', trim($this->isbn)])
                 ->andFilterWhere(['like', 'Series.name', trim($this->seriesName)])
                 ->andFilterWhere(['like', 'CONCAT(Author.name, " ", Author.surname)', trim($this->authorName)])
-                ->andFilterWhere(['>=', 'rating', $this->rating]);
+                ->andFilterWhere(['like', 'genre', trim($this->genre)]);
 
         return $provider;
     }

@@ -3,7 +3,7 @@
 /* @var $readPercent float */
 /* @var $topLanguages array */
 
-$this->title = 'Codices :: ' . Yii::t('codices', 'Dashboard');
+$this->title = Yii::t('codices', 'Dashboard');
 $this->params = [
     'title' => Yii::t('codices', 'Dashboard'),
     'tab' => 'dashboard'

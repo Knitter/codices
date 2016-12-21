@@ -8,9 +8,9 @@ use yii\helpers\Url;
 /* @var $this \yii\web\View */
 /* @var $author \common\models\Author */
 
-$this->title = 'Codices :: ' . Yii::t('codices', 'Author Details');
+$this->title = Yii::t('codices', 'Author details');
 $this->params = [
-    'title' => Yii::t('codices', 'Author Details')
+    'title' => Yii::t('codices', 'Author details')
 ];
 
 $provider = new ArrayDataProvider([
@@ -64,7 +64,7 @@ $provider = new ArrayDataProvider([
         'dataProvider' => $provider,
         'layout' => '{items} {summary}',
         'columns' => [
-                [
+            [
                 'attribute' => 'title',
                 'label' => Yii::t('codices', 'Title'),
                 'content' => function($model, $key, $index, $column) {

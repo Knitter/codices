@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 /* @var $model \app\models\forms\Profile */
 /* @var $filter \app\models\filters\Sessions */
 
-$this->title = 'Codices :: ' . Yii::t('codices', 'My Account');
+$this->title = Yii::t('codices', 'My Account');
 $this->params = [
     'title' => Yii::t('codices', 'My Account')
 ];
@@ -51,7 +51,7 @@ $form->field($model, 'password', $inputFieldOptions)->passwordInput([
         'filterModel' => $filter,
         'layout' => '{items} {summary} {pager}',
         'columns' => [
-                [
+            [
                 'attribute' => 'creationDate',
                 'label' => Yii::t('codices', 'Date')
             ], [

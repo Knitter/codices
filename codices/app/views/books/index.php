@@ -7,9 +7,9 @@ use yii\grid\GridView;
 /* @var $this \yii\web\View */
 /* @var $filter \app\models\filters\Books */
 
-$this->title = 'Codices :: ' . Yii::t('codices', 'Books');
+$this->title = Yii::t('codices', 'Books');
 $this->params = [
-    'title' => Yii::t('codices', 'Book List'),
+    'title' => Yii::t('codices', 'Books'),
     'tab' => 'books'
 ];
 ?>

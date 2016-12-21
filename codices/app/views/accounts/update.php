@@ -3,9 +3,9 @@
 /* @var $this \yii\web\View */
 /* @var $model \app\models\forms\Account */
 
-$this->title = 'Codices :: ' . Yii::t('codices', 'Edit Account');
+$this->title = 'Codices :: ' . Yii::t('codices', 'Edit account');
 $this->params = [
-    'title' => Yii::t('codices', 'Edit User Account')
+    'title' => Yii::t('codices', 'Edit account')
 ];
 
 echo $this->render('_form', ['model' => $model]);

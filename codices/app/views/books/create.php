@@ -5,9 +5,9 @@ use yii\helpers\Url;
 /* @var $this \yii\web\View */
 /* @var $model \app\models\forms\Book */
 
-$this->title = 'Codices :: ' . Yii::t('codices', 'New Book');
+$this->title = Yii::t('codices', 'New book');
 $this->params = [
-    'title' => Yii::t('codices', 'New Book'),
+    'title' => Yii::t('codices', 'New book'),
     'tab' => 'books'
 ];
 ?>

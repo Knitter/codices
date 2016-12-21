@@ -6,7 +6,8 @@ use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 
-$title = Yii::t('codices', 'New Series');
+$title = Yii::t('codices', 'New series');
+
 $btnCreate = Yii::t('codices', 'Add');
 $btnClose = Yii::t('codices', 'Close');
 

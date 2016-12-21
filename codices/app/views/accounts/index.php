@@ -7,9 +7,9 @@ use yii\grid\GridView;
 /* @var $this \yii\web\View */
 /* @var $filter \app\models\filters\Accounts */
 
-$this->title = 'Codices :: ' . Yii::t('codices', 'User Accounts');
+$this->title = Yii::t('codices', 'User accounts');
 $this->params = [
-    'title' => Yii::t('codices', 'User Accounts'),
+    'title' => Yii::t('codices', 'User accounts'),
     'tab' => 'accounts'
 ];
 ?>
@@ -27,13 +27,15 @@ $this->params = [
         'filterModel' => $filter,
         'layout' => '{items} {summary} {pager}',
         'columns' => [
-                [
+            [
                 'attribute' => 'name',
+                'label' => Yii::t('codices', 'Name'),
                 'content' => function($model, $key, $index, $column) {
                     return Html::a($model->name, Url::to(['accounts/view', 'id' => $model->id]));
                 }
             ], [
                 'attribute' => 'email',
+                'label' => Yii::t('codices', 'E-mail'),
                 'content' => function($model, $key, $index, $column) {
                     return Html::a($model->email, Url::to(['accounts/view', 'id' => $model->id]));
                 }

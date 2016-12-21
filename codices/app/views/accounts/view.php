@@ -6,9 +6,9 @@ use yii\widgets\DetailView;
 /* @var $this \yii\web\View */
 /* @var $account \common\models\Account */
 
-$this->title = 'Codices :: ' . Yii::t('codices', 'Account Details');
+$this->title = Yii::t('codices', 'Account details');
 $this->params = [
-    'title' => Yii::t('codices', 'Account Details')
+    'title' => Yii::t('codices', 'Account details')
 ];
 ?>
 
@@ -23,15 +23,15 @@ $this->params = [
     DetailView::widget([
         'model' => $account,
         'attributes' => [
-                [
+            [
                 'attribute' => 'id',
                 'label' => '#'
             ],
-                [
+            [
                 'attribute' => 'name',
                 'label' => Yii::t('codices', 'Name')
             ],
-                [
+            [
                 'attribute' => 'email',
                 'label' => Yii::t('codices', 'E-mail'),
                 'format' => 'email'

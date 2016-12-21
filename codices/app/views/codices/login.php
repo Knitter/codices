@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+
+/* @var $login \app\models\forms\Login */
 ?>
 
 <?= Html::beginForm(Url::to(['codices/login']), 'POST', ['class' => 'form-signin', 'role' => 'form']) ?>
@@ -10,14 +12,14 @@ use yii\helpers\Url;
 
 <div class="form-group">
     <div class="input-group">
-        <div class="input-group-addon"><i class="fa fa-user"></i></div>
+        <div class="input-group-addon"><i class="fa fa-user <?= $login->hasErrors() ? 'text-danger' : '' ?>"></i></div>
         <input type="email" class="form-control" name="Login[email]" placeholder="<?= Yii::t('codices', 'E-mail') ?>" autocomplete="off" />
     </div>
 </div>
 
 <div class="form-group">
     <div class="input-group">
-        <div class="input-group-addon"><i class="fa fa-lock"></i></div>
+        <div class="input-group-addon"><i class="fa fa-lock <?= $login->hasErrors() ? 'text-danger' : '' ?>"></i></div>
         <input type="password" class="form-control" name="Login[password]" placeholder="<?= Yii::t('codices', 'Password') ?>" autocomplete="off" />
     </div>
 </div>

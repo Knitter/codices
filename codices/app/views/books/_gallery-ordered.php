@@ -1,7 +1,4 @@
 <?php
-
-use common\models\Book;
-
 /* @var $this \yii\web\View */
 /* @var $books \common\models\Book[] */
 
@@ -20,6 +17,7 @@ ksort($ordered, SORT_STRING);
 $keys = array_keys($ordered);
 ?>
 
+<a name="top"></a>
 <div class="panel">
     <div class="panel-body text-center">
         <?php foreach ($keys as $key) { ?>
@@ -31,7 +29,11 @@ $keys = array_keys($ordered);
     ?>
     <div class="row">
         <div class="col-xs-12">
-            <div class="panel panel-info"><div class="panel-body"><a name="<?= $key ?>"></a><strong><?= $key ?></strong></div></div>
+            <div class="panel panel-info"><div class="panel-body">
+                    <a name="<?= $key ?>"></a><strong><?= $key ?></strong>
+                    <a href="#top" class="pull-right"><?= Yii::t('codices', 'Back to top') ?></a>
+                    <div class="clearfix"></div>
+                </div></div>
         </div>
 
         <?php foreach ($rows as $book) { ?>

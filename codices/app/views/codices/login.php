@@ -2,16 +2,16 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-
-echo Html::beginForm(Url::to(['codices/login']), 'POST', ['class' => 'form-signin', 'role' => 'form'])
 ?>
+
+<?= Html::beginForm(Url::to(['codices/login']), 'POST', ['class' => 'form-signin', 'role' => 'form']) ?>
 
 <h3 class="form-signin-heading"><?= Yii::t('codices', 'Please Sign In') ?></h3>
 
 <div class="form-group">
     <div class="input-group">
         <div class="input-group-addon"><i class="fa fa-user"></i></div>
-        <input type="text" class="form-control" name="Login[email]" placeholder="<?= Yii::t('codices', 'E-mail') ?>" autocomplete="off" />
+        <input type="email" class="form-control" name="Login[email]" placeholder="<?= Yii::t('codices', 'E-mail') ?>" autocomplete="off" />
     </div>
 </div>
 

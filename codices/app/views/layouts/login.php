@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 //-
 use app\assets\CodicesBundle;
 
@@ -43,6 +44,10 @@ $this->beginPage();
 
         <div class="clearfix"></div>
 
+        <p class="text-center">
+            &copy; <?= date('Y') ?> Codices. v<?= Yii::$app->version ?> /
+            <a href="<?= Url::base(true) ?>"><?= Yii::t('codices', 'Back to Gallery') ?></a>
+        </p>
         <?php $this->endBody() ?>
     </body>
 </html>

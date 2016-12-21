@@ -17,18 +17,20 @@ and the APP.
 
 ```
 Root Folder
-├──codices
-│  ├── app          # main Codices application, offers backend/web access
-│  ├── commom       # source file shared by all other applications
-│  ├── console      # application for console/maintenance usage
-│  ├── migrations   # contains all database migrations
-│  └── rest         # application that provides the REST API
+├── codices
+│   ├── app         # main Codices application, offers backend/web access
+│   ├── commom      # source file shared by all other applications
+│   ├── console     # application for console/maintenance usage
+│   ├── migrations  # contains all database migrations
+│   └── rest        # application that provides the REST API
 │
-│──public           # root of the public webserver's folder
-│  ├── app          # contains the entry script and public resources for the main Codices application
-│  └── rest         # contains the entry script for the REST API
+├── public          # root of the public webserver's folder
+│   ├── app         # contains the entry script and public resources for the main Codices application
+│   └── rest        # contains the entry script for the REST API
 │
-└──vendor           # required system libraries, managed by composer
+├── sql             # SQL version of the migration files, it can be used to install/upgrade where composer is unavailable
+│
+└── vendor          # required system libraries, managed by composer
 ```
 
 ## Codices application
@@ -37,10 +39,10 @@ Codices is the name of the platform comprised of a backend/web application that 
 info, a REST API that allows access to the platform's features through a JSON based interface and a pair of mobile 
 applications that consume the API.
 
-The main application, for most users, will be the WEB backend. But installing one implies installing all the applications
-that make the platform (except for the tow mobile APP).
+The main application, for most users, will be the WEB backend. But installing one implies installing all the 
+applications that make the platform (except for the two mobile APP).
 
-You can use only the WEB version and ignore the RES API.
+If you want, you can use the WEB version and ignore the REST API.
 
 ## REST API
 
@@ -50,8 +52,8 @@ therefore be developed faster than the WEB version.
 
 # Credits
 
-Codices uses a modified version of the Bootflat-Admin template, that is also based in Bootflat. These projects where 
-the base of the admin/backend user interface and can be found 
+To create the layout and general look I started with a modified version of the Bootflat-Admin template, that is also 
+based in Bootflat. These projects where the base of the admin/backend user interface and can be found 
 at [https://github.com/silverbux/bootflat-admin](https://github.com/silverbux/bootflat-admin)
 and [http://bootflat.github.io](http://bootflat.github.io).
 

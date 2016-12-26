@@ -47,7 +47,7 @@ final class BooksController extends Controller {
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
-                    ['allow' => true, 'actions' => ['gallery']],
+                    ['allow' => true, 'actions' => ['gallery', 'details']],
                     ['allow' => false, 'roles' => ['?']],
                     ['allow' => true, 'roles' => ['@']],
                     ['allow' => false]

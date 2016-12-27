@@ -12,7 +12,7 @@ foreach ($books as $book) {
         continue;
     }
 
-    $key = mb_strtoupper(mb_substr($book->genre, 0, 1));
+    $key = $book->genre;
     $ordered[$key][] = $book;
 }
 

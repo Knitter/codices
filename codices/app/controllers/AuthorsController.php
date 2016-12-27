@@ -121,9 +121,9 @@ final class AuthorsController extends Controller {
     }
 
     /**
-     * @return string
+     * @return \stdClass
      */
-    public function actionAjaxCreate(): string {
+    public function actionAjaxCreate() {
         Yii::$app->response->format = Response::FORMAT_JSON;
         if (($name = Yii::$app->request->post('name')) && ($surname = Yii::$app->request->post('surname'))) {
             $newAuthor = new Author();

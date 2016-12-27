@@ -12,28 +12,16 @@ foreach ($books as $book) {
         continue;
     }
 
-    $key = mb_strtoupper(mb_substr($book->series->name, 0, 1));
-    if (is_numeric($key)) {
-        $ordered['#'][] = $book;
-    } else {
-        $ordered[$key][] = $book;
-    }
+    $key = $book->series->name;
+    $ordered[$key][] = $book;
 }
 
 ksort($ordered, SORT_STRING);
-$keys = array_keys($ordered);
-
 $this->registerJs('codices.initGalleryModal("#bookdetails");');
 ?>
 
 <a name="top"></a>
-<div class="panel">
-    <div class="panel-body text-center">
-        <?php foreach ($keys as $key) { ?>
-            <a class="book-index-key" href="#<?= $key ?>"><?= $key ?></a>
-        <?php } ?>
-    </div>
-</div>
+
 <?php foreach ($ordered as $key => $rows) {
     ?>
     <div class="row">

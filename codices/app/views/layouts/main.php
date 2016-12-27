@@ -44,7 +44,11 @@ $this->beginPage();
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="<?= Url::to(['books/gallery']) ?>"><?= Yii::t('codices', 'All Books') ?></a></li>
                                 <li class="divider"></li>
-                                <li><a href="<?= Url::to(['books/gallery', 'mode' => 'ordered']) ?>"><?= Yii::t('codices', 'Grouped by title') ?></a></li>
+                                <li class="dropdown-header"><?= Yii::t('codices', 'Grouped by') ?></li>
+                                <li><a href="<?= Url::to(['books/gallery', 'mode' => 'author']) ?>"><?= Yii::t('codices', 'Author') ?></a></li>
+                                <li><a href="<?= Url::to(['books/gallery', 'mode' => 'genre']) ?>"><?= Yii::t('codices', 'Genre') ?></a></li>
+                                <li><a href="<?= Url::to(['books/gallery', 'mode' => 'series']) ?>"><?= Yii::t('codices', 'Series') ?></a></li>
+                                <li><a href="<?= Url::to(['books/gallery', 'mode' => 'title']) ?>"><?= Yii::t('codices', 'Title') ?></a></li>
                             </ul>
                         </li>
                         <li class="dropdown">

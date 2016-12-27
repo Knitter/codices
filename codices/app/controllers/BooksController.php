@@ -127,10 +127,28 @@ final class BooksController extends Controller {
      */
     public function actionGallery(string $mode = 'all'): string {
         $this->layout = 'public';
-        $books = Book::find()->orderBy('title')->all();
 
-        if ($mode != 'all' && $mode != 'ordered') {
-            $mode = 'ordered';
+        if (!in_array($mode, ['all', 'author', 'genre', 'series', 'title'])) {
+            $mode = 'all';
+        }
+
+        $books = [];
+        switch ($mode) {
+            case 'all':
+            case 'title':
+            case 'genre':
+                $books = Book::find()->orderBy('title')->all();
+                break;
+            case 'author':
+                $books = Book::find()->joinWith(['author'])->orderBy('Author.name, title')->all();
+                break;
+            case 'series':
+                $books = Book::find()->joinWith(['series'])->orderBy([
+                            'Series.name' => SORT_ASC,
+                            '(CAST(Book.order AS SIGNED INTEGER))' => SORT_ASC,
+                            'title' => SORT_ASC
+                        ])->all();
+                break;
         }
 
         return $this->render('gallery', ['books' => $books, 'type' => $mode]);

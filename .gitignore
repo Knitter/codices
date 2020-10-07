@@ -1,26 +1,9 @@
-# IDE files
-# Configuration files and folders for common IDE
-#
-.idea
-.buildpath
-.project
-.settings
-nbproject
-
-# OS Cache files
-# 
-Thumbs.db
-.DS_Store
-
-# Development related files
-# 
-/codices/common/config/config.local.php
-/vendor
-phpunit.xml
-vagrant.config.lock
-.vagrant
-
-# Misc
-# 
-/*.sql
-/logs
+logs
+target
+/.idea
+/.idea_modules
+/.classpath
+/.project
+/.settings
+/RUNNING_PID
+/nbproject/private/

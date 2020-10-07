@@ -1,0 +1,23 @@
+#!/usr/bin/env php
+<?php
+//TODO: Move to configs
+defined('YII_DEBUG') or define('YII_DEBUG', true);
+defined('YII_ENV') or define('YII_ENV', 'dev');
+
+$rootdir = dirname(__DIR__);
+
+require $rootdir . '/vendor/autoload.php';
+require $rootdir . '/vendor/yiisoft/yii2/Yii.php';
+require $rootdir . '/config/common/bootstrap.php';
+require $rootdir . '/config/console/bootstrap.php';
+
+$config = yii\helpers\ArrayHelper::merge(
+                require $rootdir . '/config/common/main.php',
+                //require __DIR__ . '/common/config/main-local.php',
+                require $rootdir . '/config/console/main.php',
+                //require __DIR__ . '/console/config/main-local.php'
+);
+
+$application = new yii\console\Application($config);
+$exitCode = $application->run();
+exit($exitCode);

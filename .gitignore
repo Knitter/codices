@@ -1,4 +1,3 @@
-.vagrant
 logs
 target
 /.idea
@@ -7,4 +6,4 @@ target
 /.project
 /.settings
 /RUNNING_PID
-/nbproject/private/
+_attic

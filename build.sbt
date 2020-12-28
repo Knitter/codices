@@ -1,15 +1,22 @@
-name := "codices"
- 
-version := "1.0" 
-      
-lazy val `codices` = (project in file(".")).enablePlugins(PlayJava)
 
-resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
-      
-scalaVersion := "2.11.11"
-
-libraryDependencies ++= Seq( javaJdbc , cache , javaWs )
-
-unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )  
-
-      
+lazy val root = (project in file("."))
+  .enablePlugins(PlayJava)
+  .settings(
+    name := """Codices""",
+    organization := "com.example",
+    version := "1.0",
+    scalaVersion := "2.13.4",
+    resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases",
+    libraryDependencies ++= Seq(
+      guice,
+      javaJdbc,
+      evolutions
+    ),
+    javacOptions ++= Seq(
+      "-encoding", "UTF-8",
+      "-parameters",
+      "-Xlint:unchecked",
+      "-Xlint:deprecation",
+      "-Werror"
+    )
+  )

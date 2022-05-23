@@ -13,7 +13,7 @@ box_check_update: true
 machine_name: codices
 
 # Virtual machine IP
-ip: 192.168.83.130
+ip: 192.168.83.10
 
 # Virtual machine CPU cores number
 cpus: 1

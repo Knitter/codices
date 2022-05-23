@@ -1,5 +1,0 @@
-suite_namespace: clover\tests\functional
-actor: FunctionalTester
-modules:
-    enabled:
-        - Yii2

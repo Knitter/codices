@@ -1,16 +1,24 @@
 <?php
 
-return [
-    'id' => 'codices-tests',
-    'components' => [
-        'assetManager' => [
-            'basePath' => dirname(dirname(__DIR__)) . '/public/assets',
+use yii\helpers\ArrayHelper;
+
+$config = ArrayHelper::merge(
+    require __DIR__ . '/../../config/common/main.php',
+    require __DIR__ . '/web.php',
+    [
+        'id' => 'codices-tests',
+        'components' => [
+            'mailer' => [
+                'useFileTransport' => true
+            ]
         ],
-        'urlManager' => [
-            'showScriptName' => true,
-        ],
-        'request' => [
-            'cookieValidationKey' => 'test'
-        ]
-    ]
-];
+    ]);
+
+$test = realpath(__DIR__ . '/web.test.php');
+if (defined('YII_DEBUG') && defined('YII_ENV') && YII_DEBUG && YII_ENV == 'test' &&
+    is_file($test)) {
+
+    include $test;
+}
+
+return $config;

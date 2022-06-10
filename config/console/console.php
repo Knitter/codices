@@ -2,7 +2,7 @@
 
 $config = [
     'id' => 'console',
-    'basePath' => dirname(__DIR__),
+    'basePath' => '@console',
     'controllerNamespace' => 'console\commands',
     'controllerMap' => [
         'migrate' => [
@@ -21,13 +21,13 @@ $config = [
     ]
 ];
 
-$prod = realpath(__DIR__ . '/main.prod.php');
+$prod = realpath(__DIR__ . '/console.prod.php');
 if (is_file($prod)) {
 
     include $prod;
 }
 
-$dev = realpath(__DIR__ . '/main.dev.php');
+$dev = realpath(__DIR__ . '/console.dev.php');
 if (defined('YII_DEBUG') && defined('YII_ENV') && YII_DEBUG && YII_ENV == 'dev' &&
     is_file($dev)) {
 

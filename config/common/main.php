@@ -14,7 +14,7 @@ $config = [
     'components' => [
         'cache' => [
             'class' => 'yii\caching\ApcCache',
-            'useApcu' => true
+            'useApcu' => false
         ],
         'mailer' => [
             'class' => Mailer::class,
@@ -37,7 +37,7 @@ $config = [
         ],
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=127.0.0.1;dbname=codices',
+            'dsn' => '',
             'username' => '',
             'password' => '',
             'charset' => 'utf8',
@@ -45,7 +45,7 @@ $config = [
             'schemaCacheDuration' => (24 * 60 * 60),
             'schemaCache' => 'cache'
         ],
-        'redis' => [
+        /*'redis' => [
             'class' => 'yii\redis\Connection',
             'hostname' => 'localhost',
             'port' => 6379,
@@ -54,7 +54,7 @@ $config = [
         'session' => [
             'class' => 'yii\redis\Session',
             'timeout' => (4 * 60 * 60)
-        ],
+        ],*/
     ]
 ];
 

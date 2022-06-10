@@ -66,12 +66,11 @@ sed -i 's/display_errors = Off/display_errors = On/g' /etc/php/${PHP_VERSION}/fp
 sed -i 's/memory_limit = 128M/memory_limit = 196/g' /etc/php/${PHP_VERSION}/fpm/php.ini
 sed -i 's/post_max_size = 8M/post_max_size = 32M/g' /etc/php/${PHP_VERSION}/fpm/php.ini
 sed -i 's/;date.timezone = /date.timezone = "Europe/Lisbon"/g' /etc/php/${PHP_VERSION}/fpm/php.ini
-ln -s /app/build/server/php/fpm-php.ini /etc/php/${PHP_VERSION}/fpm/php.ini
 echo "Done!"
 
 info "Configure MariaDB"
 sed -i "s/.*bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/mariadb.conf.d/50-server.cnf
-mysql -uroot <<< "CREATE USER 'root'@'%' IDENTIFIED BY ''"
+mysql -uroot <<< "CREATE USER 'root'@'%' IDENTIFIED BY 'toor'"
 mysql -uroot <<< "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'"
 mysql -uroot <<< "DROP USER 'root'@'localhost'"
 mysql -uroot <<< "FLUSH PRIVILEGES"

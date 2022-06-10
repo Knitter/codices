@@ -34,4 +34,4 @@ $config = yii\helpers\ArrayHelper::merge(
     require __DIR__ . '/../config/codices/web.php'
 );
 
-(new grupoerofio\components\Application($config))->run();
+(new yii\web\Application($config))->run();

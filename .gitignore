@@ -12,6 +12,7 @@ Thumbs.db
 ._.DS_Store
 
 # DEV
+.vagrant
 /_ENV
 /config/codices/web.dev.php
 /config/codices/test.dev.php
@@ -20,6 +21,7 @@ Thumbs.db
 /config/console/console.dev.php
 /config/console/test.dev.php
 /build/server/config-local.yml
+vkey.ppk
 
 # PROD
 /config/codices/web.prod.php

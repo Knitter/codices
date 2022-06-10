@@ -1,6 +1,6 @@
 <?php
 
-$parent = dirname(__DIR__, 2);
+$parent = dirname(__DIR__, 1);
 
 Yii::setAlias('@container', $parent);
 Yii::setAlias('@build', $parent . '/build');
@@ -10,5 +10,5 @@ Yii::setAlias('@config', $parent . '/config');
 Yii::setAlias('@console', $parent . '/console');
 Yii::setAlias('@docs', $parent . '/docs');
 
-Yii::setAlias('@assets', $parent . '/codices/assets/src');
+Yii::setAlias('@bundle', $parent . '/codices/assets/bundle');
 

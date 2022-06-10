@@ -2,16 +2,16 @@
 
 $config = [
     'id' => 'codices',
-    'basePath' => dirname(__DIR__),
+    'basePath' => '@codices',
     'controllerNamespace' => 'codices\controllers',
-    'defaultRoute' => 'site/index',
+    'defaultRoute' => 'site/dashboard',
     'components' => [
         'view' => [
-            'class' => 'grupoerofio\components\View',
+            'class' => 'codices\components\View',
         ],
         'request' => [
             'csrfParam' => '_csrfweb',
-//            'cookieValidationKey' => 'YlV8KprFK7TMDxhZDZC50peVGGVIGlfC',
+            'cookieValidationKey' => 'YlV8KprFK7TMDxhZDZC50peVGGVIGlfC',
 //            'parsers' => [
 //                'application/json' => 'yii\web\JsonParser',
 //            ]
@@ -41,9 +41,9 @@ $config = [
                 'useApcu' => true
             ],
             'rules' => [
-                '<controller>/<action>/<id:\d+>' => '<controller>/<action>',
-                '<controller>/<id:\d+>' => '<controller>/details',
-                '<module>/<controller>/<action>/<id:\d+>' => '<module>/<controller>/<action>',
+                //'<controller>/<action>/<id:\d+>' => '<controller>/<action>',
+                //'<controller>/<id:\d+>' => '<controller>/details',
+               // '<module>/<controller>/<action>/<id:\d+>' => '<module>/<controller>/<action>',
                 //'<controller>/<slug:[a-zAZ\-]+>/<id:\d+>/<action>' => '<controller>/<action>',
             ]
         ],

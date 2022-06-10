@@ -1,5 +1,5 @@
 {
-  "name": "codices",
+  "name": "knitter/codices",
   "description": "",
   "keywords": [],
   "homepage": "https://github.com/Knitter/codices",
@@ -30,15 +30,7 @@
     "codeception/module-yii2": "^1.0.0",
     "codeception/module-asserts": "^1.0.0",
     "codeception/module-phpbrowser": "^1.0",
-    "friendsofphp/php-cs-fixer": "^3.2",
-    "squizlabs/php_codesniffer": "*",
-    "phpmd/phpmd": "@stable",
-    "bmitch/churn-php": "^1.5",
-    "phpmetrics/phpmetrics": "^2.7",
-    "dephpend/dephpend": "dev-main",
     "phing/phing": "3.*@dev",
-    "phpstan/phpstan": "^1.6",
-    "vimeo/psalm": "^4.23",
     "yiisoft/yii2-apidoc": "^3.0"
   },
   "config": {
@@ -64,7 +56,8 @@
     "yii\\composer\\Installer::postCreateProject": {
       "setPermission": [
         {
-          "grupoerofio/runtime": "0777",
+          "codices/runtime": "0777",
+          "console/runtime": "0777",
           "web/assets": "0777",
           "console/yii": "0755"
         }
@@ -72,7 +65,7 @@
     },
     "yii\\composer\\Installer::postInstall": {
       "generateCookieValidationKey": [
-        "grupoerofio/config/web.php"
+        "config/codices/web.php"
       ]
     }
   },

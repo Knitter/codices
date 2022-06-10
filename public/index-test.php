@@ -1,5 +1,8 @@
 <?php
 
+use yii\base\InvalidConfigException;
+use yii\web\Application;
+
 $env = realpath(__DIR__ . '/../_ENV');
 if (!is_file($env)) {
     die('Missing _ENV file with proper value.');
@@ -25,4 +28,8 @@ $config = yii\helpers\ArrayHelper::merge(
     require __DIR__ . '/../config/codices/test.php'
 );
 
-(new grupoerofio\components\Application($config))->run();
+try {
+    (new Application($config))->run();
+} catch (InvalidConfigException $e) {
+    echo $e->getMessage();
+}

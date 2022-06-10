@@ -21,7 +21,7 @@
  * (c) 2016 Sérgio Lopes
  */
 
-namespace app\modules\v1;
+namespace codices\modules\v1;
 
 /**
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL

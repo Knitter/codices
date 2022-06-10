@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Accounts.php
+ * AuthorController.php
  * 
  * Small book management software.
  * Copyright (C) 2016 Sérgio Lopes (knitter.is@gmail.com)
@@ -21,55 +21,35 @@
  * (c) 2016 Sérgio Lopes
  */
 
-namespace app\models\filters;
+namespace codices\modules\v1\controllers;
 
-use yii\base\Model;
-use yii\data\ActiveDataProvider;
+use yii\filters\Cors;
+use yii\rest\ActiveController;
 //-
-use common\models\Account;
+use app\filters\RequestAuthorization;
 
 /**
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016, Sérgio Lopes (knitter.is@gmail.com)
  */
-final class Accounts extends Model {
+final class AuthorController extends ActiveController {
 
-    /** @var string */
-    public $name;
-
-    /** @var string */
-    public $email;
+    public $modelClass = '\common\models\Author';
 
     /**
      * @inheritdoc
      */
-    public function rules(): array {
-        return [
-                [['name', 'email'], 'string', 'max' => 255]
+    public function behaviors() {
+        $behaviors = parent::behaviors();
+        unset($behaviors['authenticator']);
+
+        $behaviors['corsFilter'] = ['class' => Cors::className()];
+        $behaviors['authenticator'] = [
+            'class' => RequestAuthorization::className(),
+            'except' => ['options']
         ];
-    }
 
-    /**
-     * @param array $params
-     * @return \yii\data\ActiveDataProvider
-     */
-    public function search(array $params) {
-        $query = Account::find()->orderBy('name');
-
-        $provider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => ['pageSize' => 35],
-            'sort' => false
-        ]);
-
-        if (!($this->load($params) && $this->validate())) {
-            return $provider;
-        }
-
-        $query->andFilterWhere(['like', 'name', trim($this->name)])
-                ->andFilterWhere(['like', 'email', trim($this->email)]);
-
-        return $provider;
+        return $behaviors;
     }
 
 }

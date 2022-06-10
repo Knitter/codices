@@ -21,7 +21,7 @@
  * (c) 2016 Sérgio Lopes
  */
 
-namespace app\modules\v1\controllers;
+namespace codices\modules\v1\controllers;
 
 use Yii;
 use yii\filters\Cors;

@@ -21,180 +21,35 @@
  * (c) 2016 Sérgio Lopes
  */
 
-namespace app\controllers;
+namespace codices\modules\v1\controllers;
 
-use Yii;
-use yii\filters\AccessControl;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
-use yii\web\Response;
+use yii\filters\Cors;
+use yii\rest\ActiveController;
 //-
-use common\models\Author;
-use common\models\Series;
-//-
-use app\models\forms\Series as Form;
-use app\models\filters\Series as Filter;
+use app\filters\RequestAuthorization;
 
 /**
  * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016, Sérgio Lopes (knitter.is@gmail.com)
  */
-final class SeriesController extends Controller {
+final class SeriesController extends ActiveController {
+
+    public $modelClass = '\common\models\Series';
 
     /**
      * @inheritdoc
      */
-    public function behaviors(): array {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                        ['allow' => false, 'roles' => ['?']],
-                        ['allow' => true, 'roles' => ['@']],
-                        ['allow' => false]
-                ]
-            ]
+    public function behaviors() {
+        $behaviors = parent::behaviors();
+        unset($behaviors['authenticator']);
+
+        $behaviors['corsFilter'] = ['class' => Cors::className()];
+        $behaviors['authenticator'] = [
+            'class' => RequestAuthorization::className(),
+            'except' => ['options']
         ];
-    }
 
-    /**
-     * Lists all existing book series.
-     * 
-     * @return string
-     */
-    public function actionIndex(): string {
-        return $this->render('index', ['filter' => new Filter()]);
-    }
-
-    /**
-     * Shows the details of a specific books series.
-     * 
-     * @param int $id The series' database ID.
-     * @return string
-     */
-    public function actionView(int $id): string {
-        return $this->render('view', ['series' => $this->findSeries($id)]);
-    }
-
-    /**
-     * Allows creating new book series.
-     * 
-     * @return \yii\web\Response|string
-     */
-    public function actionCreate() {
-        $form = new Form();
-
-        if ($form->load(Yii::$app->request->post())) {
-            if ($form->save()) {
-                Yii::$app->session->setFlash('success', Yii::t('codices', 'New book series created.'));
-                return $this->redirect(['update', 'id' => $form->id]);
-            }
-        }
-
-        return $this->render('create', ['model' => $form]);
-    }
-
-    /**
-     * @param int $id
-     * @return \yii\web\Response|string
-     */
-    public function actionUpdate(int $id) {
-        $form = new Form($this->findSeries($id));
-
-        if ($form->load(Yii::$app->request->post())) {
-            if ($form->save()) {
-                Yii::$app->session->setFlash('success', Yii::t('codices', 'Book series details updated.'));
-                return $this->redirect(['update', 'id' => $form->id]);
-            }
-        }
-
-        return $this->render('update', ['model' => $form]);
-    }
-
-    /**
-     * @param int $id
-     * @return \yii\web\Response
-     */
-    public function actionDelete(int $id) {
-        $series = $this->findSeries($id);
-
-        if ($series->delete()) {
-            Yii::$app->session->setFlash('success', Yii::t('codices', 'Book series deleted.'));
-        } else {
-            Yii::$app->session->setFlash('failure', Yii::t('codices', 'Unable to delete selected book series.'));
-        }
-
-        return $this->redirect(['index']);
-    }
-
-    /**
-     * @return \stdClass
-     */
-    public function actionAjaxCreate() {
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        if (($name = Yii::$app->request->post('name'))) {
-            $newSeries = new Series();
-            $newSeries->name = $name;
-            $newSeries->accountId = Yii::$app->user->identity->id;
-
-            if (($authorId = (int) Yii::$app->request->post('author'))) {
-                if (($author = Author::findOne($authorId))) {
-                    $newSeries->authorId = $author->id;
-                }
-            }
-
-            if ($newSeries->save(false)) {
-
-                $html = ('<option value="0">' . Yii::t('codices', '- none -') . '</option>');
-                if ($author) {
-                    foreach ($author->getSeries()->asArray()->all() as $series) {
-                        $html .= '<option value="' . $series['id'] . '"' . ($series['id'] == $newSeries->id ? ' selected ' : '')
-                                . '>' . $series['name'] . '</option>';
-                    }
-                } else {
-                    $html .= '<option value="' . $newSeries->id . '">' . $newSeries->name . '</option>';
-                }
-
-                return (object) ['ok' => true, 'html' => $html];
-            }
-        }
-
-        return (object) ['ok' => false];
-    }
-
-    /**
-     * @param int $id
-     * @return \stdClass
-     */
-    public function actionAjaxList(int $id) {
-        Yii::$app->response->format = Response::FORMAT_JSON;
-
-        if (($author = Author::findOne((int) $id))) {
-            $html = ('<option value="0">' . Yii::t('codices', '- none -') . '</option>');
-            if ($author) {
-                foreach ($author->getSeries()->asArray()->all() as $series) {
-                    $html .= '<option value="' . $series['id'] . '">' . $series['name'] . '</option>';
-                }
-            }
-
-            return (object) ['ok' => true, 'html' => $html];
-        }
-
-        return (object) ['ok' => false];
-    }
-
-    /**
-     * @param int $id
-     * 
-     * @return \common\models\Series
-     * @throws \yii\web\NotFoundHttpException
-     */
-    private function findSeries(int $id) {
-        if (($series = Series::findOne($id)) !== null) {
-            return $series;
-        }
-
-        throw new NotFoundHttpException(Yii::t('codices', 'Book series not found.'));
+        return $behaviors;
     }
 
 }

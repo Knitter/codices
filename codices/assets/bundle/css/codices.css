@@ -1,3 +1,18 @@
 .avatar-element {
-    background-image: url(../img/avatar-g527883504_640.png)
+    background-image: url(../static/images/avatar-g527883504_640.png)
+}
+
+.book-digital-col-header,
+.book-digital-col-cell,
+.collection-finished-col-header,
+.collection-finished-cell,
+.account-finished-col-header,
+.account-finished-cell {
+    width: 60px;
+}
+
+.book-digital-col-cell,
+.account-active-cell,
+.collection-finished-cell {
+    text-align: center;
 }

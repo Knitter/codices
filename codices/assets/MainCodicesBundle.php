@@ -26,7 +26,7 @@ namespace codices\assets;
 use yii\web\AssetBundle;
 
 /**
- * @license http://www.gnu.org/licenses/agpl-3.0.txt AGPL
+ * @license       http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016 - 2022, Sérgio Lopes (knitter.is@gmail.com)
  */
 final class MainCodicesBundle extends AssetBundle {
@@ -35,11 +35,8 @@ final class MainCodicesBundle extends AssetBundle {
 
     public $css = [
         'css/tabler.min.css',
-        //'tabler-payments.min.css',
         'css/tabler-vendors.min.css',
-        //-
-        //'assets/css/fonts.css',
-        //'assets/css/style.css',
+        //'css/fonts.css',
         'css/codices.css'
     ];
 

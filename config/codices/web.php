@@ -41,10 +41,10 @@ $config = [
                 'useApcu' => true
             ],
             'rules' => [
-                //'<controller>/<action>/<id:\d+>' => '<controller>/<action>',
-                //'<controller>/<id:\d+>' => '<controller>/details',
-               // '<module>/<controller>/<action>/<id:\d+>' => '<module>/<controller>/<action>',
-                //'<controller>/<slug:[a-zAZ\-]+>/<id:\d+>/<action>' => '<controller>/<action>',
+                '<controller>/<action>/<id:\d+>' => '<controller>/<action>',
+                '<controller>/<id:\d+>' => '<controller>/details',
+                '<module>/<controller>/<action>/<id:\d+>' => '<module>/<controller>/<action>',
+                '<controller>/<slug:[a-zAZ\-]+>/<id:\d+>/<action>' => '<controller>/<action>',
             ]
         ],
         'assetManager' => [

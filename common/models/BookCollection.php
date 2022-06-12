@@ -1,7 +1,7 @@
 <?php
 
 /*
- * BookGenre.php
+ * BookCollection.php
  *
  * Small book management software.
  * Copyright (C) 2016 - 2022 Sérgio Lopes (knitter.is@gmail.com)
@@ -27,24 +27,22 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
- * Represents the relationship between a book and the genres that classify it.
+ * @property int                       $bookId       Book record ID
+ * @property int                       $collectionId Collection record ID
  *
- * @property int                  $bookId  Book record ID
- * @property int                  $genreId Genre record ID
- *
- * @property \common\models\Book  $book
- * @property \common\models\Genre $genre
+ * @property \common\models\Book       $book
+ * @property \common\models\Collection $collection
  *
  * @license       http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016 - 2022, Sérgio Lopes (knitter.is@gmail.com)
  */
-final class BookGenre extends ActiveRecord {
+final class BookCollection extends ActiveRecord {
 
     /**
      * @inheritdoc
      */
     public static function tableName(): string {
-        return '{{BookGenre}';
+        return '{{BookCollection}}';
     }
 
     /**
@@ -57,7 +55,8 @@ final class BookGenre extends ActiveRecord {
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getGenre(): ActiveQuery {
-        return $this->hasOne(Genre::class, ['id' => 'genreId']);
+    public function getCollection(): ActiveQuery {
+        return $this->hasOne(Collection::class, ['id' => 'collectionId']);
     }
+
 }

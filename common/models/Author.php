@@ -1,7 +1,7 @@
 <?php
 
 /*
- * BookGenre.php
+ * Author.php
  *
  * Small book management software.
  * Copyright (C) 2016 - 2022 Sérgio Lopes (knitter.is@gmail.com)
@@ -23,41 +23,51 @@
 
 namespace common\models;
 
+use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
- * Represents the relationship between a book and the genres that classify it.
+ * @property int                    $id        PK, record ID, auto-increment
+ * @property string                 $name      Author's first name
+ * @property int                    $ownedById FK, user account the record belongs to
+ * @property string|null            $surname   Author's last name
+ * @property string|null            $biography Short biography
+ * @property string|null            $website   Website URL address
+ * @property string|null            $photo     Author's photo, partial file path/name that needs to be merged with
+ *           system settings for full path or URL
  *
- * @property int                  $bookId  Book record ID
- * @property int                  $genreId Genre record ID
- *
- * @property \common\models\Book  $book
- * @property \common\models\Genre $genre
+ * @property \common\models\Account $owner
  *
  * @license       http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016 - 2022, Sérgio Lopes (knitter.is@gmail.com)
  */
-final class BookGenre extends ActiveRecord {
+final class Author extends ActiveRecord {
 
     /**
      * @inheritdoc
      */
     public static function tableName(): string {
-        return '{{BookGenre}';
+        return '{{Author}}';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels(): array {
+        return [
+            'name' => Yii::t('codices', 'Name'),
+            'surname' => Yii::t('codices', 'Surname'),
+            'biography' => Yii::t('codices', 'Biography'),
+            'website' => Yii::t('codices', 'Website'),
+            'photo' => Yii::t('codices', 'Photo')
+        ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBook(): ActiveQuery {
-        return $this->hasOne(Book::class, ['id' => 'bookId']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getGenre(): ActiveQuery {
-        return $this->hasOne(Genre::class, ['id' => 'genreId']);
+    public function getOwner(): ActiveQuery {
+        return $this->hasOne(Account::class, ['id' => 'ownedById']);
     }
 }

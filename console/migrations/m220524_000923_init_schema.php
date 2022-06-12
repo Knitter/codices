@@ -6,14 +6,12 @@
 
 use yii\db\Migration;
 
-class m220524_000923_init_schema extends Migration
-{
+class m220524_000923_init_schema extends Migration {
 
     /**
      * @inheritdoc
      */
-    public function up()
-    {
+    public function up() {
         $this->createTable('Account', [
             'id' => $this->primaryKey(),
             'login' => $this->string()->notNull()->unique(),
@@ -21,59 +19,63 @@ class m220524_000923_init_schema extends Migration
             'active' => $this->boolean()->notNull(),
             'email' => $this->string(),
             'password' => $this->string()
-        ], 'ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8mb4_general_ci');
+        ], 'ENGINE = InnoDB COLLATE utf8mb4_general_ci');
 
         $this->createTable('Author', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
-            'surname', $this->string(),
-            'biography' => $this->string(),
+            'ownedById' => $this->integer()->notNull(),
+            'surname' => $this->string(),
+            'biography' => $this->text(),
             'website' => $this->string(),
             'photo' => $this->string()
-        ], 'ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8mb4_general_ci');
+        ], 'ENGINE = InnoDB COLLATE utf8mb4_general_ci');
 
         $this->createTable('Genre', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
-        ], 'ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8mb4_general_ci');
+            'ownedById' => $this->integer()->notNull(),
+        ], 'ENGINE = InnoDB COLLATE utf8mb4_general_ci');
 
         $this->createTable('Publisher', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
-            'accountId' => $this->integer()->notNull(),
-            'private' => 'TINYINT NOT NULL',
-            'biography' => $this->string(),
+            'ownedById' => $this->integer()->notNull(),
+            'summary' => $this->string(),
             'website' => $this->string(),
             'logo' => $this->string()
-        ], 'ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8mb4_general_ci');
+        ], 'ENGINE = InnoDB COLLATE utf8mb4_general_ci');
+        //$this->addForeignKey('fkCollectionAccount', 'Collection', 'accountId', 'Account', 'id');
 
         $this->createTable('Series', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
-            'accountId' => $this->integer()->notNull(),
-            'finished' => 'TINYINT NOT NULL',
+            'ownedById' => $this->integer()->notNull(),
+            'finished' => $this->boolean()->notNull(),
             'bookCount' => $this->integer(),
             'ownedCount' => $this->integer()
-        ], 'ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8mb4_general_ci');
+        ], 'ENGINE = InnoDB COLLATE utf8mb4_general_ci');
+        //$this->addForeignKey('fkCollectionAccount', 'Collection', 'accountId', 'Account', 'id');
 
         $this->createTable('Collection', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
-            'accountId' => $this->integer()->notNull(),
+            'ownedById' => $this->integer()->notNull(),
             'publishYear' => $this->integer(),
             'bookCount' => $this->integer(),
             'ownedCount' => $this->integer()
-        ], 'ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8mb4_general_ci');
+        ], 'ENGINE = InnoDB COLLATE utf8mb4_general_ci');
         //$this->addForeignKey('fkCollectionAccount', 'Collection', 'accountId', 'Account', 'id');
 
         $this->createTable('Book', [
             'id' => $this->primaryKey(),
             'title' => $this->string()->notNull(),
-            'accountId' => $this->integer()->notNull(),
+            'ownedById' => $this->integer()->notNull(),
+            'digital' => $this->boolean()->notNull(),
+            'translated' => $this->boolean()->notNull(),
+            'favorite' => $this->boolean()->notNull(),
+            'read' => $this->boolean()->notNull(),
             'copies' => $this->integer()->notNull(),
-            'translated' => 'TINYINT NOT NULL',
-            'favorite' => 'TINYINT NOT NULL',
-            'read' => 'TINYINT NOT NULL',
             'subTitle' => $this->string(),
             'origionalTitle' => $this->string(),
             'plot' => $this->text(),
@@ -92,10 +94,11 @@ class m220524_000923_init_schema extends Migration
             'url' => $this->string(),
             'review' => $this->text(),
             'cover' => $this->string(),
+            'filename' => $this->string(),
             'orderInSeries' => $this->integer(),
             'seriesId' => $this->integer(),
             'duplicatesBookdId' => $this->integer()
-        ], 'ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8mb4_general_ci');
+        ], 'ENGINE = InnoDB COLLATE utf8mb4_general_ci');
         //$this->addForeignKey('fkBookSeries', 'Book', 'seriesId', 'Series', 'id');
         //$this->addForeignKey('fkBookAccount', 'Book', 'accountId', 'Account', 'id');
 
@@ -103,13 +106,14 @@ class m220524_000923_init_schema extends Migration
             'bookId' => $this->integer()->notNull(),
             'genreId' => $this->integer()->notNull(),
             'PRIMARY KEY(bookId, genreId)'
-        ], 'ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8mb4_general_ci');
+        ], 'ENGINE = InnoDB COLLATE utf8mb4_general_ci');
 
         $this->createTable('BookAuthor', [
             'bookId' => $this->integer()->notNull(),
             'authorId' => $this->integer()->notNull(),
+            'illustrator' => $this->boolean()->notNull(),
             'PRIMARY KEY(bookId, authorId)'
-        ], 'ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8mb4_general_ci');
+        ], 'ENGINE = InnoDB COLLATE utf8mb4_general_ci');
         //$this->addForeignKey('fkBookAuthorBook', 'BookAuthor', 'bookId', 'Book', 'id');
         //$this->addForeignKey('fkBookAuthorAuthor', 'BookAuthor', 'authorId', 'Author', 'id');
 
@@ -117,7 +121,7 @@ class m220524_000923_init_schema extends Migration
             'bookId' => $this->integer()->notNull(),
             'collectionId' => $this->integer()->notNull(),
             'PRIMARY KEY(bookId, collectionId)'
-        ], 'ENGINE = InnoDB CHARACTER SET utf8 COLLATE utf8mb4_general_ci');
+        ], 'ENGINE = InnoDB COLLATE utf8mb4_general_ci');
         //$this->addForeignKey('fkBookCollectionBook', 'BookCollection', 'bookId', 'Book', 'id');
         //$this->addForeignKey('fkBookCollectionCollection', 'BookCollection', 'collectionId', 'Collection', 'id');
     }
@@ -125,8 +129,7 @@ class m220524_000923_init_schema extends Migration
     /**
      * @inheritdoc
      */
-    public function down()
-    {
+    public function down() {
         $this->dropTable('BookCollection');
         $this->dropTable('BookAuthor');
         $this->dropTable('BookGenre');

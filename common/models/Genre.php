@@ -1,7 +1,7 @@
 <?php
 
 /*
- * BookGenre.php
+ * Genre.php
  *
  * Small book management software.
  * Copyright (C) 2016 - 2022 Sérgio Lopes (knitter.is@gmail.com)
@@ -23,41 +23,51 @@
 
 namespace common\models;
 
+use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
- * Represents the relationship between a book and the genres that classify it.
+ * @property int                    $id        PK, record ID, auto-increment
+ * @property string                 $name      Genre name/description
+ * @property int                    $ownedById FK, user account the record belongs to
  *
- * @property int                  $bookId  Book record ID
- * @property int                  $genreId Genre record ID
- *
- * @property \common\models\Book  $book
- * @property \common\models\Genre $genre
+ * @property \common\models\Account $owner
  *
  * @license       http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016 - 2022, Sérgio Lopes (knitter.is@gmail.com)
  */
-final class BookGenre extends ActiveRecord {
+final class Genre extends ActiveRecord {
 
     /**
      * @inheritdoc
      */
     public static function tableName(): string {
-        return '{{BookGenre}';
+        return '{{Genre}}';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels(): array {
+        return [
+            'name' => Yii::t('codices', 'Name')
+        ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBook(): ActiveQuery {
-        return $this->hasOne(Book::class, ['id' => 'bookId']);
+    public function getOwner(): ActiveQuery {
+        return $this->hasOne(Account::class, ['id' => 'ownedById']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
+     * @throws \yii\base\InvalidConfigException
      */
-    public function getGenre(): ActiveQuery {
-        return $this->hasOne(Genre::class, ['id' => 'genreId']);
+    public function getBooks(): ActiveQuery {
+        return $this->hasMany(Book::class, ['id' => 'bookId'])
+            ->viaTable('{{BookGenre}}', ['genreId' => 'id']);
     }
 }

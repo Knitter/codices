@@ -1,7 +1,7 @@
 <?php
 
 /*
- * BookGenre.php
+ * SiteController.php
  *
  * Small book management software.
  * Copyright (C) 2016 - 2022 Sérgio Lopes (knitter.is@gmail.com)
@@ -21,43 +21,25 @@
  * (c) 2016 - 2022 Sérgio Lopes
  */
 
-namespace common\models;
+namespace codices\controllers;
 
-use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
+use codices\components\ApplicationController;
 
 /**
- * Represents the relationship between a book and the genres that classify it.
- *
- * @property int                  $bookId  Book record ID
- * @property int                  $genreId Genre record ID
- *
- * @property \common\models\Book  $book
- * @property \common\models\Genre $genre
- *
  * @license       http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016 - 2022, Sérgio Lopes (knitter.is@gmail.com)
  */
-final class BookGenre extends ActiveRecord {
+final class SiteController extends ApplicationController {
 
     /**
-     * @inheritdoc
+     * Implements a small dashboard, that may be expanded to include more info, but that at this point serves only as
+     * a placeholder view after login or as default controller/action when a user doesn't specify any.
+     *
+     * @return string
      */
-    public static function tableName(): string {
-        return '{{BookGenre}';
+    public function actionDashboard(): string {
+        return $this->render('dashboard', [
+        ]);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBook(): ActiveQuery {
-        return $this->hasOne(Book::class, ['id' => 'bookId']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getGenre(): ActiveQuery {
-        return $this->hasOne(Genre::class, ['id' => 'genreId']);
-    }
 }

@@ -9,8 +9,8 @@ $config = [
         '@bower' => '@container/vendor/bower-asset',
         '@npm' => '@container/vendor/npm-asset',
     ],
-    'sourceLanguage' => 'pt-PT',
-    'language' => 'pt-PT',
+    'sourceLanguage' => 'en-US',
+    //'language' => 'pt-PT',
     'components' => [
         'cache' => [
             'class' => 'yii\caching\ApcCache',

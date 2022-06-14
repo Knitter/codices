@@ -24,8 +24,11 @@
 namespace codices\controllers;
 
 use codices\components\ApplicationController;
-use codices\filters\Series;
+use codices\filters\Series as Filter;
+use codices\forms\Series as Form;
+use common\models\Series;
 use Yii;
+use yii\web\Response;
 
 /**
  * @license       http://www.gnu.org/licenses/agpl-3.0.txt AGPL
@@ -34,7 +37,7 @@ use Yii;
 final class SeriesController extends ApplicationController {
 
     public function actionIndex(): string {
-        $filter = new Series();
+        $filter = new Filter();
         $provider = $filter->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -43,12 +46,41 @@ final class SeriesController extends ApplicationController {
         ]);
     }
 
-    public function actionAdd() {
-        throw new \Exception('Not implemented yet!');
+    /**
+     * @return string|\yii\web\Response
+     */
+    public function actionAdd(): Response|string {
+        $form = new Form();
+        if ($form->load(Yii::$app->request->post())) {
+            if ($form->save()) {
+                //TODO: Yii::$app->session->setFlash('success', Yii::t('codices', 'New book series created.'));
+                return $this->redirect(['edit', 'id' => $form->id]);
+            }
+        }
+
+        return $this->render('add', [
+            'model' => $form,
+        ]);
     }
 
-    public function actionEdit(int $id) {
-        throw new \Exception('Not implemented yet!');
+    /**
+     * @param int $id
+     * @return string|\yii\web\Response
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionEdit(int $id): Response|string {
+        $form = new Form($this->findModel(Series::class, $id));
+
+        if ($form->load(Yii::$app->request->post())) {
+            if ($form->save()) {
+                //TODO: Yii::$app->session->setFlash('success', Yii::t('codices', 'Book series details updated.'));
+                return $this->redirect(['edit', 'id' => $form->id]);
+            }
+        }
+
+        return $this->render('edit', [
+            'model' => $form,
+        ]);
     }
 
     public function actionDetails(int $id) {

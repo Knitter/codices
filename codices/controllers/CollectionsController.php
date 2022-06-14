@@ -25,7 +25,10 @@ namespace codices\controllers;
 
 use codices\components\ApplicationController;
 use codices\filters\Collections;
+use codices\forms\Collection as Form;
+use common\models\Collection;
 use Yii;
+use yii\web\Response;
 
 /**
  * @license       http://www.gnu.org/licenses/agpl-3.0.txt AGPL
@@ -43,12 +46,42 @@ final class CollectionsController extends ApplicationController {
         ]);
     }
 
-    public function actionAdd() {
-        throw new \Exception('Not implemented yet!');
+    /**
+     * @return string|\yii\web\Response
+     */
+    public function actionAdd(): Response|string {
+        $form = new Form();
+
+        if ($form->load(Yii::$app->request->post())) {
+            if ($form->save()) {
+                //TODO: Yii::$app->session->setFlash('success', Yii::t('codices', 'New collection created.'));
+                return $this->redirect(['edit', 'id' => $form->id]);
+            }
+        }
+
+        return $this->render('add', [
+            'model' => $form,
+        ]);
     }
 
-    public function actionEdit(int $id) {
-        throw new \Exception('Not implemented yet!');
+    /**
+     * @param int $id
+     * @return \yii\web\Response|string
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionEdit(int $id): Response|string {
+        $form = new Form($this->findModel(Collection::class, $id));
+
+        if ($form->load(Yii::$app->request->post())) {
+            if ($form->save()) {
+                //TODO: Yii::$app->session->setFlash('success', Yii::t('codices', 'Collection details updated.'));
+                return $this->redirect(['edit', 'id' => $form->id]);
+            }
+        }
+
+        return $this->render('edit', [
+            'model' => $form,
+        ]);
     }
 
     public function actionDetails(int $id) {

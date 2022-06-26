@@ -30,29 +30,24 @@ use yii\base\Model;
  * @license       http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016, Sérgio Lopes (knitter.is@gmail.com)
  */
-final class Series extends Model {
+final class Genre extends Model {
 
-    /** @var \common\models\Series|null */
-    private ?\common\models\Series $series;
+    /** @var ?\common\models\Genre */
+    private ?\common\models\Genre $genre;
 
     public ?string $name = null;
-    public ?string $finished = null;
-    public ?string $bookCount = null;
-    public ?string $ownedCount = null;
 
     /**
-     * @param \common\models\Series|null $series
-     * @param array                      $config
+     * @param \common\models\Genre $genre
+     * @param array                $config
      */
-    public function __construct(\common\models\Series $series = null, array $config = []) {
-        $this->series = new \common\models\Series();
-        if ($series) {
-            $this->series = $series;
+    public function __construct(\common\models\Genre $genre = null, array $config = []) {
+        $this->genre = new \common\models\Genre();
 
-            $this->name = $series->name;
-            $this->finished = $series->finished;
-            $this->bookCount = $series->bookCount;
-            $this->ownedCount = $series->ownedCount;
+        if ($genre) {
+            $this->genre = $genre;
+
+            $this->name = $genre->name;
         }
 
         parent::__construct($config);
@@ -64,8 +59,7 @@ final class Series extends Model {
     public function rules(): array {
         return [
             [['name'], 'required'],
-            [['name'], 'string', 'max' => 255],
-            [['finished', 'bookCount', 'ownedCount'], 'integer']
+            [['name'], 'string', 'max' => 255]
         ];
     }
 
@@ -73,12 +67,10 @@ final class Series extends Model {
      * @inheritdoc
      */
     public function attributeLabels(): array {
-        return $this->series->attributeLabels();
+        return $this->genre->attributeLabels();
     }
 
     /**
-     * Validates and saves the changes into the database.
-     *
      * @return bool
      */
     public function save(): bool {
@@ -86,16 +78,13 @@ final class Series extends Model {
             return false;
         }
 
-        if ($this->series->isNewRecord) {
-            $this->series->ownedById = 1;
+        if ($this->genre->isNewRecord) {
+            //TODO: Fix after login process is ready
+            $this->genre->ownedById = 1;
         }
 
-        $this->series->name = $this->name;
-        $this->series->bookCount = $this->bookCount ? (int)$this->bookCount : null;
-        $this->series->finished = $this->finished ? 1 : 0;
-        $this->series->ownedCount = $this->ownedCount ? (int)$this->ownedCount : null;
-
-        if (!$this->series->save()) {
+        $this->genre->name = $this->name;
+        if (!$this->genre->save()) {
             return false;
         }
 
@@ -106,13 +95,21 @@ final class Series extends Model {
      * @return int
      */
     public function getId(): int {
-        return $this->series ? $this->series->id : 0;
+        return $this->genre->id;
     }
 
     /**
      * @return bool
      */
     public function isNewRecord(): bool {
-        return $this->series->isNewRecord;
+        return $this->genre->isNewRecord;
     }
+
+    /**
+     * @return array
+     */
+    public function getBooks(): array {
+        return $this->genre ? $this->genre->books : [];
+    }
+
 }

@@ -25,7 +25,10 @@ namespace codices\controllers;
 
 use codices\components\ApplicationController;
 use codices\filters\Genres;
+use codices\forms\Genre as Form;
+use common\models\Genre;
 use Yii;
+use yii\web\Response;
 
 /**
  * @license       http://www.gnu.org/licenses/agpl-3.0.txt AGPL
@@ -46,12 +49,42 @@ final class GenresController extends ApplicationController {
         ]);
     }
 
-    public function actionAdd() {
-        throw new \Exception('Not implemented yet!');
+    /**
+     * @return string|\yii\web\Response
+     */
+    public function actionAdd(): Response|string {
+        $form = new Form();
+
+        if ($form->load(Yii::$app->request->post())) {
+            if ($form->save()) {
+                //TODO: Yii::$app->session->setFlash('success', Yii::t('codices', 'New book created.'));
+                return $this->redirect(['edit', 'id' => $form->id]);
+            }
+        }
+
+        return $this->render('add', [
+            'model' => $form,
+        ]);
     }
 
-    public function actionEdit(int $id) {
-        throw new \Exception('Not implemented yet!');
+    /**
+     * @param int $id
+     * @return string|\yii\web\Response
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionEdit(int $id): Response|string {
+        $form = new Form($this->findModel(Genre::class, $id));
+
+        if ($form->load(Yii::$app->request->post())) {
+            if ($form->save()) {
+                //TODO: Yii::$app->session->setFlash('success', Yii::t('codices', 'Book details updated.'));
+                return $this->redirect(['edit', 'id' => $form->id]);
+            }
+        }
+
+        return $this->render('edit', [
+            'model' => $form,
+        ]);
     }
 
     public function actionDetails(int $id) {

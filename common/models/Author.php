@@ -70,4 +70,13 @@ final class Author extends ActiveRecord {
     public function getOwner(): ActiveQuery {
         return $this->hasOne(Account::class, ['id' => 'ownedById']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function getBooks(): ActiveQuery {
+        $this->hasMany(Book::class, ['id' => 'bookId'])
+            ->viaTable('{{BookAuthor}}', ['authorId' => 'id']);
+    }
 }

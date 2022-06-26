@@ -25,6 +25,8 @@ namespace codices\controllers;
 
 use codices\components\ApplicationController;
 use codices\filters\Authors;
+use codices\forms\Author as Form;
+use common\models\Author;
 use Yii;
 
 /**
@@ -46,12 +48,42 @@ final class AuthorsController extends ApplicationController {
         ]);
     }
 
-    public function actionAdd() {
-        throw new \Exception('Not implemented yet!');
+    /**
+     * @return \yii\web\Response|string
+     */
+    public function actionAdd(): \yii\web\Response|string {
+        $form = new Form();
+
+        if ($form->load(Yii::$app->request->post())) {
+            if ($form->save()) {
+                //TODO: Yii::$app->session->setFlash('success', Yii::t('codices', 'New book created.'));
+                return $this->redirect(['edit', 'id' => $form->id]);
+            }
+        }
+
+        return $this->render('add', [
+            'model' => $form,
+        ]);
     }
 
-    public function actionEdit(int $id) {
-        throw new \Exception('Not implemented yet!');
+    /**
+     * @param int $id
+     * @return string|\yii\web\Response
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionEdit(int $id): \yii\web\Response|string {
+        $form = new Form($this->findModel(Author::class, $id));
+
+        if ($form->load(Yii::$app->request->post())) {
+            if ($form->save()) {
+                //TODO: Yii::$app->session->setFlash('success', Yii::t('codices', 'Book details updated.'));
+                return $this->redirect(['edit', 'id' => $form->id]);
+            }
+        }
+
+        return $this->render('edit', [
+            'model' => $form,
+        ]);
     }
 
     public function actionDetails(int $id) {

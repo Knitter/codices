@@ -30,21 +30,21 @@ use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * @property integer                     $id       PK, record ID, auto-increment
- * @property string                      $login    User login/account name, used for authentication
- * @property string                      $name     User's visible name, used for UI purposes
- * @property bool                        $active   Flag that marks this account record as being active
- * @property string|null                 $email    User's e-mail address, optional for accounts that are not used to
+ * @property integer                     $id          PK, record ID, auto-increment
+ * @property string                      $login       User login/account name, used for authentication
+ * @property string                      $name        User's visible name, used for UI purposes
+ * @property bool                        $active      Flag that marks this account record as being active
+ * @property string|null                 $email       User's e-mail address, optional for accounts that are not used to
  *           access the application
- * @property string|null                 $password User's password, optional, and if not set or empty will mark this
+ * @property string|null                 $password    User's password, optional, and if not set or empty will mark this
  *           account as one that can't be used to log in into the application
  *
- * @property \common\models\Author[]     $authors
- * @property \common\models\Genre[]      $genres
- * @property \common\models\Publisher[]  $publishers
- * @property \common\models\Series[]     $series
- * @property \common\models\Collection[] $collections
- * @property \common\models\Book[]       $books
+ * @property \common\models\Author[]     $authors     List of author records that are owned by this account
+ * @property \common\models\Genre[]      $genres      List of genre records that are owned by this account
+ * @property \common\models\Publisher[]  $publishers  List of publisher records that are owned by this account
+ * @property \common\models\Series[]     $series      List of series records that are owned by this account
+ * @property \common\models\Collection[] $collections List of collection records that are owned by this account
+ * @property \common\models\Book[]       $books       List of book records that are owned by this account
  *
  * @license       http://www.gnu.org/licenses/agpl-3.0.txt AGPL
  * @copyright (c) 2016 - 2022, Sérgio Lopes (knitter.is@gmail.com)
@@ -66,6 +66,7 @@ final class Account extends ActiveRecord implements IdentityInterface {
      */
     public function attributeLabels(): array {
         return [
+            'id' => '#',
             'login' => Yii::t('codices', 'Login'),
             'name' => Yii::t('codices', 'Name'),
             'active' => Yii::t('codices', 'Active'),

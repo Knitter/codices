@@ -17,7 +17,7 @@ $config = [
 //            ]
         ],
         'user' => [
-            'identityClass' => 'codices\models\User',
+            'identityClass' => 'common\models\Account',
             'enableSession' => true,
             'enableAutoLogin' => false,
             'loginUrl' => ['site/login'],

@@ -24,6 +24,9 @@
 namespace codices\controllers;
 
 use codices\components\ApplicationController;
+use codices\forms\Authentication;
+use Yii;
+use yii\web\Response;
 
 /**
  * @license       http://www.gnu.org/licenses/agpl-3.0.txt AGPL
@@ -41,5 +44,33 @@ final class SiteController extends ApplicationController {
         return $this->render('dashboard', [
         ]);
     }
+
+    /**
+     * @return string|\yii\web\Response
+     */
+    public function actionLogin(): Response|string {
+        $app = Yii::$app;
+        if (!$app->user->isGuest) {
+            return $this->redirect(['dashboard']);
+        }
+
+        $this->layout = 'auth';
+        $form = new Authentication();
+        //TODO: Handle authentication errors
+        if ($form->load($app->request->post()) && $form->authenticate()) {
+            return $this->redirect(['dashboard']);
+        }
+
+        return $this->render('login');
+    }
+
+    /**
+     * @return \yii\web\Response
+     */
+    public function actionLogout(): Response {
+        Yii::$app->user->logout();
+        return $this->redirect(['login']);
+    }
+
 
 }

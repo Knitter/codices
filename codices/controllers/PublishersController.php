@@ -28,6 +28,7 @@ use codices\filters\Publishers;
 use codices\forms\Publisher as Form;
 use common\models\Publisher;
 use Yii;
+use yii\web\Response;
 
 /**
  * @license       http://www.gnu.org/licenses/agpl-3.0.txt AGPL
@@ -36,7 +37,7 @@ use Yii;
 final class PublishersController extends ApplicationController {
 
     public function actionIndex(): string {
-        $filter = new Publishers();
+        $filter = new Publishers(Yii::$app->user->identity->id);
         $provider = $filter->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -48,8 +49,8 @@ final class PublishersController extends ApplicationController {
     /**
      * @return string|\yii\web\Response
      */
-    public function actionAdd(): \yii\web\Response|string {
-        $form = new Form();
+    public function actionAdd(): Response|string {
+        $form = new Form(Yii::$app->user->identity->id);
 
         if ($form->load(Yii::$app->request->post())) {
             if ($form->save()) {
@@ -68,8 +69,8 @@ final class PublishersController extends ApplicationController {
      * @return string|\yii\web\Response
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionEdit(int $id): \yii\web\Response|string {
-        $form = new Form($this->findModel(Publisher::class, $id));
+    public function actionEdit(int $id): Response|string {
+        $form = new Form(Yii::$app->user->identity->id, $this->findModel(Publisher::class, $id));
 
         if ($form->load(Yii::$app->request->post())) {
             if ($form->save()) {

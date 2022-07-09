@@ -34,14 +34,17 @@ final class Genre extends Model {
 
     /** @var ?\common\models\Genre */
     private ?\common\models\Genre $genre;
+    private int $ownerId;
 
     public ?string $name = null;
 
     /**
-     * @param \common\models\Genre $genre
-     * @param array                $config
+     * @param int                       $ownerId
+     * @param \common\models\Genre|null $genre
+     * @param array                     $config
      */
-    public function __construct(\common\models\Genre $genre = null, array $config = []) {
+    public function __construct(int $ownerId, \common\models\Genre $genre = null, array $config = []) {
+        $this->ownerId = $ownerId;
         $this->genre = new \common\models\Genre();
 
         if ($genre) {
@@ -79,8 +82,7 @@ final class Genre extends Model {
         }
 
         if ($this->genre->isNewRecord) {
-            //TODO: Fix after login process is ready
-            $this->genre->ownedById = 1;
+            $this->genre->ownedById = $this->ownerId;
         }
 
         $this->genre->name = $this->name;

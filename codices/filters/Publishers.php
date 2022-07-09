@@ -33,7 +33,17 @@ use yii\data\ActiveDataProvider;
  */
 final class Publishers extends Model {
 
+    private int $ownerId;
     public ?string $name = null;
+
+    /**
+     * @param int   $ownerId
+     * @param array $config
+     */
+    public function __construct(int $ownerId, array $config = []) {
+        $this->ownerId = $ownerId;
+        parent::__construct($config);
+    }
 
     /**
      * @inheritdoc
@@ -50,8 +60,7 @@ final class Publishers extends Model {
      */
     public function search(array $params) {
         $query = Publisher::find()
-            //TODO: Filter by owner
-            //->where(['ownedById' => $this->ownerId])
+            ->where(['ownedById' => $this->ownerId])
             ->orderBy('name');
 
         $provider = new ActiveDataProvider([

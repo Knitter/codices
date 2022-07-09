@@ -36,6 +36,7 @@ final class Author extends Model {
 
     /** @var \common\models\Author|null */
     private ?\common\models\Author $author;
+    private int $ownerId;
 
     public ?string $name = null;
     public ?string $surname = null;
@@ -47,10 +48,12 @@ final class Author extends Model {
     public $file;
 
     /**
+     * @param int                        $ownerId
      * @param \common\models\Author|null $author
      * @param array                      $config
      */
-    public function __construct(\common\models\Author $author = null, array $config = []) {
+    public function __construct(int $ownerId, \common\models\Author $author = null, array $config = []) {
+        $this->ownerId = $ownerId;
         $this->author = new \common\models\Author();
         if ($author) {
             $this->author = $author;
@@ -91,8 +94,7 @@ final class Author extends Model {
         }
 
         if ($this->author->isNewRecord) {
-            //TODO: Fix after login process is ready
-            $this->author->ownedById = 1;
+            $this->author->ownedById = $this->ownerId;
         }
 
         $this->author->name = $this->name;

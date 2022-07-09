@@ -33,8 +33,18 @@ use yii\data\ActiveDataProvider;
  */
 final class Collections extends Model {
 
+    private int $ownerId;
     public ?string $name = null;
     public ?string $publishYear = null;
+
+    /**
+     * @param int   $ownerId
+     * @param array $config
+     */
+    public function __construct(int $ownerId, array $config = []) {
+        $this->ownerId = $ownerId;
+        parent::__construct($config);
+    }
 
     /**
      * @inheritdoc
@@ -52,8 +62,7 @@ final class Collections extends Model {
      */
     public function search(array $params): ActiveDataProvider {
         $query = Collection::find()
-            //TODO: Filter by owner
-            //->where(['ownedById' => $this->ownerId])
+            ->where(['ownedById' => $this->ownerId])
             ->orderBy(['name' => SORT_ASC]);
 
         $provider = new ActiveDataProvider([

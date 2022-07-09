@@ -35,8 +35,18 @@ use common\models\Author;
  */
 final class Authors extends Model {
 
+    private int $ownerId;
     public ?string $name = null;
     public ?string $surname = null;
+
+    /**
+     * @param int   $ownerId
+     * @param array $config
+     */
+    public function __construct(int $ownerId, array $config = []) {
+        $this->ownerId = $ownerId;
+        parent::__construct($config);
+    }
 
     /**
      * @inheritdoc
@@ -53,8 +63,7 @@ final class Authors extends Model {
      */
     public function search(array $params): ActiveDataProvider {
         $query = Author::find()
-            //TODO: Filter by owner
-            //->where(['ownedById' => $this->ownerId])
+            ->where(['ownedById' => $this->ownerId])
             ->orderBy([
                 'name' => SORT_ASC,
                 'surname' => SORT_ASC

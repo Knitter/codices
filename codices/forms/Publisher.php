@@ -36,6 +36,7 @@ final class Publisher extends Model {
 
     /** @var \common\models\Publisher|null */
     private ?\common\models\Publisher $publisher;
+    private int $ownerId;
 
     public ?string $name = null;
     public ?string $summary = null;
@@ -46,10 +47,12 @@ final class Publisher extends Model {
     public $file;
 
     /**
+     * @param int                           $ownerId
      * @param \common\models\Publisher|null $publisher
      * @param array                         $config
      */
-    public function __construct(\common\models\Publisher $publisher = null, array $config = []) {
+    public function __construct(int $ownerId, \common\models\Publisher $publisher = null, array $config = []) {
+        $this->ownerId = $ownerId;
         $this->publisher = new \common\models\Publisher();
         if ($publisher) {
             $this->publisher = $publisher;
@@ -88,8 +91,7 @@ final class Publisher extends Model {
         }
 
         if ($this->publisher->isNewRecord) {
-            //TODO: Fix after login process is ready
-            $this->publisher->ownedById = 1;
+            $this->publisher->ownedById = $this->ownerId;
         }
 
         $this->publisher->name = $this->name;

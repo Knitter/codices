@@ -34,17 +34,20 @@ final class Series extends Model {
 
     /** @var \common\models\Series|null */
     private ?\common\models\Series $series;
-
+    private int $ownerId;
+    
     public ?string $name = null;
     public ?string $finished = null;
     public ?string $bookCount = null;
     public ?string $ownedCount = null;
 
     /**
+     * @param int                        $ownerId
      * @param \common\models\Series|null $series
      * @param array                      $config
      */
-    public function __construct(\common\models\Series $series = null, array $config = []) {
+    public function __construct(int $ownerId, \common\models\Series $series = null, array $config = []) {
+        $this->ownerId = $ownerId;
         $this->series = new \common\models\Series();
         if ($series) {
             $this->series = $series;
@@ -87,7 +90,7 @@ final class Series extends Model {
         }
 
         if ($this->series->isNewRecord) {
-            $this->series->ownedById = 1;
+            $this->series->ownedById = $this->ownerId;
         }
 
         $this->series->name = $this->name;

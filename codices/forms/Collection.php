@@ -34,6 +34,7 @@ final class Collection extends Model {
 
     /** @var \common\models\Collection|null */
     private ?\common\models\Collection $collection;
+    private int $ownerId;
 
     public ?string $name = null;
     public ?string $publishYear = null;
@@ -41,10 +42,12 @@ final class Collection extends Model {
     public ?string $ownedCount = null;
 
     /**
+     * @param int                            $ownerId
      * @param \common\models\Collection|null $collection
      * @param array                          $config
      */
-    public function __construct(\common\models\Collection $collection = null, array $config = []) {
+    public function __construct(int $ownerId, \common\models\Collection $collection = null, array $config = []) {
+        $this->ownerId = $ownerId;
         $this->collection = new \common\models\Collection();
         if ($collection) {
             $this->collection = $collection;
@@ -85,8 +88,7 @@ final class Collection extends Model {
         }
 
         if ($this->collection->isNewRecord) {
-            //TODO: Fix after login process is ready
-            $this->collection->ownedById = 1;
+            $this->collection->ownedById = $this->ownerId;
         }
 
         $this->collection->name = trim($this->name);

@@ -20,8 +20,8 @@ use yii\helpers\Url;
                    aria-label="Open user menu">
                     <span class="avatar avatar-sm avatar-element"></span>
                     <div class="d-none d-xl-block ps-2">
-                        <div>USERNAME</div>
-                        <div class="mt-1 small text-muted">USER SUBTITLE</div>
+                        <div><?= Yii::$app->user->identity->login ?></div>
+                        <div class="mt-1 small text-muted"><?= Yii::$app->user->identity->name ?></div>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">

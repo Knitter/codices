@@ -41,7 +41,7 @@ final class BooksController extends ApplicationController {
      * @return string
      */
     public function actionIndex(): string {
-        $filter = new Books();
+        $filter = new Books(Yii::$app->user->identity->id);
         $provider = $filter->search(Yii::$app->request->queryParams);
 
         //TODO: update account based on logged user
@@ -62,7 +62,7 @@ final class BooksController extends ApplicationController {
      * @return \yii\web\Response|string
      */
     public function actionAdd(): Response|string {
-        $form = new Form();
+        $form = new Form(Yii::$app->user->identity->id);
 
         if ($form->load(Yii::$app->request->post())) {
             if ($form->save()) {
@@ -88,7 +88,7 @@ final class BooksController extends ApplicationController {
      * @return \yii\web\Response|string
      */
     public function actionEdit(int $id): Response|string {
-        $form = new Form($this->findBook($id));
+        $form = new Form(Yii::$app->user->identity->id, $this->findBook($id));
 
         if ($form->load(Yii::$app->request->post())) {
             if ($form->save()) {

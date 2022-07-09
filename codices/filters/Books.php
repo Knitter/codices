@@ -8,12 +8,22 @@ use yii\data\ActiveDataProvider;
 
 final class Books extends Model {
 
+    private int $ownerId;
     public ?string $title = null;
     public ?string $subTitle = null;
     public ?string $isbn = null;
     public ?string $format = null;
     public ?string $digital = null;
     public ?string $series = null;
+
+    /**
+     * @param int   $ownerId
+     * @param array $config
+     */
+    public function __construct(int $ownerId, array $config = []) {
+        $this->ownerId = $ownerId;
+        parent::__construct($config);
+    }
 
     /**
      * @inheritdoc
@@ -33,8 +43,7 @@ final class Books extends Model {
      */
     public function search(array $params): ActiveDataProvider {
         $query = Book::find()
-            //TODO: Filter by owner
-            //->where(['ownedById' => $this->ownerId])
+            ->where(['ownedById' => $this->ownerId])
             ->orderBy('title')
             ->joinWith(['series']);
 

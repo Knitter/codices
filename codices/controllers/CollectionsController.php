@@ -37,7 +37,7 @@ use yii\web\Response;
 final class CollectionsController extends ApplicationController {
 
     public function actionIndex(): string {
-        $filter = new Collections();
+        $filter = new Collections(Yii::$app->user->identity->id);
         $provider = $filter->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -50,7 +50,7 @@ final class CollectionsController extends ApplicationController {
      * @return string|\yii\web\Response
      */
     public function actionAdd(): Response|string {
-        $form = new Form();
+        $form = new Form(Yii::$app->user->identity->id);
 
         if ($form->load(Yii::$app->request->post())) {
             if ($form->save()) {
@@ -70,7 +70,7 @@ final class CollectionsController extends ApplicationController {
      * @throws \yii\web\NotFoundHttpException
      */
     public function actionEdit(int $id): Response|string {
-        $form = new Form($this->findModel(Collection::class, $id));
+        $form = new Form(Yii::$app->user->identity->id, $this->findModel(Collection::class, $id));
 
         if ($form->load(Yii::$app->request->post())) {
             if ($form->save()) {

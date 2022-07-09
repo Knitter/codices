@@ -40,7 +40,7 @@ final class GenresController extends ApplicationController {
      * @return string
      */
     public function actionIndex(): string {
-        $filter = new Genres();
+        $filter = new Genres(Yii::$app->user->identity->id);
         $provider = $filter->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -53,7 +53,7 @@ final class GenresController extends ApplicationController {
      * @return string|\yii\web\Response
      */
     public function actionAdd(): Response|string {
-        $form = new Form();
+        $form = new Form(Yii::$app->user->identity->id);
 
         if ($form->load(Yii::$app->request->post())) {
             if ($form->save()) {
@@ -73,7 +73,7 @@ final class GenresController extends ApplicationController {
      * @throws \yii\web\NotFoundHttpException
      */
     public function actionEdit(int $id): Response|string {
-        $form = new Form($this->findModel(Genre::class, $id));
+        $form = new Form(Yii::$app->user->identity->id, $this->findModel( Genre::class, $id));
 
         if ($form->load(Yii::$app->request->post())) {
             if ($form->save()) {

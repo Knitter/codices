@@ -28,6 +28,7 @@ use codices\filters\Authors;
 use codices\forms\Author as Form;
 use common\models\Author;
 use Yii;
+use yii\web\Response;
 
 /**
  * @license       http://www.gnu.org/licenses/agpl-3.0.txt AGPL
@@ -39,7 +40,7 @@ final class AuthorsController extends ApplicationController {
      * @return string
      */
     public function actionIndex(): string {
-        $filter = new Authors();
+        $filter = new Authors(Yii::$app->user->identity->id);
         $provider = $filter->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -51,8 +52,8 @@ final class AuthorsController extends ApplicationController {
     /**
      * @return \yii\web\Response|string
      */
-    public function actionAdd(): \yii\web\Response|string {
-        $form = new Form();
+    public function actionAdd(): Response|string {
+        $form = new Form(Yii::$app->user->identity->id);
 
         if ($form->load(Yii::$app->request->post())) {
             if ($form->save()) {
@@ -71,8 +72,8 @@ final class AuthorsController extends ApplicationController {
      * @return string|\yii\web\Response
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionEdit(int $id): \yii\web\Response|string {
-        $form = new Form($this->findModel(Author::class, $id));
+    public function actionEdit(int $id): Response|string {
+        $form = new Form(Yii::$app->user->identity->id, $this->findModel(Author::class, $id));
 
         if ($form->load(Yii::$app->request->post())) {
             if ($form->save()) {

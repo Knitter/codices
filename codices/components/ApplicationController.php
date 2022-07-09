@@ -23,22 +23,29 @@
 
 namespace codices\components;
 
-use common\orm\Company;
-use Exception;
-use grupoerofio\forms\BaseForm;
-use grupoerofio\widgets\components\Alert;
-use JetBrains\PhpStorm\ArrayShape;
-use Yii;
-use yii\base\InvalidArgumentException;
 use yii\db\ActiveRecord;
-use yii\db\Query;
 use yii\filters\AccessControl;
-use yii\helpers\ArrayHelper;
-use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
 class ApplicationController extends Controller {
+
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors(): array {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    ['allow' => true, 'actions' => ['login']],
+                    ['allow' => true, 'actions' => ['logout'], 'roles' => ['@']],
+                    ['allow' => true, 'roles' => ['@']],
+                    ['allow' => false]
+                ]
+            ]
+        ];
+    }
 
     /**
      * @param string         $class

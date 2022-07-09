@@ -31,14 +31,12 @@ use yii\db\ActiveRecord;
  * @property int                         $id                PK, record ID, auto-increment
  * @property string                      $title             Book title
  * @property int                         $ownedById         FK, user account the record belongs to
- * @property int                         $digital           Flag, marks this record as being for a digital book (ebook
- *           or audiobook)
  * @property int                         $translated        Flag, identifies this book as being a translation
  * @property int                         $favorite          Flag, marks this as one of the user's favorite book
  * @property int                         $read              Flag, marks the book as read by the user
  * @property int                         $copies            Number of owned copies
  * @property string|null                 $subTitle          Optional sub-title
- * @property string|null                 $origionalTitle    If the book is translated, this will allow the user to
+ * @property string|null                 $originalTitle    If the book is translated, this will allow the user to
  *           specify the original title
  * @property string|null                 $plot
  * @property string|null                 $isbn
@@ -96,13 +94,12 @@ final class Book extends ActiveRecord {
             'id' => Yii::t('codices', '#'),
             'title' => Yii::t('codices', 'Title'),
             'ownedById' => Yii::t('codices', 'Owner'),
-            'digital' => Yii::t('codices', 'Digital'),
             'translated' => Yii::t('codices', 'Translated'),
             'favorite' => Yii::t('codices', 'Favorite'),
             'read' => Yii::t('codices', 'Read'),
             'copies' => Yii::t('codices', 'No. Copies'),
             'subTitle' => Yii::t('codices', 'Subtitle'),
-            'origionalTitle' => Yii::t('codices', 'Original Title'),
+            'originalTitle' => Yii::t('codices', 'Original Title'),
             'plot' => Yii::t('codices', 'Plot'),
             'isbn' => Yii::t('codices', 'ISBN'),
             'format' => Yii::t('codices', 'Format'),
@@ -119,7 +116,7 @@ final class Book extends ActiveRecord {
             'url' => Yii::t('codices', 'URL'),
             'review' => Yii::t('codices', 'Review'),
             'cover' => Yii::t('codices', 'Cover'),
-            'filename' => Yii::t('codices', 'eBook File'),
+            'filename' => Yii::t('codices', 'File Path/Name'),
             'orderInSeries' => Yii::t('codices', 'Order in Series'),
             'seriesId' => Yii::t('codices', 'Series'),
             'duplicatesBookdId' => Yii::t('codices', 'Duplicates'),
@@ -197,35 +194,5 @@ final class Book extends ActiveRecord {
             self::FORMAT_AUDIOBOOK
         ];
     }
-
-    /**
-     * @return string[]
-     */
-    public static function digitalFormatList(bool $sort = true): array {
-        $formats = [
-            self::FORMAT_EPUB => Yii::t('codices', 'EPUB'),
-            self::FORMAT_PDF => Yii::t('codices', 'PDF'),
-            self::FORMAT_AUDIOBOOK => Yii::t('codices', 'Audiobook')
-        ];
-
-        if ($sort) {
-            asort($formats);
-            return $formats;
-        }
-
-        return $formats;
-    }
-
-    /**
-     * @return string[]
-     */
-    public static function digitalFormatKeys(): array {
-        return [
-            self::FORMAT_EPUB,
-            self::FORMAT_PDF,
-            self::FORMAT_AUDIOBOOK
-        ];
-    }
-
 
 }

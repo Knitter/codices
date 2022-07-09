@@ -13,7 +13,6 @@ final class Books extends Model {
     public ?string $subTitle = null;
     public ?string $isbn = null;
     public ?string $format = null;
-    public ?string $digital = null;
     public ?string $series = null;
 
     /**
@@ -32,8 +31,7 @@ final class Books extends Model {
         return [
             [['title', 'subTitle', 'isbn'], 'string'],
             [['series'], 'integer'],
-            [['format'], 'in', 'range' => Book::formatKeys()],
-            [['digital'], 'in', 'range' => ['yes', 'no']],
+            [['format'], 'in', 'range' => Book::formatKeys()]
         ];
     }
 
@@ -43,8 +41,9 @@ final class Books extends Model {
      */
     public function search(array $params): ActiveDataProvider {
         $query = Book::find()
-            ->where(['ownedById' => $this->ownerId])
-            ->orderBy('title')
+            ->alias('b')
+            ->where(['b.ownedById' => $this->ownerId])
+            ->orderBy('b.title')
             ->joinWith(['series']);
 
         $provider = new ActiveDataProvider([
@@ -57,14 +56,13 @@ final class Books extends Model {
             return $provider;
         }
 
-        $query->filterWhere(['format' => $this->format, 'series' => $this->series])
-            ->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'title', $this->subTitle])
-            ->andFilterWhere(['like', 'isbn', $this->isbn]);
-
-        if (!empty($this->digital)) {
-            $query->andWhere(['digital' => $this->digital == 'yes']);
-        }
+        $query->filterWhere([
+            'b.format' => $this->format,
+            'b.seriesId' => $this->series
+        ])
+            ->andFilterWhere(['like', 'b.title', $this->title])
+            ->andFilterWhere(['like', 'b.title', $this->subTitle])
+            ->andFilterWhere(['like', 'b.isbn', $this->isbn]);
 
         return $provider;
     }

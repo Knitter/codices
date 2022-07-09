@@ -32,6 +32,7 @@ use Yii;
  * @copyright (c) 2016 - 2022, Sérgio Lopes (knitter.is@gmail.com)
  */
 final class AccountsController extends ApplicationController {
+    //TODO: Restrict access to admin account only
 
     /**
      * @return string
@@ -59,6 +60,10 @@ final class AccountsController extends ApplicationController {
     }
 
     public function actionDelete(int $id) {
+        throw new \Exception('Not implemented yet!');
+    }
+
+    public function actionProfile() {
         throw new \Exception('Not implemented yet!');
     }
 

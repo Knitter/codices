@@ -33,6 +33,7 @@ final class MainCodicesBundle extends AssetBundle {
 
     public $sourcePath = "@bundle";
 
+    //TODO: Add production version of assets, loaded by default
     public $css = [
         'css/tabler.min.css',
         'css/tabler-vendors.min.css',
@@ -40,6 +41,7 @@ final class MainCodicesBundle extends AssetBundle {
         'css/codices.css'
     ];
 
+    //TODO: Add production version of assets, loaded by default
     public $js = [
         'js/tabler.min.js',
         //'js/scripts.js'
@@ -48,4 +50,21 @@ final class MainCodicesBundle extends AssetBundle {
     public $depends = [
         'yii\web\YiiAsset'
     ];
+
+    public function __construct(array $config = []) {
+        if (YII_DEBUG) {
+            $this->css = [
+                'css/tabler.min.css',
+                'css/tabler-vendors.min.css',
+                //'css/fonts.css',
+                'css/codices.css'
+            ];
+
+            $this->js = [
+                'js/tabler.min.js',
+                //'js/scripts.js'
+            ];
+        }
+        parent::__construct($config);
+    }
 }
